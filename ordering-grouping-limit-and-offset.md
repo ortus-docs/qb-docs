@@ -1,4 +1,4 @@
-## Ordering, Grouping, Limit, & Offset
+## Ordering, Grouping, & Limit
 
 #### orderBy
 
@@ -16,7 +16,7 @@ writeDump(getResults);
 SELECT * FROM `users` WHERE `age` >= 18 ORDER BY `modifiedDate` DESC
 ```
 
-#### groupBy / having / havingRaw
+#### groupBy / having 
 
 The `groupBy` and `having` methods may be used to group the query results. The `having` method's signature is similar to that of the `where` method:
 ```
