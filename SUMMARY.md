@@ -2,9 +2,6 @@
 
 ## Overview
 
-* [My Awesome API](README.md)
-
-## Queries
-
-* [Defining Methods](methods.md)
+* [qb](README.md)
+* [Queries](queries.md)
 
