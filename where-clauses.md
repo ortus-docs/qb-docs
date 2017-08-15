@@ -190,28 +190,17 @@ The `whereExists` method:
 
 ```
 //qb
-
-
-
-//sql
-
-
-```
-
-The `whereNotExists` method:
-
-
-```
-//qb
-
-
+var getResults = query.from('users')
+    .whereExists( function( q ) {
+        q.select( q.raw( 1 ) ).from( "departments" )
+            .where( "departments.ID", "=", q.raw( '"users.FK_departmentID"' ) );
+    })
+    .get();
+writeDump(getResults);
 
 //sql
-
-
+SELECT * FROM `users` WHERE EXISTS (SELECT 1 FROM `departments` WHERE `departments`.`ID` = "users.FK_departmentID")
 ```
-
-
 
 
 
