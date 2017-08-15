@@ -64,16 +64,6 @@ SELECT * FROM `users` WHERE `name` LIKE 'A%'
 
 ```
 
-You may also pass an array of conditions to the `where` function:
-
-##### LARAVEL PHP EQUIVELANT
-```
-$users = DB::table('users')->where([
-['status', '=', '1'],
-['subscribed', '<>', '1'],
-])->get();
-```
-
 #### Or Statements
 
 You may chain where constraints together as well as add `or` clauses to the query. The `orWhere` method accepts the same arguments as the `where` method:
@@ -92,7 +82,8 @@ SELECT * FROM `users` WHERE `name` LIKE 'A%' OR `age` > 30
 ```
 #### Additional Where Clauses
 
-**whereBetween**
+**whereBetween** / **whereNotBetween**
+
 
 The `whereBetween` method verifies that a column's value is between two values:
 
@@ -106,7 +97,7 @@ writeDump(getResults);
 //sql
 SELECT * FROM `users` WHERE `age` BETWEEN 18 AND 21
 ```
-**whereNotBetween**
+
 
 The `whereNotBetween` method verifies that a column's value lies outside of two values:
 
@@ -173,6 +164,36 @@ writeDump(getResults);
 //sql
 SELECT * FROM `users` WHERE `modifiedDate` IS NOT NULL
 ```
+
+
+**whereExists / whereNotExists**
+
+The `whereExists` method:
+
+```
+//qb
+
+
+
+//sql
+
+
+```
+
+The `whereNotExists` method:
+
+
+```
+//qb
+
+
+
+//sql
+
+
+```
+
+
 
 ~~**whereDate / whereMonth / whereDay / whereYear**~~ (Not Implemented)
 

@@ -17,6 +17,7 @@ var getAllResults = query.from('users').get();
 // Coldbox
 component {
 	property name="query" inject="id:Builder@qb";
+	
 	function demo(event,rc,prc){
 		var getResults = query.from('users').get();
 	}
