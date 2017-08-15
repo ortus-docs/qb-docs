@@ -138,47 +138,65 @@ writeDump(getResults);
 
 The `whereDate` method may be used to compare a column's value against a date:
 
-$users = DB::table('users')
-->whereDate('created_at', '2016-12-31')
-->get();
+```
+var getResults = query.from('users')
+    .whereDate('modifiedDate','2017-08-15')
+    .get();
+writeDump(getResults);
+```
 
 The `whereMonth` method may be used to compare a column's value against a specific month of a year:
 
-$users = DB::table('users')
-->whereMonth('created_at', '12')
-->get();
+```
+var getResults = query.from('users')
+    .whereDate('modifiedDate','12')
+    .get();
+writeDump(getResults);
+```
+
+
 
 The `whereDay` method may be used to compare a column's value against a specific day of a month:
 
-$users = DB::table('users')
-->whereDay('created_at', '31')
-->get();
+```
+var getResults = query.from('users')
+    .whereDate('modifiedDate','15')
+    .get();
+writeDump(getResults);
+```
+
+
 
 The `whereYear` method may be used to compare a column's value against a specific year:
 
-$users = DB::table('users')
-->whereYear('created_at', '2016')
-->get();
+```
+var getResults = query.from('users')
+    .whereDate('modifiedDate','2017')
+    .get();
+writeDump(getResults);
+```
+
+
 
 **whereColumn**
 
 The `whereColumn` method may be used to verify that two columns are equal:
 
-$users = DB::table('users')
-->whereColumn('first_name', 'last_name')
-->get();
+```
+var getResults = query.from('users')
+    .whereColumn('modifiedDate','createdDate')
+    .get();
+writeDump(getResults);
+```
 
 You may also pass a comparison operator to the method:
 
-$users = DB::table('users')
-->whereColumn('updated_at', '>', 'created_at')
-->get();
+```
+var getResults = query.from('users')
+    .whereColumn('modifiedDate','<>','createdDate')
+    .get();
+writeDump(getResults);
+```
 
-The `whereColumn` method can also be passed an array of multiple conditions. These conditions will be joined using the `and` operator:
 
-$users = DB::table('users')
-->whereColumn([
-['first_name', '=', 'last_name'],
-['updated_at', '>', 'created_at']
-])->get();
 
