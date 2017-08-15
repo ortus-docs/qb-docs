@@ -3,19 +3,19 @@
 The query builder also provides a variety of aggregate methods such as `count`, `max`, `min`, and `sum`. You may call any of these methods after constructing your query:
 
 ```
-var getAllResults = query.from('users').count();
-writeDump(getAllResults);
+var getResults = query.from('users').count();
+writeDump(getResults);
 ```
 
 
 ```
-var getAllResults = query.from('users').max('age');
-writeDump(getAllResults);
+var getResults = query.from('users').max('age');
+writeDump(getResults);
 ```
 
 ```
-var getAllResults = query.from('users').min('age');
-writeDump(getAllResults);
+var getResults = query.from('users').min('age');
+writeDump(getResults);
 ```
 
 
