@@ -1,5 +1,23 @@
 ## Where Clauses
 
+
+| Base | AND | OR |
+| --- | --- | --- |
+|where()|andWhere()|orWhere()|
+|whereBetween()|andWhereBetween()|orWhereBetween()|
+|whereColumn()|andWhereColumn()|orWhereColumn()|
+|whereExists()|andWhereExists()|orWhereExists()|
+|whereIn()|andWhereIn()|orWhereIn()|
+|whereNotBetween()|andWhereNotBetween()|orWhereNotBetween()|
+|whereNotExists()|andWhereNotExists()|orWhereNotExists()|
+|whereNotIn()|andWhereNotIn()|orWhereNotIn()|
+|whereNotNull()|andWhereNotNull()|orWhereNotNull()|
+|whereNull()|andWhereNull()|orWhereNull()|
+|whereRaw()|andWhereRaw()|orWhereRaw()|
+
+
+
+
 #### Simple Where Clauses
 
 You may use the `where` method on a query builder instance to add `where` clauses to the query. The most basic call to `where` requires three arguments. The first argument is the name of the column. The second argument is an operator, which can be any of the database's supported operators. Finally, the third argument is the value to evaluate against the column.
@@ -120,7 +138,7 @@ The `whereIn` method verifies that a given column's value is contained within th
 
 ```
 var getResults = query.from('users')
-    .whereIn('age','17,18,19,20,21')
+    .whereIn('age',[ 17, 18, 19, 20, 21 ])
     .get();
 writeDump(getResults);
 ```
@@ -130,7 +148,7 @@ The `whereNotIn` method verifies that the given column's value is **not** contai
 
 ```
 var getResults = query.from('users')
-    .whereNotIn('age','17,18,19,20,21')
+    .whereNotIn('age',[ 17, 18, 19, 20, 21 ])
     .get();
 writeDump(getResults);
 ```
