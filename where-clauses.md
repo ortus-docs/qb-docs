@@ -101,7 +101,9 @@ var getResults = query.from('users')
     .get();
 writeDump(getResults);
 ```
+
 The `whereNotIn` method verifies that the given column's value is **not** contained in the given array:
+
 
 ```
 var getResults = query.from('users')
