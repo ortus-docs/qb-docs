@@ -2,7 +2,7 @@
 
 ## Overview
 
-* [qb](README.md)
+* [README](README.md)
 * [Introduction](introduction.md)
 * [Retrieving Results](retrieving-results.md)
 * [Chunking Results](chunking-results.md)
