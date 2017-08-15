@@ -4,6 +4,7 @@
 
 * [My Awesome API](README.md)
 
-## Methods
+## Queries
 
 * [Defining Methods](methods.md)
+
