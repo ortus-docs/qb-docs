@@ -1,7 +1,8 @@
 ### Where Exists Clauses
 
 The `whereExists` method allows you to write `where exists` SQL clauses. The `whereExists` method accepts a `Closure` argument, which will receive a query builder instance allowing you to define the query that should be placed inside of the "exists" clause:
-
+##### LARAVEL PHP EQUIVELANT
+```
 DB::table('users')
 ->whereExists(function ($query) {
 $query->select(DB::raw(1))
@@ -9,6 +10,7 @@ $query->select(DB::raw(1))
 ->whereRaw('orders.user_id = users.id');
 })
 ->get();
+```
 
 The query above will produce the following SQL:
 

@@ -5,15 +5,19 @@
 You may use the `where` method on a query builder instance to add `where` clauses to the query. The most basic call to `where` requires three arguments. The first argument is the name of the column. The second argument is an operator, which can be any of the database's supported operators. Finally, the third argument is the value to evaluate against the column.
 
 For example, here is a query that verifies the value of the "votes" column is equal to 100:
-
+##### LARAVEL PHP EQUIVELANT
+```
 $users = DB::table('users')->where('votes', '=', 100)->get();
-
+```
 For convenience, if you simply want to verify that a column is equal to a given value, you may pass the value directly as the second argument to the `where` method:
-
+##### LARAVEL PHP EQUIVELANT
+```
 $users = DB::table('users')->where('votes', 100)->get();
-
+```
 Of course, you may use a variety of other operators when writing a `where` clause:
 
+##### LARAVEL PHP EQUIVELANT
+```
 $users = DB::table('users')
 ->where('votes', '>=', 100)
 ->get();
@@ -25,67 +29,88 @@ $users = DB::table('users')
 $users = DB::table('users')
 ->where('name', 'like', 'T%')
 ->get();
+```
 
 You may also pass an array of conditions to the `where` function:
 
+##### LARAVEL PHP EQUIVELANT
+```
 $users = DB::table('users')->where([
 ['status', '=', '1'],
 ['subscribed', '<>', '1'],
 ])->get();
+```
 
 #### Or Statements
 
 You may chain where constraints together as well as add `or` clauses to the query. The `orWhere` method accepts the same arguments as the `where` method:
 
+##### LARAVEL PHP EQUIVELANT
+```
 $users = DB::table('users')
 ->where('votes', '>', 100)
 ->orWhere('name', 'John')
 ->get();
-
+```
 #### Additional Where Clauses
 
 **whereBetween**
 
 The `whereBetween` method verifies that a column's value is between two values:
 
+##### LARAVEL PHP EQUIVELANT
+```
 $users = DB::table('users')
 ->whereBetween('votes', [1, 100])->get();
-
+```
 **whereNotBetween**
 
 The `whereNotBetween` method verifies that a column's value lies outside of two values:
 
+##### LARAVEL PHP EQUIVELANT
+```
 $users = DB::table('users')
 ->whereNotBetween('votes', [1, 100])
 ->get();
+```
 
 **whereIn / whereNotIn**
 
 The `whereIn` method verifies that a given column's value is contained within the given array:
 
+##### LARAVEL PHP EQUIVELANT
+```
 $users = DB::table('users')
 ->whereIn('id', [1, 2, 3])
 ->get();
-
+```
 The `whereNotIn` method verifies that the given column's value is **not** contained in the given array:
 
+##### LARAVEL PHP EQUIVELANT
+```
 $users = DB::table('users')
 ->whereNotIn('id', [1, 2, 3])
 ->get();
+```
 
 **whereNull / whereNotNull**
 
 The `whereNull` method verifies that the value of the given column is `NULL`:
-
+##### LARAVEL PHP EQUIVELANT
+```
 $users = DB::table('users')
 ->whereNull('updated_at')
 ->get();
+```
 
 The `whereNotNull` method verifies that the column's value is not `NULL`:
 
+##### LARAVEL PHP EQUIVELANT
+```
 $users = DB::table('users')
 ->whereNotNull('updated_at')
 ->get();
+```
 
 **whereDate / whereMonth / whereDay / whereYear**
 

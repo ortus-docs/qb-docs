@@ -22,7 +22,12 @@ writeDump(getResults);
 
 If you already have a query builder instance and you wish to add a column to its existing select clause, you may use the `addSelect` method:
 
-$query = DB::table('users')->select('name');
+```
+var getResults = query.from('users').where('age','>=','18');
+getResults = getResults.addSelect('name,email,age').get();
+writeDump(getResults);
 
-$users = $query->addSelect('age')->get();
+```
+
+
 
