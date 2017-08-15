@@ -2,9 +2,13 @@
 
 #### Retrieving All Rows From A Table
 ```
+//qb
 var getAllResults = query.from('users')
     .get();
 writeDump(getAllResults);
+
+//sql
+select * from users
 ```
 
 The `get` method returns an `Array` of `Structs` by default.

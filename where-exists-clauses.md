@@ -3,11 +3,14 @@
 The `whereExists` method allows you to write `where exists` SQL clauses. The `whereExists` method accepts a `Closure` argument, which will receive a query builder instance allowing you to define the query that should be placed inside of the "exists" clause:
 
 ```
+//qb
 var getResults = query.from('users')
     .where('age','>=','18')
     .get();
 writeDump(getResults);
 
+//sql
+SELECT * FROM `users` WHERE `age` >= ?
 ```
 
 

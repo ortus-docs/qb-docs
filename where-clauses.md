@@ -6,21 +6,27 @@ You may use the `where` method on a query builder instance to add `where` clause
 
 For example, here is a query that verifies the value of the "age" column is greater than or equal to 18:
 ```
+//qb
 var getResults = query.from('users')
     .where('age','>=','18')
     .get();
 writeDump(getResults);
 
+//sql
+SELECT * FROM `users` WHERE `age` >= 18
 ```
 
 
 For convenience, if you simply want to verify that a column is **equal** to a given value, you may pass the value directly as the second argument to the `where` method:
 ```
+//qb
 var getResults = query.from('users')
     .where('age','18')
     .get();
 writeDump(getResults);
 
+//sql
+SELECT * FROM `users` WHERE `age` = 18
 ```
 
 
@@ -28,20 +34,33 @@ Of course, you may use a variety of other operators when writing a `where` claus
 
 
 ```
+//qb
 var getResults = query.from('users')
     .where('age','>=','18')
     .get();
 writeDump(getResults);
 
+//sql
+SELECT * FROM `users` WHERE `age` >= 18
+
+//qb
 var getResults = query.from('users')
     .where('age','<>','18')
     .get();
 writeDump(getResults);
 
+//sql
+SELECT * FROM `users` WHERE `age` <> 18
+
+
+//qb
 var getResults = query.from('users')
     .where('name','like','A%')
     .get();
 writeDump(getResults);
+
+//sql
+SELECT * FROM `users` WHERE `name` LIKE 'A%'
 
 ```
 
@@ -61,11 +80,15 @@ You may chain where constraints together as well as add `or` clauses to the quer
 
 
 ```
+//qb
 var getResults = query.from('users')
     .where('name','like','A%')
     .orWhere('age','>','30')
     .get();
 writeDump(getResults);
+
+//sql
+SELECT * FROM `users` WHERE `name` LIKE 'A%' OR `age` > 30
 ```
 #### Additional Where Clauses
 
@@ -74,20 +97,29 @@ writeDump(getResults);
 The `whereBetween` method verifies that a column's value is between two values:
 
 ```
+//qb
 var getResults = query.from('users')
     .whereBetween('age','18','21')
     .get();
 writeDump(getResults);
+
+//sql
+SELECT * FROM `users` WHERE `age` BETWEEN 18 AND 21
 ```
 **whereNotBetween**
 
 The `whereNotBetween` method verifies that a column's value lies outside of two values:
 
 ```
+//qb
 var getResults = query.from('users')
     .whereNotBetween('age','18','21')
     .get();
 writeDump(getResults);
+
+//sql
+SELECT * FROM `users` WHERE `age` NOT BETWEEN 18 AND 21
+
 ```
 
 
@@ -118,23 +150,33 @@ writeDump(getResults);
 The `whereNull` method verifies that the value of the given column is `NULL`:
 
 ```
+//qb
 var getResults = query.from('users')
     .whereNull('modifiedDate')
     .get();
 writeDump(getResults);
+
+//sql
+SELECT * FROM `users` WHERE `modifiedDate` IS NULL
 ```
 
 The `whereNotNull` method verifies that the column's value is not `NULL`:
 
 
 ```
+//qb
 var getResults = query.from('users')
-.whereNotNull('modifiedDate')
-.get();
+    .whereNotNull('modifiedDate')
+    .get();
 writeDump(getResults);
+
+//sql
+SELECT * FROM `users` WHERE `modifiedDate` IS NOT NULL
 ```
 
-**whereDate / whereMonth / whereDay / whereYear**
+~~**whereDate / whereMonth / whereDay / whereYear**~~ (Not Implemented)
+
+
 
 The `whereDate` method may be used to compare a column's value against a date:
 
@@ -183,19 +225,27 @@ writeDump(getResults);
 The `whereColumn` method may be used to verify that two columns are equal:
 
 ```
+//qb
 var getResults = query.from('users')
     .whereColumn('modifiedDate','createdDate')
     .get();
 writeDump(getResults);
+
+//sql
+SELECT * FROM `users` WHERE `modifiedDate` = `createdDate`
 ```
 
 You may also pass a comparison operator to the method:
 
 ```
+//qb
 var getResults = query.from('users')
     .whereColumn('modifiedDate','<>','createdDate')
     .get();
 writeDump(getResults);
+
+//sql
+SELECT * FROM `users` WHERE `modifiedDate` <> `createdDate`
 ```
 
 
