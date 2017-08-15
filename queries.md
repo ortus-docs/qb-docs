@@ -592,3 +592,4 @@ Alternatively, you may use the `lockForUpdate` method. A "for update" lock preve
 
 DB::table('users')->where('votes', '>', 100)->lockForUpdate()->get();
 
+
