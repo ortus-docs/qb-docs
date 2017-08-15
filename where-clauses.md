@@ -116,20 +116,22 @@ writeDump(getResults);
 **whereNull / whereNotNull**
 
 The `whereNull` method verifies that the value of the given column is `NULL`:
-##### LARAVEL PHP EQUIVELANT
+
 ```
-$users = DB::table('users')
-->whereNull('updated_at')
-->get();
+var getResults = query.from('users')
+    .whereNull('modifiedDate')
+    .get();
+writeDump(getResults);
 ```
 
 The `whereNotNull` method verifies that the column's value is not `NULL`:
 
-##### LARAVEL PHP EQUIVELANT
+
 ```
-$users = DB::table('users')
-->whereNotNull('updated_at')
-->get();
+var getResults = query.from('users')
+.whereNotNull('modifiedDate')
+.get();
+writeDump(getResults);
 ```
 
 **whereDate / whereMonth / whereDay / whereYear**
