@@ -6,7 +6,7 @@ var getAllResults = query.from('users').get();
 writeDump(getAllResults);
 ```
 
-The `get` method returns an `Array` (by default) of Structs.
+The `get` method returns an `Array` of `Structs` by default.
 
 #### Retrieving A Single Row / Column From A Table
 
