@@ -10,10 +10,10 @@ var addRecords = query.from( "users" )
 	.updateOrInsert(  { "name" = "Roberto", "email" = "roberto@test.com", "age" = 55 });
 writeDump(addRecords);
 
-//sql - if the record exists based off `where` method (in this case `whereID`):
+//sql - if the record exists based off `where` clauses (in this case `whereID`):
 UPDATE `users` SET `age` = 55, `email` = `roberto@test.com`, `name` = `Roberto` WHERE `ID` = 10
 
-//sql - if the record does NOT exists based off `where` method (in this case `whereID`):
+//sql - if the record does NOT exists:
 INSERT INTO `users` (`age`, `email`, `name`) VALUES (55, 'roberto@test.com', 'Roberto')
 
 
