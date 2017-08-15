@@ -13,16 +13,14 @@ The `get` method returns an `Array` (by default) of Structs.
 If you just need to retrieve a single row from the database table, you may use the `first` method. This method will return a single record:
 
 ```
-var getResults = query.from('users')
-.first();
+var getResults = query.from('users').first();
 writeDump(getResults);
 ```
 
 If you don't even need an entire row, you may extract a single value from a record using the `value` method. This method will return the value of the column directly:
 
 ```
-var getResults = query.from('users')
-.values('email');
+var getResults = query.from('users').values('email');
 writeDump(getResults);
 ```
 
@@ -31,18 +29,15 @@ writeDump(getResults);
 
 If you would like to retrieve a Collection containing the values of a single column, you may use the `pluck` method. In this example, we'll retrieve a Collection of role titles:
 
-$titles = DB::table('roles')->pluck('title');
-
-foreach ($titles as $title) {
-echo $title;
-}
+```
+**need sample here**
+```
 
 You may also specify a custom key column for the returned Collection:
 
-$roles = DB::table('roles')->pluck('title', 'name');
+```
+**need sample here**
+```
 
-foreach ($roles as $name => $title) {
-echo $title;
-}
 
 
