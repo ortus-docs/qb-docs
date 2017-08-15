@@ -3,10 +3,13 @@
 #### orderBy
 
 The `orderBy` method allows you to sort the result of the query by a given column. The first argument to the `orderBy` method should be the column you wish to sort by, while the second argument controls the direction of the sort and may be either `asc` or `desc`:
+##### LARAVEL PHP EQUIVELANT
+```
 
 $users = DB::table('users')
 ->orderBy('name', 'desc')
 ->get();
+```
 
 #### latest / oldest
 
