@@ -213,49 +213,7 @@ The `whereNotExists` method:
 
 
 
-~~**whereDate / whereMonth / whereDay / whereYear**~~ (Not Implemented)
 
-
-
-The `whereDate` method may be used to compare a column's value against a date:
-
-```
-var getResults = query.from('users')
-    .whereDate('modifiedDate','2017-08-15')
-    .get();
-writeDump(getResults);
-```
-
-The `whereMonth` method may be used to compare a column's value against a specific month of a year:
-
-```
-var getResults = query.from('users')
-    .whereDate('modifiedDate','12')
-    .get();
-writeDump(getResults);
-```
-
-
-
-The `whereDay` method may be used to compare a column's value against a specific day of a month:
-
-```
-var getResults = query.from('users')
-    .whereDate('modifiedDate','15')
-    .get();
-writeDump(getResults);
-```
-
-
-
-The `whereYear` method may be used to compare a column's value against a specific year:
-
-```
-var getResults = query.from('users')
-    .whereDate('modifiedDate','2017')
-    .get();
-writeDump(getResults);
-```
 
 
 
