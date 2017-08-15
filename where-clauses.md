@@ -4,31 +4,45 @@
 
 You may use the `where` method on a query builder instance to add `where` clauses to the query. The most basic call to `where` requires three arguments. The first argument is the name of the column. The second argument is an operator, which can be any of the database's supported operators. Finally, the third argument is the value to evaluate against the column.
 
-For example, here is a query that verifies the value of the "votes" column is equal to 100:
-##### LARAVEL PHP EQUIVELANT
+For example, here is a query that verifies the value of the "age" column is greater than or equal to 18:
 ```
-$users = DB::table('users')->where('votes', '=', 100)->get();
+var getResults = query.from('users')
+    .where('age','>=','18')
+    .get();
+writeDump(getResults);
+
 ```
-For convenience, if you simply want to verify that a column is equal to a given value, you may pass the value directly as the second argument to the `where` method:
-##### LARAVEL PHP EQUIVELANT
+
+
+For convenience, if you simply want to verify that a column is **equal** to a given value, you may pass the value directly as the second argument to the `where` method:
 ```
-$users = DB::table('users')->where('votes', 100)->get();
+var getResults = query.from('users')
+    .where('age','18')
+    .get();
+writeDump(getResults);
+
 ```
+
+
 Of course, you may use a variety of other operators when writing a `where` clause:
 
-##### LARAVEL PHP EQUIVELANT
+
 ```
-$users = DB::table('users')
-->where('votes', '>=', 100)
-->get();
+var getResults = query.from('users')
+    .where('age','>=','18')
+    .get();
+writeDump(getResults);
 
-$users = DB::table('users')
-->where('votes', '<>', 100)
-->get();
+var getResults = query.from('users')
+    .where('age','<>','18')
+    .get();
+writeDump(getResults);
 
-$users = DB::table('users')
-->where('name', 'like', 'T%')
-->get();
+var getResults = query.from('users')
+    .where('name','like','A%')
+    .get();
+writeDump(getResults);
+
 ```
 
 You may also pass an array of conditions to the `where` function:
@@ -45,12 +59,13 @@ $users = DB::table('users')->where([
 
 You may chain where constraints together as well as add `or` clauses to the query. The `orWhere` method accepts the same arguments as the `where` method:
 
-##### LARAVEL PHP EQUIVELANT
+
 ```
-$users = DB::table('users')
-->where('votes', '>', 100)
-->orWhere('name', 'John')
-->get();
+var getResults = query.from('users')
+    .where('name','like','A%')
+    .orWhere('age','>','30')
+    .get();
+writeDump(getResults);
 ```
 #### Additional Where Clauses
 
@@ -58,40 +73,43 @@ $users = DB::table('users')
 
 The `whereBetween` method verifies that a column's value is between two values:
 
-##### LARAVEL PHP EQUIVELANT
 ```
-$users = DB::table('users')
-->whereBetween('votes', [1, 100])->get();
+var getResults = query.from('users')
+    .whereBetween('age','18','21')
+    .get();
+writeDump(getResults);
 ```
 **whereNotBetween**
 
 The `whereNotBetween` method verifies that a column's value lies outside of two values:
 
-##### LARAVEL PHP EQUIVELANT
 ```
-$users = DB::table('users')
-->whereNotBetween('votes', [1, 100])
-->get();
+var getResults = query.from('users')
+    .whereNotBetween('age','18','21')
+    .get();
+writeDump(getResults);
 ```
+
 
 **whereIn / whereNotIn**
 
 The `whereIn` method verifies that a given column's value is contained within the given array:
 
-##### LARAVEL PHP EQUIVELANT
 ```
-$users = DB::table('users')
-->whereIn('id', [1, 2, 3])
-->get();
+var getResults = query.from('users')
+    .whereIn('age','17,18,19,20,21')
+    .get();
+writeDump(getResults);
 ```
 The `whereNotIn` method verifies that the given column's value is **not** contained in the given array:
 
-##### LARAVEL PHP EQUIVELANT
 ```
-$users = DB::table('users')
-->whereNotIn('id', [1, 2, 3])
-->get();
+var getResults = query.from('users')
+    .whereNotIn('age','17,18,19,20,21')
+    .get();
+writeDump(getResults);
 ```
+
 
 **whereNull / whereNotNull**
 
