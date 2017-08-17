@@ -6,7 +6,7 @@ The query builder also provides an `insert` method for inserting records into th
 ```
 //qb
 var addRecords = query.from( "users" )
-.insert( values = { "name" = "Robert", "email" = "robert@test.com", "age" = 55 } );
+		.insert( values = { "name" = "Robert", "email" = "robert@test.com", "age" = 55 } );
 writeDump(addRecords);
 
 //sql
