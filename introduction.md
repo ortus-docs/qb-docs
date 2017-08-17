@@ -1,9 +1,9 @@
 
 ## Introduction
 
-Quick's database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application and works on all supported database systems.
+Qb database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application and works on all supported database systems.
 
-In order to use `qb` you will need to import the component or use wirebox to make it accessible.
+In order to use `qb` you will need to inject the component or use wirebox to make it accessible.
 
 
 ```
