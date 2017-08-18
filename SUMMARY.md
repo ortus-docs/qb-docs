@@ -4,7 +4,7 @@
 
 * [README](README.md)
 * [Introduction](introduction.md)
-* [Installation and Usage](usage.md)
+* [Installation & Usage](usage.md)
 * [Return Format](return-format.md)
 * [Interception Points](interception-points.md)
 * [Retrieving Results](retrieving-results.md)
