@@ -1,4 +1,4 @@
-## Retrieving Results
+Usage## Retrieving Results
 
 #### Retrieving All Rows From A Table
 ```
