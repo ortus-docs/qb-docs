@@ -1,3 +1,8 @@
+## Installation
+
+Installation is easy through [CommandBox](https://www.ortussolutions.com/products/commandbox) and [ForgeBox](https://www.coldbox.org/forgebox).  Simply type `box install qb` to get started.
+
+
 ## Usage
 
 To start a new query, instantiate a new Builder: `wirebox.getInstance('Builder@qb')`.
