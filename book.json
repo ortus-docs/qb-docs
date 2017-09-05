@@ -1,18 +1,21 @@
 {
-    "plugins": [ "theme-api" ],
+    "plugins": [
+        "edit-link",
+        "github"
+    ],
     "pluginsConfig": {
-        "theme-api": {
-            "languages": [
-                {
-                    "lang": "js",
-                    "name": "JavaScript",
-                    "default": true
-                },
-                {
-                    "lang": "go",
-                    "name": "Go"
-                }
-            ]
+        "edit-link": {
+            "base": "https://github.com/elpete/qb-docs/tree/master",
+            "label": "Edit This Page"
+        },
+        "github": {
+            "url": "https://github.com/elpete/qb"
+        }
+    },
+    "links": {
+        "sharing": {
+            "facebook": false,
+            "twitter": false
         }
     }
 }
