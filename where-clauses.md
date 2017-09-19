@@ -1,6 +1,5 @@
 ## Where Clauses
 
-
 | Base | AND | OR |
 | --- | --- | --- |
 |where()|andWhere()|orWhere()|
@@ -15,8 +14,20 @@
 |whereNull()|andWhereNull()|orWhereNull()|
 |whereRaw()|andWhereRaw()|orWhereRaw()|
 
+### Parameters
 
+By default, the correct sql type will be inferred from your parameters.  If you pass a number, `CF_SQL_NUMERIC` will be used.  If it is a date, `CF_SQL_TIMESTAMP`, and so forth.  If you need more control, you can always pass a struct with the parameters you would pass to `cfqueryparam`.
 
+```
+//qb
+var getResults = query.from('users')
+    .where('age','>=', { value = 18, cfsqltype = "CF_SQL_INTEGER" })
+    .get();
+writeDump(getResults);
+
+//sql
+SELECT * FROM `users` WHERE `age` >= 18
+```
 
 #### Simple Where Clauses
 
