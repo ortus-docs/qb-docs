@@ -29,7 +29,7 @@ Create a new table in the database.
 |----------|----------|----------|---------|-----------------------------------------------------------------------------------------------------|
 | table    | string   | `true`   |         | The name of the table to create.                                                                    |
 | callback | function | `true`   |         | A callback function used to define the table body. It is passed a `Blueprint` as the only argument. |
-| options  | struct   | `false`  | `{}`    | OPtions to pass to `queryExecute`.                                                                  |
+| options  | struct   | `false`  | `{}`    | Options to pass to `queryExecute`.                                                                  |
 | execute  | boolean  | `false`  | `true`  | Run the query immediately after building it.                                                        |
 
 The majority of the work comes from calling methods on the `Blueprint` object.  A `Blueprint` defines the [fields](schema/fields.md) and [indexes](schema/indexes.md) for your tables.
