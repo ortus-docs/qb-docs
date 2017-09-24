@@ -216,7 +216,7 @@ Create a column using a `DECIMAL` equivalent type for your database. The length 
 |-----------|---------|----------|---------|------------------------------|
 | name      | string  | `true`   |         | The name for the column.     |
 | length    | numeric | `false`  |      10 | The length of the column.    |
-| precision | numeric | `false`  |       0 | The precision of the columm. |
+| precision | numeric | `false`  |       0 | The precision of the column. |
 
 #### Example (with defaults):
 
@@ -292,27 +292,128 @@ CREATE TABLE `users` (
 
 ## `float`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+Create a column using a `FLOAT` equivalent type for your database. The length and precision can be specified as the second and third arguments.
 
-( name, length = 10, precision = 0 ) {
+|  Argument |   Type  | Required | Default |         Description          |
+|-----------|---------|----------|---------|------------------------------|
+| name      | string  | `true`   |         | The name for the column.     |
+| length    | numeric | `false`  |      10 | The length of the column.    |
+| precision | numeric | `false`  |       0 | The precision of the column. |
+
+#### Example (with defaults):
+
+##### SchemaBuilder
+```
+schema.table( "weather", function( table ) {
+	table.float( "temperature" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `weather` (
+	`temperature` FLOAT(10,0) NOT NULL
+)
+```
+
+#### Example (with length):
+
+##### SchemaBuilder
+```
+schema.table( "weather", function( table ) {
+	table.float( "temperature", 4 );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `weather` (
+	`temperature` FLOAT(4,0) NOT NULL
+)
+```
+
+#### Example (with precision):
+
+##### SchemaBuilder
+```
+schema.table( "weather", function( table ) {
+	table.float( name = "temperature", precision = 2 );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `weather` (
+	`temperature` FLOAT(10,2) NOT NULL
+)
+```
 
 ## `increments`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+Create an auto-incrementing column using an unsigned `INTEGER` type.  This column is also set as the primary key for the table.
 
-( name, indexName ) {
+|  Argument |  Type  | Required | Default |                                                                   Description                                                                   |
+|-----------|--------|----------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| name      | string | `true`   |         | The name for the column.                                                                                                                         |
+| indexName | string | `false`  |         | The name for the primary key index.  If no name is passed in, the name will be dynamically created based off of the table name and column name. |
+
+#### Example:
+
+##### SchemaBuilder
+```
+schema.table( "users", function( table ) {
+	table.increments( "id" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `users` (
+	`id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	CONSTRAINT `pk_users_id` PRIMARY KEY (`id`)
+)
+```
 
 ## `integer`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+Create a column using a `INTEGER` equivalent type for your database.
 
-( name, precision = 10 ) {
+|  Argument |   Type  | Required | Default |          Description          |
+|-----------|---------|----------|---------|-------------------------------|
+| name      | string  | `true`   |         | The name for the column.      |
+| precision | numeric | `false`  |      10 | The precision for the column. |
+
+#### Example (with defaults):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.integer( "score" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` INTEGER(10) NOT NULL
+)
+```
+
+#### Example (with length):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.integer( "score", 3 );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` INTEGER(3) NOT NULL
+)
+```
 
 ## `json`
 
