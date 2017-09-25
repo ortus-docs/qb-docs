@@ -4,6 +4,7 @@ The `Blueprint` object has many field types available to construct your table sc
 
 > The converted SQL below will be for the `MySQLGrammar`.
 
+
 ## `bigIncrements`
 
 Create an auto-incrementing column using an unsigned `BIGINT` type.  This column is also set as the primary key for the table.
@@ -34,11 +35,12 @@ CREATE TABLE `users` (
 
 Create a column using a `BIGINT` equivalent type for your database.
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+|  Argument |   Type  | Required | Default |          Description          |
+|-----------|---------|----------|---------|-------------------------------|
+| name      | string  | `true`   |         | The name for the column.      |
+| precision | numeric | `false`  |         | The precision for the column. |
 
-#### Example:
+#### Example (no precision):
 
 ##### SchemaBuilder
 ```
@@ -51,6 +53,22 @@ schema.table( "users", function( table ) {
 ```sql
 CREATE TABLE `users` (
 	`salary` BIGINT NOT NULL
+)
+```
+
+#### Example (with precision):
+
+##### SchemaBuilder
+```
+schema.table( "users", function( table ) {
+	table.bigInteger( "salary", 5 );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `users` (
+	`salary` BIGINT(5) NOT NULL
 )
 ```
 
@@ -369,7 +387,7 @@ schema.table( "users", function( table ) {
 ##### SQL (MySQL)
 ```sql
 CREATE TABLE `users` (
-	`id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
 	CONSTRAINT `pk_users_id` PRIMARY KEY (`id`)
 )
 ```
@@ -381,9 +399,9 @@ Create a column using a `INTEGER` equivalent type for your database.
 |  Argument |   Type  | Required | Default |          Description          |
 |-----------|---------|----------|---------|-------------------------------|
 | name      | string  | `true`   |         | The name for the column.      |
-| precision | numeric | `false`  |      10 | The precision for the column. |
+| precision | numeric | `false`  |         | The precision for the column. |
 
-#### Example (with defaults):
+#### Example (no precision):
 
 ##### SchemaBuilder
 ```
@@ -395,11 +413,11 @@ schema.table( "games", function( table ) {
 ##### SQL (MySQL)
 ```sql
 CREATE TABLE `games` (
-	`score` INTEGER(10) NOT NULL
+	`score` INTEGER NOT NULL
 )
 ```
 
-#### Example (with length):
+#### Example (with precision):
 
 ##### SchemaBuilder
 ```
@@ -441,59 +459,200 @@ CREATE TABLE `users` (
 
 ## `longText`
 
+Create a column using a `LONGTEXT` equivalent type for your database.
+
 | Argument |  Type  | Required | Default |       Description       |
 |----------|--------|----------|---------|-------------------------|
 | name     | string | `true`   |         | The name for the column. |
 
-( name ) {
+#### Example:
+
+##### SchemaBuilder
+```
+schema.table( "posts", function( table ) {
+	table.longText( "body" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `posts` (
+	`body` LONGTEXT NOT NULL
+)
+```
 
 ## `mediumIncrements`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+Create an auto-incrementing column using an unsigned `MEDIUMINT` type.  This column is also set as the primary key for the table.
 
-( name, indexName ) {
+|  Argument |  Type  | Required | Default |                                                                   Description                                                                   |
+|-----------|--------|----------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| name      | string | `true`   |         | The name for the column.                                                                                                                         |
+| indexName | string | `false`  |         | The name for the primary key index.  If no name is passed in, the name will be dynamically created based off of the table name and column name. |
+
+#### Example:
+
+##### SchemaBuilder
+```
+schema.table( "users", function( table ) {
+	table.mediumIncrements( "id" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `users` (
+	`id` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	CONSTRAINT `pk_users_id` PRIMARY KEY (`id`)
+)
+```
 
 ## `mediumInteger`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+Create a column using a `MEDIUMINT` equivalent type for your database.
 
-( name, precision = 10 ) {
+|  Argument |   Type  | Required | Default |          Description          |
+|-----------|---------|----------|---------|-------------------------------|
+| name      | string  | `true`   |         | The name for the column.      |
+| precision | numeric | `false`  |      10 | The precision for the column. |
+
+#### Example (no precision):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.mediumInteger( "score" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` MEDIUMINT NOT NULL
+)
+```
+
+#### Example (with precision):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.mediumInteger( "score", 5 );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` MEDIUMINT(5) NOT NULL
+)
+```
 
 ## `mediumText`
 
+Create a column using a `MEDIUMTEXT` equivalent type for your database.
+
 | Argument |  Type  | Required | Default |       Description       |
 |----------|--------|----------|---------|-------------------------|
 | name     | string | `true`   |         | The name for the column. |
 
-( name ) {
+#### Example:
+
+##### SchemaBuilder
+```
+schema.table( "posts", function( table ) {
+	table.mediumText( "body" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `posts` (
+	`body` MEDIUMTEXT NOT NULL
+)
+```
 
 ## `morphs`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+Creates the necessary columns for a polymorphic relationship.  It takes the name provided and creates an `_id` and an `_type` column.
 
-( name ) {
+If you want different names for your polymorphic relationship columns, feel free to call other schema builder methods individually.
+
+| Argument |  Type  | Required | Default |               Description               |
+|----------|--------|----------|---------|-----------------------------------------|
+| name     | string | `true`   |         | The prefix for the polymorphic columns. |
+
+#### Example:
+
+##### SchemaBuilder
+```
+schema.table( "tags", function( table ) {
+	table.morphs( "taggable" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `tags` (
+	`taggable_id` INTEGER UNSIGNED NOT NULL,
+	`taggable_type` VARCHAR(255) NOT NULL,
+	INDEX `taggable_index` (`taggable_id`, `taggable_type`)
+)
+```
 
 ## `nullableMorphs`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+Creates the necessary columns for a polymorphic relationship.  It takes the name provided and creates an `_id` and an `_type` column. The only difference between this method and `morphs` is that the columns created here are nullable.
 
-( name ) {
+If you want different names for your polymorphic relationship columns, feel free to call other schema builder methods individually.
+
+| Argument |  Type  | Required | Default |               Description               |
+|----------|--------|----------|---------|-----------------------------------------|
+| name     | string | `true`   |         | The prefix for the polymorphic columns. |
+
+#### Example:
+
+##### SchemaBuilder
+```
+schema.table( "tags", function( table ) {
+	table.nullableMorphs( "taggable" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `tags` (
+	`taggable_id` INTEGER UNSIGNED,
+	`taggable_type` VARCHAR(255),
+	INDEX `taggable_index` (`taggable_id`, `taggable_type`)
+)
+```
 
 ## `smallIncrements`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+Create an auto-incrementing column using an unsigned `SMALLINT` type.  This column is also set as the primary key for the table.
 
-( name, indexName ) {
+|  Argument |  Type  | Required | Default |                                                                   Description                                                                   |
+|-----------|--------|----------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| name      | string | `true`   |         | The name for the column.                                                                                                                         |
+| indexName | string | `false`  |         | The name for the primary key index.  If no name is passed in, the name will be dynamically created based off of the table name and column name. |
+
+#### Example:
+
+##### SchemaBuilder
+```
+schema.table( "users", function( table ) {
+	table.smallIncrements( "id" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `users` (
+	`id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	CONSTRAINT `pk_users_id` PRIMARY KEY (`id`)
+)
+```
 
 ## `smallInteger`
 
