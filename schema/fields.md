@@ -417,11 +417,27 @@ CREATE TABLE `games` (
 
 ## `json`
 
+Create a column using a `JSON` equivalent type for your database.
+
 | Argument |  Type  | Required | Default |       Description       |
 |----------|--------|----------|---------|-------------------------|
 | name     | string | `true`   |         | The name for the column. |
 
-( name ) {
+#### Example:
+
+##### SchemaBuilder
+```
+schema.table( "users", function( table ) {
+	table.json( "options" ).nullable();
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `users` (
+	`options` JSON
+)
+```
 
 ## `longText`
 
