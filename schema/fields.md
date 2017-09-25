@@ -117,8 +117,8 @@ CREATE TABLE `users` (
 
 Create a column using a `BOOLEAN` equivalent type for your database.
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
+| Argument |  Type  | Required | Default |       Description        |
+|----------|--------|----------|---------|--------------------------|
 | name     | string | `true`   |         | The name for the column. |
 
 #### Example:
@@ -182,8 +182,8 @@ CREATE TABLE `users` (
 
 Create a column using a `DATE` equivalent type for your database.
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
+| Argument |  Type  | Required | Default |       Description        |
+|----------|--------|----------|---------|--------------------------|
 | name     | string | `true`   |         | The name for the column. |
 
 #### Example:
@@ -206,8 +206,8 @@ CREATE TABLE `users` (
 
 Create a column using a `DATETIME` equivalent type for your database.
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
+| Argument |  Type  | Required | Default |       Description        |
+|----------|--------|----------|---------|--------------------------|
 | name     | string | `true`   |         | The name for the column. |
 
 #### Example:
@@ -288,8 +288,8 @@ CREATE TABLE `weather` (
 
 Create a column using a `ENUM` equivalent type for your database.
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
+| Argument |  Type  | Required | Default |       Description        |
+|----------|--------|----------|---------|--------------------------|
 | name     | string | `true`   |         | The name for the column. |
 
 #### Example:
@@ -437,8 +437,8 @@ CREATE TABLE `games` (
 
 Create a column using a `JSON` equivalent type for your database.
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
+| Argument |  Type  | Required | Default |       Description        |
+|----------|--------|----------|---------|--------------------------|
 | name     | string | `true`   |         | The name for the column. |
 
 #### Example:
@@ -461,8 +461,8 @@ CREATE TABLE `users` (
 
 Create a column using a `LONGTEXT` equivalent type for your database.
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
+| Argument |  Type  | Required | Default |       Description        |
+|----------|--------|----------|---------|--------------------------|
 | name     | string | `true`   |         | The name for the column. |
 
 #### Example:
@@ -552,8 +552,8 @@ CREATE TABLE `games` (
 
 Create a column using a `MEDIUMTEXT` equivalent type for your database.
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
+| Argument |  Type  | Required | Default |       Description        |
+|----------|--------|----------|---------|--------------------------|
 | name     | string | `true`   |         | The name for the column. |
 
 #### Example:
@@ -656,105 +656,453 @@ CREATE TABLE `users` (
 
 ## `smallInteger`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+Create a column using a `SMALLINT` equivalent type for your database.
 
-( name, precision = 10 ) {
+|  Argument |   Type  | Required | Default |          Description          |
+|-----------|---------|----------|---------|-------------------------------|
+| name      | string  | `true`   |         | The name for the column.      |
+| precision | numeric | `false`  |         | The precision for the column. |
+
+#### Example (no precision):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.smallInteger( "score" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` SMALLINT NOT NULL
+)
+```
+
+#### Example (with precision):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.smallInteger( "score", 3 );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` SMALLINT(3) NOT NULL
+)
+```
 
 ## `string`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+Create a column using a `VARCHAR` equivalent type for your database.
 
-( name, length ) {
+| Argument |   Type  | Required | Default |        Description        |
+|----------|---------|----------|---------|---------------------------|
+| name     | string  | `true`   |         | The name for the column.  |
+| length   | numeric | `false`  |     255 | The length of the column. |
+
+#### Example (with defaults):
+
+##### SchemaBuilder
+```
+schema.table( "users", function( table ) {
+	table.string( "username" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `users` (
+	`username` VARCHAR(255) NOT NULL
+)
+```
+
+#### Example (with length):
+
+##### SchemaBuilder
+```
+schema.table( "users", function( table ) {
+	table.string( "username", 50 );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `users` (
+	`username` VARCHAR(50) NOT NULL
+)
+```
 
 ## `text`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
+Create a column using a `TEXT` equivalent type for your database.
+
+| Argument |  Type  | Required | Default |       Description        |
+|----------|--------|----------|---------|--------------------------|
 | name     | string | `true`   |         | The name for the column. |
 
-( name ) {
+#### Example:
+
+##### SchemaBuilder
+```
+schema.table( "posts", function( table ) {
+	table.text( "body" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `posts` (
+	`body` TEXT NOT NULL
+)
+```
 
 ## `time`
 
+Create a column using a `TIME` equivalent type for your database.
+
 | Argument |  Type  | Required | Default |       Description       |
 |----------|--------|----------|---------|-------------------------|
 | name     | string | `true`   |         | The name for the column. |
 
-( name ) {
+#### Example:
+
+##### SchemaBuilder
+```
+schema.table( "races", function( table ) {
+	table.time( "finish_time" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `races` (
+	`finish_time` TIME NOT NULL
+)
+```
 
 ## `timestamp`
 
+Create a column using a `TIMESTAMP` equivalent type for your database.
+
 | Argument |  Type  | Required | Default |       Description       |
 |----------|--------|----------|---------|-------------------------|
 | name     | string | `true`   |         | The name for the column. |
 
-( name ) {
+#### Example:
+
+##### SchemaBuilder
+```
+schema.table( "users", function( table ) {
+	table.timestamp( "created_at" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `users` (
+	`created_at` TIMESTAMP NOT NULL
+)
+```
 
 ## `tinyIncrements`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+Create an auto-incrementing column using an unsigned `TINYINT` type.  This column is also set as the primary key for the table.
 
-( name, indexName ) {
+|  Argument |  Type  | Required | Default |                                                                   Description                                                                   |
+|-----------|--------|----------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| name      | string | `true`   |         | The name for the column.                                                                                                                         |
+| indexName | string | `false`  |         | The name for the primary key index.  If no name is passed in, the name will be dynamically created based off of the table name and column name. |
+
+#### Example:
+
+##### SchemaBuilder
+```
+schema.table( "users", function( table ) {
+	table.tinyIncrements( "id" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `users` (
+	`id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	CONSTRAINT `pk_users_id` PRIMARY KEY (`id`)
+)
+```
 
 ## `tinyInteger`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+Create a column using a `TINYINT` equivalent type for your database.
 
-( name, precision = 10 ) {
+|  Argument |   Type  | Required | Default |          Description          |
+|-----------|---------|----------|---------|-------------------------------|
+| name      | string  | `true`   |         | The name for the column.      |
+| precision | numeric | `false`  |         | The precision for the column. |
+
+#### Example (no precision):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.tinyInteger( "score" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` TINYINT NOT NULL
+)
+```
+
+#### Example (with precision):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.tinyInteger( "score", 3 );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` TINYINT(3) NOT NULL
+)
+```
 
 ## `unsignedBigInteger`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+Create a column using a `UNSIGNED BIGINT` equivalent type for your database.
 
-( name ) {
+|  Argument |   Type  | Required | Default |          Description          |
+|-----------|---------|----------|---------|-------------------------------|
+| name      | string  | `true`   |         | The name for the column.      |
+| precision | numeric | `false`  |         | The precision for the column. |
+
+#### Example (no precision):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.unsignedBigInteger( "score" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` BIGINT UNSIGNED NOT NULL
+)
+```
+
+#### Example (with precision):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.unsignedBigInteger( "score", 3 );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` BIGINT(3) UNSIGNED NOT NULL
+)
+```
 
 ## `unsignedInteger`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+Create a column using a `UNSIGNED INTEGER` equivalent type for your database.
 
-( name ) {
+|  Argument |   Type  | Required | Default |          Description          |
+|-----------|---------|----------|---------|-------------------------------|
+| name      | string  | `true`   |         | The name for the column.      |
+| precision | numeric | `false`  |         | The precision for the column. |
+
+#### Example (no precision):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.unsignedInteger( "score" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` INTEGER UNSIGNED NOT NULL
+)
+```
+
+#### Example (with precision):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.unsignedInteger( "score", 3 );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` INTEGER(3) UNSIGNED NOT NULL
+)
+```
 
 ## `unsignedMediumInteger`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+Create a column using a `UNSIGNED MEDIUMINT` equivalent type for your database.
 
-( name ) {
+|  Argument |   Type  | Required | Default |          Description          |
+|-----------|---------|----------|---------|-------------------------------|
+| name      | string  | `true`   |         | The name for the column.      |
+| precision | numeric | `false`  |         | The precision for the column. |
+
+#### Example (no precision):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.unsignedMediumInteger( "score" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` MEDIUMINT UNSIGNED NOT NULL
+)
+```
+
+#### Example (with precision):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.unsignedMediumInteger( "score", 3 );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` MEDIUMINT(3) UNSIGNED NOT NULL
+)
+```
 
 ## `unsignedSmallInteger`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+Create a column using a `UNSIGNED SMALLINT` equivalent type for your database.
 
-( name ) {
+|  Argument |   Type  | Required | Default |          Description          |
+|-----------|---------|----------|---------|-------------------------------|
+| name      | string  | `true`   |         | The name for the column.      |
+| precision | numeric | `false`  |         | The precision for the column. |
+
+#### Example (no precision):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.unsignedSmallInteger( "score" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` SMALLINT UNSIGNED NOT NULL
+)
+```
+
+#### Example (with precision):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.unsignedSmallInteger( "score", 3 );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` SMALLINT(3) UNSIGNED NOT NULL
+)
+```
 
 ## `unsignedTinyInteger`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
-| name     | string | `true`   |         | The name for the column. |
+Create a column using a `UNSIGNED TINYINT` equivalent type for your database.
 
-( name ) {
+|  Argument |   Type  | Required | Default |          Description          |
+|-----------|---------|----------|---------|-------------------------------|
+| name      | string  | `true`   |         | The name for the column.      |
+| precision | numeric | `false`  |         | The precision for the column. |
+
+#### Example (no precision):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.unsignedTinyInteger( "score" );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` TINYINT UNSIGNED NOT NULL
+)
+```
+
+#### Example (with precision):
+
+##### SchemaBuilder
+```
+schema.table( "games", function( table ) {
+	table.unsignedTinyInteger( "score", 3 );
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`score` TINYINT(3) UNSIGNED NOT NULL
+)
+```
 
 ## `uuid`
 
-| Argument |  Type  | Required | Default |       Description       |
-|----------|--------|----------|---------|-------------------------|
+Create a column using a `CHAR` equivalent type for your database and a length of 35. Used in conjunction with the CFML `createUUID` method.
+
+
+| Argument |  Type  | Required | Default |       Description        |
+|----------|--------|----------|---------|--------------------------|
 | name     | string | `true`   |         | The name for the column. |
 
-( name ) {
+#### Example:
+
+##### SchemaBuilder
+```
+schema.table( "users", function( table ) {
+	table.uuid( "id" ).primaryKey();
+} );
+```
+
+##### SQL (MySQL)
+```sql
+CREATE TABLE `games` (
+	`id` VARCHAR(35) NOT NULL,
+	CONSTRAINT `pk_users_id` PRIMARY KEY (`id`)
+)
+```
 
