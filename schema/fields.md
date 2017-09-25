@@ -1,11 +1,23 @@
 # Fields
 
-The `Blueprint` object has many field types available to construct your table schema.
+The `Blueprint` object has many field types available to construct your table schema.  Additionally, you can modify the columns created [with an additional set of methods](schema/modifiers.md) and [indexes](schema/indexes.md).
 
 > The converted SQL below will be for the `MySQLGrammar`.
 
+|                    fields                   |                                     |                                                 |                                               |
+|---------------------------------------------|-------------------------------------|-------------------------------------------------|-----------------------------------------------|
+| [bigIncrements](#bigIncrements)             | [bigInteger](#bigInteger)           | [bit](#bit)                                     | [boolean](#boolean)                           |
+| [char](#char)                               | [date](#date)                       | [datetime](#datetime)                           | [decimal](#decimal)                           |
+| [enum](#enum)                               | [float](#float)                     | [increments](#increments)                       | [integer](#integer)                           |
+| [json](#json)                               | [longText](#longText)               | [mediumIncrements](#mediumIncrements)           | [mediumInteger](#mediumInteger)               |
+| [mediumText](#mediumText)                   | [morphs](#morphs)                   | [nullableMorphs](#nullableMorphs)               | [raw](#raw)                                   |
+| [smallIncrements](#smallIncrements)         | [smallInteger](#smallInteger)       | [string](#string)                               | [text](#text)                                 |
+| [time](#time)                               | [timestamp](#timestamp)             | [tinyIncrements](#tinyIncrements)               | [tinyInteger](#tinyInteger)                   |
+| [unsignedBigInteger](#unsignedBigInteger)   | [unsignedInteger](#unsignedInteger) | [unsignedMediumInteger](#unsignedMediumInteger) | [unsignedSmallInteger](#unsignedSmallInteger) |
+| [unsignedTinyInteger](#unsignedTinyInteger) | [uuid](#uuid)                       |                                                 |                                               |
 
-## `bigIncrements`
+
+## bigIncrements
 
 Create an auto-incrementing column using an unsigned `BIGINT` type.  This column is also set as the primary key for the table.
 
@@ -31,7 +43,7 @@ CREATE TABLE `users` (
 )
 ```
 
-## `bigInteger`
+## bigInteger
 
 Create a column using a `BIGINT` equivalent type for your database.
 
@@ -72,7 +84,7 @@ CREATE TABLE `users` (
 )
 ```
 
-## `bit`
+## bit
 
 Create a column using a `BIT` equivalent type for your database.  The length can be specified as the second argument.
 
@@ -113,7 +125,7 @@ CREATE TABLE `users` (
 )
 ```
 
-## `boolean`
+## boolean
 
 Create a column using a `BOOLEAN` equivalent type for your database.
 
@@ -137,7 +149,7 @@ CREATE TABLE `users` (
 )
 ```
 
-## `char`
+## char
 
 Create a column using a `CHAR` equivalent type for your database.
 
@@ -178,7 +190,7 @@ CREATE TABLE `users` (
 )
 ```
 
-## `date`
+## date
 
 Create a column using a `DATE` equivalent type for your database.
 
@@ -202,7 +214,7 @@ CREATE TABLE `users` (
 )
 ```
 
-## `datetime`
+## datetime
 
 Create a column using a `DATETIME` equivalent type for your database.
 
@@ -226,7 +238,7 @@ CREATE TABLE `users` (
 )
 ```
 
-## `decimal`
+## decimal
 
 Create a column using a `DECIMAL` equivalent type for your database. The length and precision can be specified as the second and third arguments.
 
@@ -284,7 +296,7 @@ CREATE TABLE `weather` (
 )
 ```
 
-## `enum`
+## enum
 
 Create a column using a `ENUM` equivalent type for your database.
 
@@ -308,7 +320,7 @@ CREATE TABLE `users` (
 )
 ```
 
-## `float`
+## float
 
 Create a column using a `FLOAT` equivalent type for your database. The length and precision can be specified as the second and third arguments.
 
@@ -366,7 +378,7 @@ CREATE TABLE `weather` (
 )
 ```
 
-## `increments`
+## increments
 
 Create an auto-incrementing column using an unsigned `INTEGER` type.  This column is also set as the primary key for the table.
 
@@ -392,7 +404,7 @@ CREATE TABLE `users` (
 )
 ```
 
-## `integer`
+## integer
 
 Create a column using a `INTEGER` equivalent type for your database.
 
@@ -433,7 +445,7 @@ CREATE TABLE `games` (
 )
 ```
 
-## `json`
+## json
 
 Create a column using a `JSON` equivalent type for your database.
 
@@ -457,7 +469,7 @@ CREATE TABLE `users` (
 )
 ```
 
-## `longText`
+## longText
 
 Create a column using a `LONGTEXT` equivalent type for your database.
 
@@ -481,7 +493,7 @@ CREATE TABLE `posts` (
 )
 ```
 
-## `mediumIncrements`
+## mediumIncrements
 
 Create an auto-incrementing column using an unsigned `MEDIUMINT` type.  This column is also set as the primary key for the table.
 
@@ -507,7 +519,7 @@ CREATE TABLE `users` (
 )
 ```
 
-## `mediumInteger`
+## mediumInteger
 
 Create a column using a `MEDIUMINT` equivalent type for your database.
 
@@ -548,7 +560,7 @@ CREATE TABLE `games` (
 )
 ```
 
-## `mediumText`
+## mediumText
 
 Create a column using a `MEDIUMTEXT` equivalent type for your database.
 
@@ -572,7 +584,7 @@ CREATE TABLE `posts` (
 )
 ```
 
-## `morphs`
+## morphs
 
 Creates the necessary columns for a polymorphic relationship.  It takes the name provided and creates an `_id` and an `_type` column.
 
@@ -600,7 +612,7 @@ CREATE TABLE `tags` (
 )
 ```
 
-## `nullableMorphs`
+## nullableMorphs
 
 Creates the necessary columns for a polymorphic relationship.  It takes the name provided and creates an `_id` and an `_type` column. The only difference between this method and `morphs` is that the columns created here are nullable.
 
@@ -628,7 +640,7 @@ CREATE TABLE `tags` (
 )
 ```
 
-## `raw`
+## raw
 
 An escape hatch to directly insert any sql in to the statement.
 
@@ -652,7 +664,7 @@ CREATE TABLE `users` (
 )
 ```
 
-## `smallIncrements`
+## smallIncrements
 
 Create an auto-incrementing column using an unsigned `SMALLINT` type.  This column is also set as the primary key for the table.
 
@@ -678,7 +690,7 @@ CREATE TABLE `users` (
 )
 ```
 
-## `smallInteger`
+## smallInteger
 
 Create a column using a `SMALLINT` equivalent type for your database.
 
@@ -719,7 +731,7 @@ CREATE TABLE `games` (
 )
 ```
 
-## `string`
+## string
 
 Create a column using a `VARCHAR` equivalent type for your database.
 
@@ -760,7 +772,7 @@ CREATE TABLE `users` (
 )
 ```
 
-## `text`
+## text
 
 Create a column using a `TEXT` equivalent type for your database.
 
@@ -784,7 +796,7 @@ CREATE TABLE `posts` (
 )
 ```
 
-## `time`
+## time
 
 Create a column using a `TIME` equivalent type for your database.
 
@@ -808,7 +820,7 @@ CREATE TABLE `races` (
 )
 ```
 
-## `timestamp`
+## timestamp
 
 Create a column using a `TIMESTAMP` equivalent type for your database.
 
@@ -832,7 +844,7 @@ CREATE TABLE `users` (
 )
 ```
 
-## `tinyIncrements`
+## tinyIncrements
 
 Create an auto-incrementing column using an unsigned `TINYINT` type.  This column is also set as the primary key for the table.
 
@@ -858,7 +870,7 @@ CREATE TABLE `users` (
 )
 ```
 
-## `tinyInteger`
+## tinyInteger
 
 Create a column using a `TINYINT` equivalent type for your database.
 
@@ -899,7 +911,7 @@ CREATE TABLE `games` (
 )
 ```
 
-## `unsignedBigInteger`
+## unsignedBigInteger
 
 Create a column using a `UNSIGNED BIGINT` equivalent type for your database.
 
@@ -940,7 +952,7 @@ CREATE TABLE `games` (
 )
 ```
 
-## `unsignedInteger`
+## unsignedInteger
 
 Create a column using a `UNSIGNED INTEGER` equivalent type for your database.
 
@@ -981,7 +993,7 @@ CREATE TABLE `games` (
 )
 ```
 
-## `unsignedMediumInteger`
+## unsignedMediumInteger
 
 Create a column using a `UNSIGNED MEDIUMINT` equivalent type for your database.
 
@@ -1022,7 +1034,7 @@ CREATE TABLE `games` (
 )
 ```
 
-## `unsignedSmallInteger`
+## unsignedSmallInteger
 
 Create a column using a `UNSIGNED SMALLINT` equivalent type for your database.
 
@@ -1063,7 +1075,7 @@ CREATE TABLE `games` (
 )
 ```
 
-## `unsignedTinyInteger`
+## unsignedTinyInteger
 
 Create a column using a `UNSIGNED TINYINT` equivalent type for your database.
 
@@ -1104,7 +1116,7 @@ CREATE TABLE `games` (
 )
 ```
 
-## `uuid`
+## uuid
 
 Create a column using a `CHAR` equivalent type for your database and a length of 35. Used in conjunction with the CFML `createUUID` method.
 
