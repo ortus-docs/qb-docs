@@ -29,7 +29,7 @@ Create an auto-incrementing column using an unsigned `BIGINT` type.  This column
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.bigIncrements( "id" );
 } );
@@ -55,7 +55,7 @@ Create a column using a `BIGINT` equivalent type for your database.
 **Example (no precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.bigInteger( "salary" );
 } );
@@ -71,7 +71,7 @@ CREATE TABLE `users` (
 **Example (with precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.bigInteger( "salary", 5 );
 } );
@@ -96,7 +96,7 @@ Create a column using a `BIT` equivalent type for your database.  The length can
 **Example (default length):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.bit( "is_active" );
 } );
@@ -112,7 +112,7 @@ CREATE TABLE `users` (
 **Example (custom length):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.bit( "is_active", 2 );
 } );
@@ -136,7 +136,7 @@ Create a column using a `BOOLEAN` equivalent type for your database.
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.boolean( "is_subscribed" );
 } );
@@ -161,7 +161,7 @@ Create a column using a `CHAR` equivalent type for your database.
 **Example (default length):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "students", function( table ) {
 	table.char( "grade" );
 } );
@@ -177,7 +177,7 @@ CREATE TABLE `students` (
 **Example (custom length):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.char( "tshirt_size", 4 );
 } );
@@ -201,7 +201,7 @@ Create a column using a `DATE` equivalent type for your database.
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.date( "birthday" );
 } );
@@ -225,7 +225,7 @@ Create a column using a `DATETIME` equivalent type for your database.
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.datetime( "hire_date" );
 } );
@@ -251,7 +251,7 @@ Create a column using a `DECIMAL` equivalent type for your database. The length 
 **Example (with defaults):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "weather", function( table ) {
 	table.decimal( "temperature" );
 } );
@@ -267,7 +267,7 @@ CREATE TABLE `weather` (
 **Example (with length):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "weather", function( table ) {
 	table.decimal( "temperature", 4 );
 } );
@@ -283,7 +283,7 @@ CREATE TABLE `weather` (
 **Example (with precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "weather", function( table ) {
 	table.decimal( name = "temperature", precision = 2 );
 } );
@@ -307,7 +307,7 @@ Create a column using a `ENUM` equivalent type for your database.
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.enum( "tshirt_size", [ "S", "M", "L", "XL", "XXL" ] );
 } );
@@ -333,7 +333,7 @@ Create a column using a `FLOAT` equivalent type for your database. The length an
 **Example (with defaults):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "weather", function( table ) {
 	table.float( "temperature" );
 } );
@@ -349,7 +349,7 @@ CREATE TABLE `weather` (
 **Example (with length):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "weather", function( table ) {
 	table.float( "temperature", 4 );
 } );
@@ -365,7 +365,7 @@ CREATE TABLE `weather` (
 **Example (with precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "weather", function( table ) {
 	table.float( name = "temperature", precision = 2 );
 } );
@@ -390,7 +390,7 @@ Create an auto-incrementing column using an unsigned `INTEGER` type.  This colum
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.increments( "id" );
 } );
@@ -416,7 +416,7 @@ Create a column using a `INTEGER` equivalent type for your database.
 **Example (no precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.integer( "score" );
 } );
@@ -432,7 +432,7 @@ CREATE TABLE `games` (
 **Example (with precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.integer( "score", 3 );
 } );
@@ -456,7 +456,7 @@ Create a column using a `JSON` equivalent type for your database.
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.json( "options" ).nullable();
 } );
@@ -480,7 +480,7 @@ Create a column using a `LONGTEXT` equivalent type for your database.
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "posts", function( table ) {
 	table.longText( "body" );
 } );
@@ -505,7 +505,7 @@ Create an auto-incrementing column using an unsigned `MEDIUMINT` type.  This col
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.mediumIncrements( "id" );
 } );
@@ -531,7 +531,7 @@ Create a column using a `MEDIUMINT` equivalent type for your database.
 **Example (no precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.mediumInteger( "score" );
 } );
@@ -547,7 +547,7 @@ CREATE TABLE `games` (
 **Example (with precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.mediumInteger( "score", 5 );
 } );
@@ -571,7 +571,7 @@ Create a column using a `MEDIUMTEXT` equivalent type for your database.
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "posts", function( table ) {
 	table.mediumText( "body" );
 } );
@@ -597,7 +597,7 @@ If you want different names for your polymorphic relationship columns, feel free
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "tags", function( table ) {
 	table.morphs( "taggable" );
 } );
@@ -625,7 +625,7 @@ If you want different names for your polymorphic relationship columns, feel free
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "tags", function( table ) {
 	table.nullableMorphs( "taggable" );
 } );
@@ -651,7 +651,7 @@ An escape hatch to directly insert any sql in to the statement.
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.raw( "`profile_image` BLOB NOT NULL" );
 } );
@@ -676,7 +676,7 @@ Create an auto-incrementing column using an unsigned `SMALLINT` type.  This colu
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.smallIncrements( "id" );
 } );
@@ -702,7 +702,7 @@ Create a column using a `SMALLINT` equivalent type for your database.
 **Example (no precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.smallInteger( "score" );
 } );
@@ -718,7 +718,7 @@ CREATE TABLE `games` (
 **Example (with precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.smallInteger( "score", 3 );
 } );
@@ -743,7 +743,7 @@ Create a column using a `VARCHAR` equivalent type for your database.
 **Example (with defaults):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.string( "username" );
 } );
@@ -759,7 +759,7 @@ CREATE TABLE `users` (
 **Example (with length):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.string( "username", 50 );
 } );
@@ -783,7 +783,7 @@ Create a column using a `TEXT` equivalent type for your database.
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "posts", function( table ) {
 	table.text( "body" );
 } );
@@ -807,7 +807,7 @@ Create a column using a `TIME` equivalent type for your database.
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "races", function( table ) {
 	table.time( "finish_time" );
 } );
@@ -831,7 +831,7 @@ Create a column using a `TIMESTAMP` equivalent type for your database.
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.timestamp( "created_at" );
 } );
@@ -856,7 +856,7 @@ Create an auto-incrementing column using an unsigned `TINYINT` type.  This colum
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.tinyIncrements( "id" );
 } );
@@ -882,7 +882,7 @@ Create a column using a `TINYINT` equivalent type for your database.
 **Example (no precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.tinyInteger( "score" );
 } );
@@ -898,7 +898,7 @@ CREATE TABLE `games` (
 **Example (with precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.tinyInteger( "score", 3 );
 } );
@@ -923,7 +923,7 @@ Create a column using a `UNSIGNED BIGINT` equivalent type for your database.
 **Example (no precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.unsignedBigInteger( "score" );
 } );
@@ -939,7 +939,7 @@ CREATE TABLE `games` (
 **Example (with precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.unsignedBigInteger( "score", 3 );
 } );
@@ -964,7 +964,7 @@ Create a column using a `UNSIGNED INTEGER` equivalent type for your database.
 **Example (no precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.unsignedInteger( "score" );
 } );
@@ -980,7 +980,7 @@ CREATE TABLE `games` (
 **Example (with precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.unsignedInteger( "score", 3 );
 } );
@@ -1005,7 +1005,7 @@ Create a column using a `UNSIGNED MEDIUMINT` equivalent type for your database.
 **Example (no precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.unsignedMediumInteger( "score" );
 } );
@@ -1021,7 +1021,7 @@ CREATE TABLE `games` (
 **Example (with precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.unsignedMediumInteger( "score", 3 );
 } );
@@ -1046,7 +1046,7 @@ Create a column using a `UNSIGNED SMALLINT` equivalent type for your database.
 **Example (no precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.unsignedSmallInteger( "score" );
 } );
@@ -1062,7 +1062,7 @@ CREATE TABLE `games` (
 **Example (with precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.unsignedSmallInteger( "score", 3 );
 } );
@@ -1087,7 +1087,7 @@ Create a column using a `UNSIGNED TINYINT` equivalent type for your database.
 **Example (no precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.unsignedTinyInteger( "score" );
 } );
@@ -1103,7 +1103,7 @@ CREATE TABLE `games` (
 **Example (with precision):**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "games", function( table ) {
 	table.unsignedTinyInteger( "score", 3 );
 } );
@@ -1128,7 +1128,7 @@ Create a column using a `CHAR` equivalent type for your database and a length of
 **Example:**
 
 __SchemaBuilder__
-```
+```js
 schema.create( "users", function( table ) {
 	table.uuid( "id" ).primaryKey();
 } );
