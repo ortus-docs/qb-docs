@@ -1,10 +1,10 @@
-# Fields
+# Columns
 
-The `Blueprint` object has many field types available to construct your table schema.  Additionally, you can modify the columns created [with an additional set of methods](schema/modifiers.md) and [indexes](schema/indexes.md).
+The `Blueprint` object has many column types available to construct your table schema.  Additionally, you can modify the columns created [with an additional set of methods](schema/modifiers.md) and [indexes](schema/indexes.md).
 
-> The converted SQL below will be for the `MySQLGrammar`.
+> The converted SQL in the examples will be for the `MySQLGrammar`.
 
-|                    fields                   |                                     |                                                 |                                               |
+|                   Columns                   |                                     |                                                 |                                               |
 |---------------------------------------------|-------------------------------------|-------------------------------------------------|-----------------------------------------------|
 | [bigIncrements](#bigIncrements)             | [bigInteger](#bigInteger)           | [bit](#bit)                                     | [boolean](#boolean)                           |
 | [char](#char)                               | [date](#date)                       | [datetime](#datetime)                           | [decimal](#decimal)                           |
