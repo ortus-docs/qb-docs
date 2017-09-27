@@ -21,6 +21,8 @@ var schema = wirebox.getInstance( "SchemaBuilder@qb" );
 
 The `SchemaBuilder` has four main methods to start your database object creation:
 
+> The converted SQL in the examples will be for the `MySQLGrammar`.
+
 ### [`create`](schema/create.md)
 
 Create a new table in the database.
@@ -32,17 +34,31 @@ Create a new table in the database.
 | options  | struct   | `false`  | `{}`    | Options to pass to `queryExecute`.                                                                  |
 | execute  | boolean  | `false`  | `true`  | Run the query immediately after building it.                                                        |
 
-The majority of the work comes from calling methods on the `Blueprint` object.  A `Blueprint` defines the [fields](schema/fields.md) and [indexes](schema/indexes.md) for your tables.
+The majority of the work comes from calling methods on the `Blueprint` object.  A `Blueprint` defines the [columns](schema/columns.md) and [indexes](schema/indexes.md) for your tables.
 
-Example:
-```
+**Example:**
+
+__SchemaBuilder__
+```js
 schema.create( "users", function( table ) {
 	table.increments( "id" );
 	table.string( "email" );
 	table.string( "password" );
-	table.timestamp( "created_date" );
-	table.timestamp( "modified_date" );
+	table.timestamp( "created_date" ).nullable();
+	table.timestamp( "modified_date" ).nullable();
 } );
+```
+
+__SQL (MySQL)__
+```sql
+CREATE TABLE `users` (
+	`id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+	`email` VARCHAR(255) NOT NULL,
+	`password` VARCHAR(255) NOT NULL,
+	`created_date` TIMESTAMP,
+	`modified_date` TIMESTAMP,
+	CONSTRAINT `pk_users_id` PRIMARY KEY (`id`)
+)
 ```
 
 ### [`alter`](schema/alter.md)
@@ -56,14 +72,22 @@ Alter an existing table in the database.
 | options  | struct   | `false`  | `{}`    | Options to pass to `queryExecute`.                                                                  |
 | execute  | boolean  | `false`  | `true`  | Run the query immediately after building it.                                                        |
 
-In addition to using the  [fields](schema/fields.md) and [indexes](schema/indexes.md) off of the passed-in `Blueprint` object, the `Blueprint` contains helpers such as `addConstraint`, `removeConstraint`, `addColumn`, `renameColumn`, and `dropColumn` to assist in altering existing tables.
+In addition to using the  [columns](schema/columns.md) and [indexes](schema/indexes.md) off of the passed-in `Blueprint` object, the `Blueprint` contains helpers such as `addConstraint`, `removeConstraint`, `addColumn`, `renameColumn`, and `dropColumn` to assist in altering existing tables.
 
-Example:
-```
+**Example:**
+
+__SchemaBuilder__
+```js
 schema.alter( "users", function( table ) {
 	table.addConstraint( table.unique( "username" ) );
 	table.dropColumn( "last_logged_in" );
 } );
+```
+
+__SQL (MySQL)__
+```sql
+ALTER TABLE `users` ADD CONSTRAINT `unq_users_username` UNIQUE (`username`);
+ALTER TABLE `users` DROP COLUMN `last_logged_in`;
 ```
 
 ### [`drop` and `dropIfExists`](schema/drop.md)
@@ -76,11 +100,16 @@ Drop a table from the database.
 | options  | struct  | `false`  | `{}`    | Options to pass to `queryExecute`.           |
 | execute  | boolean | `false`  | `true`  | Run the query immediately after building it. |
 
-In addition to using the  [fields](schema/fields.md) and [indexes](schema/indexes.md) off of the passed-in `Blueprint` object, the `Blueprint` contains helpers such as `addConstraint`, `removeConstraint`, `addColumn`, `renameColumn`, and `dropColumn` to assist in altering existing tables.
+**Example:**
 
-Example:
-```
+__SchemaBuilder__
+```js
 schema.drop( "user_logins" );
+```
+
+__SQL (MySQL)__
+```sql
+DROP TABLE `user_logins`
 ```
 
 ## Additionally, there are a few utility methods defined on `SchemaBuilder` as well:
@@ -96,9 +125,16 @@ Rename a table from an old name to a new name
 | options  | struct  | `false`  | `{}`    | Options to pass to `queryExecute`.           |
 | execute  | boolean | `false`  | `true`  | Run the query immediately after building it. |
 
-Example:
-```
+**Example:**
+
+__SchemaBuilder__
+```js
 schema.rename( "posts", "blog_posts" );
+```
+
+__SQL (MySQL)__
+```sql
+RENAME TABLE `posts` TO `blog_posts`
 ```
 
 
@@ -112,9 +148,18 @@ Check if a table exists in the database.
 | options  | struct  | `false`  | `{}`    | Options to pass to `queryExecute`.           |
 | execute  | boolean | `false`  | `true`  | Run the query immediately after building it. |
 
-Example:
-```
+**Example:**
+
+__SchemaBuilder__
+```js
 schema.hasTable( "users" );
+```
+
+__SQL (MySQL)__
+```sql
+SELECT 1
+FROM `information_schema`.`tables`
+WHERE `table_name` = 'users'
 ```
 
 ### `hasColumn`
@@ -128,7 +173,17 @@ Check if a column exists in a table in the database.
 | options  | struct  | `false`  | `{}`    | Options to pass to `queryExecute`.                |
 | execute  | boolean | `false`  | `true`  | Run the query immediately after building it.      |
 
-Example:
-```
+**Example:**
+
+__SchemaBuilder__
+```js
 schema.hasColumn( "users", "last_logged_in" );
+```
+
+__SQL (MySQL)__
+```sql
+SELECT 1
+FROM `information_schema`.`columns`
+WHERE `table_name` = 'users'
+	AND `column_name` = 'last_logged_in'
 ```
