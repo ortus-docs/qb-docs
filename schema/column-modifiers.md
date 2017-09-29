@@ -8,8 +8,6 @@ When [creating a column](schema/columns.md) from the `Blueprint` object, a `Colu
 | [references](#references) | [unsigned](#unsigned)     |
 | [unique](#unique)         |                           |
 
-> The converted SQL in the examples will be for the `MySQLGrammar`.
-
 ## comment
 
 Attach a comment to the column.

@@ -2,8 +2,6 @@
 
 A `TableIndex` can be created directly from a [`Blueprint`](schema/creating-table-constraints.md) or from a existing [`Column`](schema/column-modifiers.md).  The `TableIndex` includes methods for further configuring the index which is required when defining foreign keys.
 
-> The converted SQL in the examples will be for the `MySQLGrammar`.
-
 ## references
 
 Set the referencing column for a foreign key relationship.

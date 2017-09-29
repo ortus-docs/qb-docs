@@ -21,8 +21,6 @@ var schema = wirebox.getInstance( "SchemaBuilder@qb" );
 
 The `SchemaBuilder` has four main methods to start your database object creation:
 
-> The converted SQL in the examples will be for the `MySQLGrammar`.
-
 ### [`create`](schema/create.md)
 
 Create a new table in the database.
