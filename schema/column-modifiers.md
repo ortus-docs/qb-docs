@@ -134,7 +134,7 @@ __SQL (MySQL)__
 ```sql
 CREATE TABLE `users` (
 	`country_id` INTEGER UNSIGNED NOT NULL,
-	CONSTRAINT `fk_users_country_id` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON UPDATE NONE ON DELETE CASCADE
+	CONSTRAINT `fk_users_country_id` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON UPDATE NO ACTION ON DELETE CASCADE
 )
 ```
 

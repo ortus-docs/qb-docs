@@ -1,6 +1,6 @@
 # Columns
 
-The `Blueprint` object has many column types available to construct your table schema.  Additionally, you can modify the columns created [with an additional set of methods](schema/modifiers.md) and [indexes](schema/indexes.md).
+The `Blueprint` object has many column types available to construct your table schema.  Additionally, you can modify the columns created [with an additional set of methods](schema/column-modifiers.md) and [indexes](schema/indexes.md).
 
 > The converted SQL in the examples will be for the `MySQLGrammar`.
 
