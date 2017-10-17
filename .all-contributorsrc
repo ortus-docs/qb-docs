@@ -55,6 +55,16 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "aliaspooryorik",
+      "name": "John Whish",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/148847?v=4",
+      "profile": "http://www.aliaspooryorik.com/blog/",
+      "contributions": [
+        "question",
+        "code"
+      ]
     }
   ]
 }
