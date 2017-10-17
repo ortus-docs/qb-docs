@@ -1,4 +1,5 @@
 # qb
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
 [![Master Branch Build Status](https://img.shields.io/travis/elpete/qb/master.svg?style=flat-square&label=master)](https://travis-ci.org/elpete/qb)
 [![Development Branch Build Status](https://img.shields.io/travis/elpete/qb/development.svg?style=flat-square&label=development)](https://travis-ci.org/elpete/qb)
@@ -138,6 +139,10 @@ Two interception points are available from QB: `preQBExecute` and `postQBExecute
 
 ## Contributors
 
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+| [<img src="https://avatars1.githubusercontent.com/u/3632399?v=4" width="100px;"/><br /><sub>Tony Junkes</sub>](http://tonyjunkes.com)<br />[📝](#blog-tonyjunkes "Blogposts") [📖](https://github.com/elpete/qb-docs/commits?author=tonyjunkes "Documentation") |
+| :---: |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
