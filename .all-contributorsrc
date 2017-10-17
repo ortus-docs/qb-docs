@@ -16,6 +16,24 @@
         "blog",
         "doc"
       ]
+    },
+    {
+      "login": "elpete",
+      "name": "Eric Peterson",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/2583646?v=4",
+      "profile": "https://github.com/elpete",
+      "contributions": [
+        "question",
+        "blog",
+        "bug",
+        "code",
+        "design",
+        "doc",
+        "example",
+        "review",
+        "talk",
+        "test"
+      ]
     }
   ]
 }
