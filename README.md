@@ -53,7 +53,7 @@ q = query.from('posts')
          .get();
 ```
 
-With Quick you can easily handle setting order by statements before the columns you want or join statements after a where clause:
+With qb you can easily handle setting order by statements before the columns you want or join statements after a where clause:
 
 ```cfc
 query = wirebox.getInstance('Builder@qb');
