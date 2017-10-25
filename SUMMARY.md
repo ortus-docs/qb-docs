@@ -23,4 +23,5 @@
   * [Alter](schema/alter.md)
   * [Drop](schema/drop.md)
 * [Contributors](contributors.md)
+* [Migration Guide](migration-guide.md)
 
