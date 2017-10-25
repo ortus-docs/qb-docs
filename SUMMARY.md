@@ -22,6 +22,6 @@
 	+ [Indexes](schema/indexes.md)
 	+ [Alter](schema/alter.md)
 	+ [Drop](schema/drop.md)
-+ [Contributing to QB](conributing.md)
+<!-- + [Contributing to QB](conributing.md) -->
 + [Contributors](contributors.md)
 
