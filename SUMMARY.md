@@ -21,6 +21,7 @@
   * [Columns](schema/fields.md)
   * [Column Modifiers](schema/column-modifiers.md)
   * [Indexes](schema/indexes.md)
+  * [Creating Table Constraints](schema/creating-table-constraints.md)
   * [Alter](schema/alter.md)
   * [Drop](schema/drop.md)
 * [Contributors](contributors.md)
