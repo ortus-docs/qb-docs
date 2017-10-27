@@ -18,7 +18,7 @@
   * [Inserts](inserts.md)
 * [Schema Builder](schema/index.md)
   * [Create](schema/create.md)
-  * [Fields](schema/fields.md)
+  * [Columns](schema/fields.md)
   * [Indexes](schema/indexes.md)
   * [Alter](schema/alter.md)
   * [Drop](schema/drop.md)

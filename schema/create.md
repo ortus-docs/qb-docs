@@ -38,4 +38,4 @@ CREATE TABLE `users` (
 
 Only one table can be created at a time.  If you wanted to create multiple tables, you would call `create` multiple times.
 
-The `callback` argument is where you define the schema of your table.  It is passed a `Blueprint` object.  This is commonly aliased as `table` in the callback.  `Blueprint` defines the field, index and constraint methods to build your table.  You can find a comprehensive list of all available methods here for [fields](schema/fields) and here for [indexes and constraints](schema/indexes).
+The `callback` argument is where you define the schema of your table.  It is passed a `Blueprint` object.  This is commonly aliased as `table` in the callback.  `Blueprint` defines the field, index and constraint methods to build your table.  You can find a comprehensive list of all available methods here for [columns](columns) and here for [indexes and constraints](indexes).
