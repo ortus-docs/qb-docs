@@ -1,6 +1,6 @@
 # Table Indexes and Constraints
 
-A `TableIndex` can be created directly from a [`Blueprint`](schema/creating-table-constraints.md) or from a existing [`Column`](schema/column-modifiers.md).  The `TableIndex` includes methods for further configuring the index which is required when defining foreign keys.
+A `TableIndex` can be created directly from a [`Blueprint`](/schema/creating-table-constraints.md) or from a existing [`Column`](/schema/column-modifiers.md).  The `TableIndex` includes methods for further configuring the index which is required when defining foreign keys.
 
 ## references
 
