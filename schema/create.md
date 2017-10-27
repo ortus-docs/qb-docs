@@ -9,7 +9,7 @@ This method allows you to create a table object.
 | options | struct | `false` | `{}` | Options to pass to `queryExecute`. |
 | execute | boolean | `false` | `true` | Run the query immediately after building it. |
 
-The majority of the work comes from calling methods on the `Blueprint` object.  A `Blueprint` defines the [fields](schema/fields.md) and [indexes](schema/indexes.md) for your tables.
+The majority of the work comes from calling methods on the `Blueprint` object.  A `Blueprint` defines the [columns](/schema/columns.md) and [indexes](/schema/indexes.md) for your tables.
 
 Example:
 
@@ -40,5 +40,5 @@ CREATE TABLE `users` (
 
 Only one table can be created at a time.  If you wanted to create multiple tables, you would call `create` multiple times.
 
-The `callback` argument is where you define the schema of your table.  It is passed a `Blueprint` object.  This is commonly aliased as `table` in the callback.  `Blueprint` defines the field, index and constraint methods to build your table.  You can find a comprehensive list of all available methods here for [columns](/schema/fields.md) and here for [indexes and constraints](/schema/indexes.md).
+The `callback` argument is where you define the schema of your table.  It is passed a `Blueprint` object.  This is commonly aliased as `table` in the callback.  `Blueprint` defines the field, index and constraint methods to build your table.  You can find a comprehensive list of all available methods here for [columns](/schema/columns.md) and here for [indexes and constraints](/schema/indexes.md).
 
