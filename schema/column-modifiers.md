@@ -1,34 +1,37 @@
 # Column Modifiers
 
-When [creating a column](schema/columns.md) from the `Blueprint` object, a `Column` object is returned.  This `column` gives you access to a few modifier commands to further configure the column.
+When [creating a column](/schema/fields.md) from the `Blueprint` object, a `Column` object is returned.  This `column` gives you access to a few modifier commands to further configure the column.
 
-| Methods                   |                           |
-| [comment](#comment)       | [default](#default)       |
-| [nullable](#nullable)     | [primaryKey](#primaryKey) |
-| [references](#references) | [unsigned](#unsigned)     |
-| [unique](#unique)         |                           |
+| Methods |  |
+| --- | --- |
+| [comment](#comment) | [default](#default) |
+| [nullable](#nullable) | [primaryKey](#primaryKey) |
+| [references](#references) | [unsigned](#unsigned) |
+| [unique](#unique) |  |
 
 ## comment
 
 Attach a comment to the column.
 
-| Argument |  Type  | Required | Default |    Description    |
-|----------|--------|----------|---------|-------------------|
-| comment  | string | `true`   |         | The comment text. |
+| Argument | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| comment | string | `true` |  | The comment text. |
 
 **Example:**
 
-__SchemaBuilder__
+**SchemaBuilder**
+
 ```js
 schema.create( "users", function( table ) {
-	table.integer( "age" ).comment( "Do not lie about your age" );
+    table.integer( "age" ).comment( "Do not lie about your age" );
 } );
 ```
 
-__SQL (MySQL)__
+**SQL \(MySQL\)**
+
 ```sql
 CREATE TABLE `users` (
-	`age` INTEGER NOT NULL COMMENT `Do not lie about your age`
+    `age` INTEGER NOT NULL COMMENT `Do not lie about your age`
 )
 ```
 
@@ -36,23 +39,25 @@ CREATE TABLE `users` (
 
 Sets a default value for the column.
 
-| Argument |  Type  | Required | Default |    Description     |
-|----------|--------|----------|---------|--------------------|
-| value    | string | `true`   |         | The default value. |
+| Argument | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| value | string | `true` |  | The default value. |
 
 **Example:**
 
-__SchemaBuilder__
+**SchemaBuilder**
+
 ```
 schema.create( "users", function( table ) {
-	table.boolean( "is_active" ).default( 1 );
+    table.boolean( "is_active" ).default( 1 );
 } );
 ```
 
-__SQL (MySQL)__
+**SQL \(MySQL\)**
+
 ```sql
 CREATE TABLE `users` (
-	`is_active` TINYINT(1) DEFAULT 1
+    `is_active` TINYINT(1) DEFAULT 1
 )
 ```
 
@@ -60,25 +65,27 @@ CREATE TABLE `users` (
 
 Sets the column to allow null values.
 
-|   Argument   | Type | Required | Default | Description |
-|--------------|------|----------|---------|-------------|
-| No arguments |      |          |         |             |
+| Argument | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| No arguments |  |  |  |  |
 
 All columns are created as `NOT NULL` by default.  As such, there is no `notNull` method.
 
 **Example:**
 
-__SchemaBuilder__
+**SchemaBuilder**
+
 ```
 schema.create( "users", function( table ) {
-	table.timestamp( "last_logged_in" ).nullable()
+    table.timestamp( "last_logged_in" ).nullable()
 } );
 ```
 
-__SQL (MySQL)__
+**SQL \(MySQL\)**
+
 ```sql
 CREATE TABLE `users` (
-	`last_logged_in` TIMESTAMP
+    `last_logged_in` TIMESTAMP
 )
 ```
 
@@ -86,26 +93,28 @@ CREATE TABLE `users` (
 
 Adds the column as a primary key for the table.
 
-|  Argument |  Type  | Required |                          Default                          |    Description     |
-|-----------|--------|----------|-----------------------------------------------------------|--------------------|
-| indexName | string | `false`  | A derived name built from the table name and column name. | The name to use for the primary key constraint. |
+| Argument | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| indexName | string | `false` | A derived name built from the table name and column name. | The name to use for the primary key constraint. |
 
 The `primaryKey` method returns a [`TableIndex` instance.](schema/indexes.md)  Additional methods can be chained off of it.
 
 **Example:**
 
-__SchemaBuilder__
+**SchemaBuilder**
+
 ```
 schema.create( "users", function( table ) {
-	table.uuid( "id" ).primaryKey();
+    table.uuid( "id" ).primaryKey();
 } );
 ```
 
-__SQL (MySQL)__
+**SQL \(MySQL\)**
+
 ```sql
 CREATE TABLE `users` (
-	`id` CHAR(35) NOT NULL,
-	CONSTAINT `pk_users_id` PRIMARY KEY (`id`)
+    `id` CHAR(35) NOT NULL,
+    CONSTAINT `pk_users_id` PRIMARY KEY (`id`)
 )
 ```
 
@@ -113,26 +122,28 @@ CREATE TABLE `users` (
 
 Creates a foreign key constraint for the column.
 
-| Argument |  Type  | Required | Default |    Description     |
-|----------|--------|----------|---------|--------------------|
-| value    | string | `true`   |         | The default value. |
+| Argument | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| value | string | `true` |  | The default value. |
 
 **IMPORTANT:** Additional configuration of the foreign constraint is done by calling methods on the returned [`TableIndex` instance.](schema/indexes.md)
 
 **Example:**
 
-__SchemaBuilder__
+**SchemaBuilder**
+
 ```
 schema.create( "users", function( table ) {
-	table.unsignedInteger( "country_id" ).references( "id" ).onTable( "countries" ).onDelete( "cascade" );
+    table.unsignedInteger( "country_id" ).references( "id" ).onTable( "countries" ).onDelete( "cascade" );
 } );
 ```
 
-__SQL (MySQL)__
+**SQL \(MySQL\)**
+
 ```sql
 CREATE TABLE `users` (
-	`country_id` INTEGER UNSIGNED NOT NULL,
-	CONSTRAINT `fk_users_country_id` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+    `country_id` INTEGER UNSIGNED NOT NULL,
+    CONSTRAINT `fk_users_country_id` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON UPDATE NO ACTION ON DELETE CASCADE
 )
 ```
 
@@ -140,23 +151,25 @@ CREATE TABLE `users` (
 
 Sets the column as unsigned.
 
-|   Argument   | Type | Required | Default | Description |
-|--------------|------|----------|---------|-------------|
-| No arguments |      |          |         |             |
+| Argument | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| No arguments |  |  |  |  |
 
 **Example:**
 
-__SchemaBuilder__
+**SchemaBuilder**
+
 ```
 schema.create( "users", function( table ) {
-	table.integer( age" ).unsigned();
+    table.integer( age" ).unsigned();
 } );
 ```
 
-__SQL (MySQL)__
+**SQL \(MySQL\)**
+
 ```sql
 CREATE TABLE `users` (
-	`age` INTEGER UNSIGNED NOT NULL
+    `age` INTEGER UNSIGNED NOT NULL
 )
 ```
 
@@ -164,22 +177,27 @@ CREATE TABLE `users` (
 
 Sets the column to have the UNIQUE constraint.
 
-|   Argument   | Type | Required | Default | Description |
-|--------------|------|----------|---------|-------------|
-| No arguments |      |          |         |             |
+| Argument | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| No arguments |  |  |  |  |
 
 **Example:**
 
-__SchemaBuilder__
+**SchemaBuilder**
+
 ```
 schema.create( "email", function( table ) {
-	table.string( email" ).unique();
+    table.string( email" ).unique();
 } );
 ```
 
-__SQL (MySQL)__
+**SQL \(MySQL\)**
+
 ```sql
 CREATE TABLE `users` (
-	`email` VARCHAR(255) NOT NULL UNIQUE
+    `email` VARCHAR(255) NOT NULL UNIQUE
 )
 ```
+
+
+

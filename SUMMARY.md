@@ -19,6 +19,7 @@
 * [Schema Builder](schema/index.md)
   * [Create](schema/create.md)
   * [Columns](schema/fields.md)
+  * [Column Modifiers](schema/column-modifiers.md)
   * [Indexes](schema/indexes.md)
   * [Alter](schema/alter.md)
   * [Drop](schema/drop.md)
