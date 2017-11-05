@@ -1,4 +1,4 @@
-## Insert or Update
+## Update or Insert
 
 The query builder also provides an `updateOrInsert` method for updating records into a database OR inserting records into the database table if the record does not exist. The `updateOrInsert` method accepts an array of column names and values:
 
