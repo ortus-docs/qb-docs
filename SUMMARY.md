@@ -16,6 +16,7 @@
   * [Conditionals](conditionals.md)
   * [Ordering, Grouping & Limit](ordering-grouping-limit-and-offset.md)
   * [Inserts](inserts.md)
+  * [Updates](updates.md)
 * [Schema Builder](schema/index.md)
   * [Create](schema/create.md)
   * [Columns](schema/fields.md)
