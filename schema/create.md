@@ -13,7 +13,7 @@ The majority of the work comes from calling methods on the `Blueprint` object.  
 
 Example:
 
-```
+```js
 schema.create( "users", function( table ) {
     table.increments( "id" );
     table.string( "email" );
