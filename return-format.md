@@ -2,19 +2,29 @@
 
 You can influence the return format of the result in two ways.
 
-By default, qb returns an array of structs as the result of your query.  You can turn this behavior off by setting `builder.setReturningArrays( false )` for one-offs or setting `returningArrays = false` in your ColdBox config.
+By default, qb returns an array of structs as the result of your query.  This is the same as specifiying `array` as your `returnFormat`:
 
-```
+```js
 moduleSettings = {
     qb = {
-        returningArrays = false
+        returnFormat = "array"
+    }
+};
+```
+
+You can get the original query object that CFML generates by setting the `returnFormat` to `query`:
+
+```js
+moduleSettings = {
+    qb = {
+        returnFormat = "query"
     }
 };
 ```
 
 If you want complete control over your return result, you can provide a closure as a `returnFormat`.  The results of the closure will be returned as the results of the builder.
 
-```
+```js
 moduleSettings = {
     qb = {
         returnFormat = function( q ) {
@@ -26,5 +36,6 @@ moduleSettings = {
     }
 };
 ```
+
 
 
