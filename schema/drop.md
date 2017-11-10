@@ -8,20 +8,22 @@ Dropping tables straightforward in `qb`.
 
 Drop a table from the database.
 
-| Argument |   Type  | Required | Default |                 Description                  |
-|----------|---------|----------|---------|----------------------------------------------|
-| table    | string  | `true`   |         | The name of the table to drop.               |
-| options  | struct  | `false`  | `{}`    | Options to pass to `queryExecute`.           |
-| execute  | boolean | `false`  | `true`  | Run the query immediately after building it. |
+| Argument | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| table | string | `true` |  | The name of the table to drop. |
+| options | struct | `false` | `{}` | Options to pass to `queryExecute`. |
+| execute | boolean | `false` | `true` | Run the query immediately after building it. |
 
 **Example:**
 
-__SchemaBuilder__
+**SchemaBuilder**
+
 ```js
 schema.drop( "user_logins" );
 ```
 
-__SQL (MySQL)__
+**SQL \(MySQL\)**
+
 ```sql
 DROP TABLE `user_logins`
 ```
@@ -30,20 +32,25 @@ DROP TABLE `user_logins`
 
 Drop a table from the database if it exists.
 
-| Argument |   Type  | Required | Default |                 Description                  |
-|----------|---------|----------|---------|----------------------------------------------|
-| table    | string  | `true`   |         | The name of the table to drop.               |
-| options  | struct  | `false`  | `{}`    | Options to pass to `queryExecute`.           |
-| execute  | boolean | `false`  | `true`  | Run the query immediately after building it. |
+| Argument | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| table | string | `true` |  | The name of the table to drop. |
+| options | struct | `false` | `{}` | Options to pass to `queryExecute`. |
+| execute | boolean | `false` | `true` | Run the query immediately after building it. |
 
 **Example:**
 
-__SchemaBuilder__
+**SchemaBuilder**
+
 ```js
-schema.drop( "user_logins" );
+schema.dropIfExists( "user_logins" );
 ```
 
-__SQL (MySQL)__
+**SQL \(MySQL\)**
+
 ```sql
 DROP TABLE IF EXISTS `user_logins`
 ```
+
+
+
