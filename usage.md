@@ -5,7 +5,7 @@ Installation is easy through [CommandBox](https://www.ortussolutions.com/product
 
 ## Usage
 
-To start a new query, instantiate a new Builder: `wirebox.getInstance('Builder@qb')`.
+To start a new query, instantiate a new Builder: `wirebox.getInstance('QueryBuilder@qb')`.
 
 By default, qb uses a generic Grammar.  You can specify your specific grammar in ColdBox by setting the `defaultGrammar` in your `moduleSettings`.
 
@@ -50,7 +50,7 @@ qb = {
       di1.declare( "BaseGrammar" ).instanceOf( "qb.models.Query.Grammars.Grammar" ).done()
          .declare( "MySQLGrammar" ).instanceOf( "qb.models.Query.Grammars.MySQLGrammar" ).done()
          .declare( "QueryUtils" ).instanceOf( "qb.models.Query.QueryUtils" ).done()
-         .declare( "Builder" ).instanceOf( "qb.models.Query.Builder" )
+         .declare( "QueryBuilder" ).instanceOf( "qb.models.Query.QueryBuilder" )
          .withOverrides({
             grammar = di1.getBean( "MySQLGrammar" ),
             utils = di1.getBean( "QueryUtils" ),
@@ -69,7 +69,7 @@ To access qb from your application's code, you can call on it by using `getBeanF
 
 ```coldfusion-cfc
 // Create an instance of qb
-builder = getBeanFactory( "qb" ).getBean( "Builder" );
+builder = getBeanFactory( "qb" ).getBean( "QueryBuilder" );
 // Query the database
 posts = builder.from( "Posts" ).get();
 posts = builder.from( "Posts" ).where( "IsDraft", "=", 0 ).get();
