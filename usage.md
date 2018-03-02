@@ -1,6 +1,6 @@
 ## Installation
 
-Installation is easy through [CommandBox](https://www.ortussolutions.com/products/commandbox) and [ForgeBox](https://www.coldbox.org/forgebox).  Simply type `box install qb` to get started.
+Installation is easy through [CommandBox](https://www.ortussolutions.com/products/commandbox) and [ForgeBox](https://www.forgebox.io/).  Simply type `box install qb` to get started.
 
 
 ## Usage
