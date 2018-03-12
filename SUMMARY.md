@@ -26,6 +26,7 @@
   * [Creating Table Constraints](schema/creating-table-constraints.md)
   * [Alter](schema/alter.md)
   * [Drop](schema/drop.md)
+* [Contributing & Filing Issues](contributing.md)
 * [Contributors](contributors.md)
 * [Migration Guide](migration-guide.md)
 
