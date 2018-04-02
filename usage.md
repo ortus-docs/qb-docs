@@ -55,7 +55,8 @@ qb = {
             grammar = di1.getBean( "MySQLGrammar" ),
             utils = di1.getBean( "QueryUtils" ),
             returnFormat = "array"
-         });
+         })
+         .asTransient();
     }
   }
 }
