@@ -1,10 +1,10 @@
-# Drop Tables
+# Drop
 
 Dropping tables straightforward in `qb`.
 
-> For dropping columns or constraints, see [Alter](schema/alter.md).
+> For dropping columns or constraints, see [Alter](https://github.com/ortus/qb/tree/b0b49b9b35032508e73231da3a39856a7bc9d21b/schema/schema/alter.md).
 
-### drop
+## drop
 
 Drop a table from the database.
 
@@ -18,7 +18,7 @@ Drop a table from the database.
 
 **SchemaBuilder**
 
-```js
+```javascript
 schema.drop( "user_logins" );
 ```
 
@@ -28,7 +28,7 @@ schema.drop( "user_logins" );
 DROP TABLE `user_logins`
 ```
 
-### dropIfExists
+## dropIfExists
 
 Drop a table from the database if it exists.
 
@@ -42,7 +42,7 @@ Drop a table from the database if it exists.
 
 **SchemaBuilder**
 
-```js
+```javascript
 schema.dropIfExists( "user_logins" );
 ```
 
@@ -51,6 +51,4 @@ schema.dropIfExists( "user_logins" );
 ```sql
 DROP TABLE IF EXISTS `user_logins`
 ```
-
-
 

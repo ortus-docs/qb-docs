@@ -1,4 +1,4 @@
-# Introduction
+# README
 
 ![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)
 
@@ -20,13 +20,6 @@ Using qb, you can:
 
 * Adobe ColdFusion 11+
 * Lucee 4.5+
-
-qb supports four major database grammars:
-
-* MSSQL \(`MSSQLGrammar`\)
-* MySQL \(`MySQLGrammar`\)
-* Oracle \(`OracleGrammar`\)
-* Postgres \(`PostgresGrammar`\)
 
 ## Installation
 
@@ -149,7 +142,7 @@ Two interception points are available from QB: `preQBExecute` and `postQBExecute
 
 Thanks goes to these wonderful people \([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)\):
 
-|  [📝]() [📖](https://github.com/elpete/qb-docs/commits?author=tonyjunkes) |  [💬]() [📝]() [🐛](https://github.com/elpete/qb-docs/issues?q=author%3Aelpete) [💻](https://github.com/elpete/qb-docs/commits?author=elpete) [🎨]() [📖](https://github.com/elpete/qb-docs/commits?author=elpete) [💡]() [👀]() [📢]() [⚠️](https://github.com/elpete/qb-docs/commits?author=elpete) |  [🐛](https://github.com/elpete/qb-docs/issues?q=author%3ABluewaterSolutions) [💻](https://github.com/elpete/qb-docs/commits?author=BluewaterSolutions) [📖](https://github.com/elpete/qb-docs/commits?author=BluewaterSolutions) |  [🐛](https://github.com/elpete/qb-docs/issues?q=author%3Amurphydan) [💻](https://github.com/elpete/qb-docs/commits?author=murphydan) |  [💬]() [💻](https://github.com/elpete/qb-docs/commits?author=aliaspooryorik) |  [💻](https://github.com/elpete/qb-docs/commits?author=timmaybrown) |
+|  [📝](readme.md#blog-tonyjunkes) [📖](https://github.com/elpete/qb-docs/commits?author=tonyjunkes) |  [💬](readme.md#question-elpete) [📝](readme.md#blog-elpete) [🐛](https://github.com/elpete/qb-docs/issues?q=author%3Aelpete) [💻](https://github.com/elpete/qb-docs/commits?author=elpete) [🎨](readme.md#design-elpete) [📖](https://github.com/elpete/qb-docs/commits?author=elpete) [💡](readme.md#example-elpete) [👀](readme.md#review-elpete) [📢](readme.md#talk-elpete) [⚠️](https://github.com/elpete/qb-docs/commits?author=elpete) |  [🐛](https://github.com/elpete/qb-docs/issues?q=author%3ABluewaterSolutions) [💻](https://github.com/elpete/qb-docs/commits?author=BluewaterSolutions) [📖](https://github.com/elpete/qb-docs/commits?author=BluewaterSolutions) |  [🐛](https://github.com/elpete/qb-docs/issues?q=author%3Amurphydan) [💻](https://github.com/elpete/qb-docs/commits?author=murphydan) |  [💬](readme.md#question-aliaspooryorik) [💻](https://github.com/elpete/qb-docs/commits?author=aliaspooryorik) |  [💻](https://github.com/elpete/qb-docs/commits?author=timmaybrown) |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 
 

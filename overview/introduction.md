@@ -1,6 +1,8 @@
+# Introduction
+
 ## Introduction
 
-qb is a fluent query builder for ColdBox.  It is **heavily** inspired by [Eloquent](https://laravel.com/docs/5.3/eloquent) from [Laravel](https://laravel.com/).
+qb is a fluent query builder for ColdBox. It is **heavily** inspired by [Eloquent](https://laravel.com/docs/5.3/eloquent) from [Laravel](https://laravel.com/).
 
 Using qb, you can:
 
@@ -21,6 +23,4 @@ qb database query builder provides a convenient, fluent interface to creating an
 * Microsoft SQL Server
 * Oracle 11g
 * Postgres
-
-
 

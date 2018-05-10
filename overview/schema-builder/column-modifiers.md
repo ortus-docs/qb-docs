@@ -1,13 +1,13 @@
 # Column Modifiers
 
-When [creating a column](/schema/fields.md) from the `Blueprint` object, a `Column` object is returned.  This `column` gives you access to a few modifier commands to further configure the column.
+When [creating a column](columns.md) from the `Blueprint` object, a `Column` object is returned. This `column` gives you access to a few modifier commands to further configure the column.
 
 | Methods |  |
 | --- | --- |
-| [comment](#comment) | [default](#default) |
-| [nullable](#nullable) | [primaryKey](#primaryKey) |
-| [references](#references) | [unsigned](#unsigned) |
-| [unique](#unique) |  |
+| [comment](column-modifiers.md#comment) | [default](column-modifiers.md#default) |
+| [nullable](column-modifiers.md#nullable) | [primaryKey](column-modifiers.md#primaryKey) |
+| [references](column-modifiers.md#references) | [unsigned](column-modifiers.md#unsigned) |
+| [unique](column-modifiers.md#unique) |  |
 
 ## comment
 
@@ -21,7 +21,7 @@ Attach a comment to the column.
 
 **SchemaBuilder**
 
-```js
+```javascript
 schema.create( "users", function( table ) {
     table.integer( "age" ).comment( "Do not lie about your age" );
 } );
@@ -47,7 +47,7 @@ Sets a default value for the column.
 
 **SchemaBuilder**
 
-```
+```text
 schema.create( "users", function( table ) {
     table.boolean( "is_active" ).default( 1 );
 } );
@@ -69,13 +69,13 @@ Sets the column to allow null values.
 | --- | --- | --- | --- | --- |
 | No arguments |  |  |  |  |
 
-All columns are created as `NOT NULL` by default.  As such, there is no `notNull` method.
+All columns are created as `NOT NULL` by default. As such, there is no `notNull` method.
 
 **Example:**
 
 **SchemaBuilder**
 
-```
+```text
 schema.create( "users", function( table ) {
     table.timestamp( "last_logged_in" ).nullable()
 } );
@@ -97,13 +97,13 @@ Adds the column as a primary key for the table.
 | --- | --- | --- | --- | --- |
 | indexName | string | `false` | A derived name built from the table name and column name. | The name to use for the primary key constraint. |
 
-The `primaryKey` method returns a [`TableIndex` instance.](schema/indexes.md)  Additional methods can be chained off of it.
+The `primaryKey` method returns a [`TableIndex` instance.](https://github.com/ortus/qb/tree/b0b49b9b35032508e73231da3a39856a7bc9d21b/schema/schema/indexes.md) Additional methods can be chained off of it.
 
 **Example:**
 
 **SchemaBuilder**
 
-```
+```text
 schema.create( "users", function( table ) {
     table.uuid( "id" ).primaryKey();
 } );
@@ -126,13 +126,13 @@ Creates a foreign key constraint for the column.
 | --- | --- | --- | --- | --- |
 | value | string | `true` |  | The default value. |
 
-**IMPORTANT:** Additional configuration of the foreign constraint is done by calling methods on the returned [`TableIndex` instance.](schema/indexes.md)
+**IMPORTANT:** Additional configuration of the foreign constraint is done by calling methods on the returned [`TableIndex` instance.](https://github.com/ortus/qb/tree/b0b49b9b35032508e73231da3a39856a7bc9d21b/schema/schema/indexes.md)
 
 **Example:**
 
 **SchemaBuilder**
 
-```
+```text
 schema.create( "users", function( table ) {
     table.unsignedInteger( "country_id" ).references( "id" ).onTable( "countries" ).onDelete( "cascade" );
 } );
@@ -159,7 +159,7 @@ Sets the column as unsigned.
 
 **SchemaBuilder**
 
-```
+```text
 schema.create( "users", function( table ) {
     table.integer( age" ).unsigned();
 } );
@@ -185,7 +185,7 @@ Sets the column to have the UNIQUE constraint.
 
 **SchemaBuilder**
 
-```
+```text
 schema.create( "email", function( table ) {
     table.string( email" ).unique();
 } );
@@ -198,6 +198,4 @@ CREATE TABLE `users` (
     `email` VARCHAR(255) NOT NULL UNIQUE
 )
 ```
-
-
 

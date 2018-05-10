@@ -1,10 +1,10 @@
 # Creating Table Constraints
 
-Sometimes you want to add constraints on a table level, rather than a column level.  The following methods will let you accomplish that.
+Sometimes you want to add constraints on a table level, rather than a column level. The following methods will let you accomplish that.
 
 ## foreignKey
 
-Create a foreign key constraint from one or more columns.  Follow up this call with calls to the `TableIndex`'s [`references`](/schema/indexes.md#references) and [`onTable`](/schema/indexes.md#onTable) methods.
+Create a foreign key constraint from one or more columns. Follow up this call with calls to the `TableIndex`'s [`references`](indexes.md#references) and [`onTable`](indexes.md#onTable) methods.
 
 | Argument | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -15,7 +15,7 @@ Create a foreign key constraint from one or more columns.  Follow up this call w
 
 **SchemaBuilder**
 
-```
+```text
 schema.create( "users", function( table ) {
     table.unsignedInteger( "country_id" );
     table.foreignKey( "country_id" ).references( "id" ).onTable( "countries" );
@@ -45,7 +45,7 @@ Create a generic index from one or more columns.
 
 **SchemaBuilder**
 
-```
+```text
 schema.create( "users", function( table ) {
     table.string( "first_name" );
     table.string( "last_name" );
@@ -77,7 +77,7 @@ Create a primary key constraint from one or more columns.
 
 **SchemaBuilder**
 
-```
+```text
 schema.create( "posts_users", function( table ) {
     table.unsignedInteger( "post_id" ).references( "id" ).onTable( "posts" );
     table.unsignedInteger( "user_id" ).references( "id" ).onTable( "users" );
@@ -111,7 +111,7 @@ Create a unique constraint from one or more columns.
 
 **SchemaBuilder**
 
-```
+```text
 schema.create( "users", function( table ) {
     table.increments( "id" );
     table.string( "username ");
@@ -127,6 +127,4 @@ CREATE TABLE `users` (
     UNIQUE (`username`)
 )
 ```
-
-
 
