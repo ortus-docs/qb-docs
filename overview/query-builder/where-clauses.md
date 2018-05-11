@@ -137,9 +137,11 @@ writeDump(getResults);
 SELECT * FROM `users` WHERE `age` NOT BETWEEN 18 AND 21
 ```
 
-**whereIn / whereNotIn**
+**whereIn / whereNotIn** (sub-queries)
 
-The `whereIn` method verifies that a given column's value is contained within the given array:
+The `whereIn` method verifies that a given column's value is contained within the provided array or QueryBuilder object:
+
+Array:
 
 ```text
 var getResults = query.from('users')
@@ -148,7 +150,20 @@ var getResults = query.from('users')
 writeDump(getResults);
 ```
 
-The `whereNotIn` method verifies that the given column's value is **not** contained in the given array:
+QueryBuilder (fetch all users whose age is in the all_ages table with a value between 17 and 21):
+
+```text
+var getResults = query.from('users')
+       .whereIn('age', function ( subQuery ) {
+        return subQuery.select( "age" )
+        .from( "all_ages" )
+        .whereBetween("age","17","21");
+    })
+    .get();
+writeDump(getResults);
+```
+
+The `whereNotIn` method verifies that the given column's value is **not** contained in the provided array of QueryBuilder object:
 
 ```text
 var getResults = query.from('users')
