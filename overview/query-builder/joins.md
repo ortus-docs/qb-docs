@@ -15,6 +15,23 @@ writeDump(getResults);
 SELECT users.name,blogs.title,blogs.ID as blogID FROM `blogs` INNER JOIN `users` ON `users`.`ID` = `blogs`.`FK_usersID`
 ```
 
+### Complex (multi-conditional) Join Clause
+
+For a compound join clause, pass in the name of the table as the first argument (just as before) but instead of passing the remaining arguments descirbing the single join clause, we'll pass a single closure with a `joinClause` argument. Consider a (contrived) example where our `users` and `blogs` had to match not only `ID` but also `type`:
+
+```text
+//qb
+var getResults = query.from( "blogs" )
+    .join( "users", function( j ) {
+        j.on( "users.ID", "=", "blogs.FK_usersID" )
+            .on( "users.type", "=", "blogs.type" );
+    } )
+    .get();
+
+//sql
+SELECT users.name,blogs.title,blogs.ID as blogID FROM `blogs` INNER JOIN `users` ON `users`.`ID` = `blogs`.`FK_usersID` AND `users`.`type` = `blogs`.`type`
+```
+
 ## Left/Right Join Clause
 
 If you would like to perform a "left/right join" instead of an "inner join", use the `leftJoin` / `rightJoin` method. The `leftJoin` / `rightJoin` method has the same signature as the `join` method:
