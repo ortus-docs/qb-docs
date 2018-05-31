@@ -24,7 +24,7 @@ For a compound join clause, pass in the name of the table as the first argument 
 var getResults = query.from('blogs')
     .join('users', function( clauseObj ) {
         return clauseObj.on('users.ID','=','blogs.FK_usersID')
-        .on('users.type','=','blogs.type')
+        .on('users.type','=','blogs.type');
     })
     .get();
 
