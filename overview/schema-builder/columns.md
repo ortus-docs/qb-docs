@@ -1,6 +1,6 @@
 # Columns
 
-The `Blueprint` object has many column types available to construct your table schema. Additionally, you can modify the columns created [with an additional set of methods](https://github.com/ortus/qb/tree/b0b49b9b35032508e73231da3a39856a7bc9d21b/schema/schema/column-modifiers.md) and [indexes](https://github.com/ortus/qb/tree/b0b49b9b35032508e73231da3a39856a7bc9d21b/schema/schema/indexes.md).
+The `Blueprint` object has many column types available to construct your table schema. Additionally, you can modify the columns created [with an additional set of methods](column-modifiers.md) and [indexes](indexes.md).
 
 | Columns |  |  |  |
 | --- | --- | --- | --- |
