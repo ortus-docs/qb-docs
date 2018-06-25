@@ -2,7 +2,7 @@
 
 The alter method loads up an existing table in order to make modifications. These modifications may include adding, renaming, or dropping columns and constraints.
 
-To begin altering an existing table, call the `alter` method off of the `SchemaBuilder`. This method takes a callback as the second parameter that is passed a `Blueprint` object, much like the [`create`](https://github.com/ortus/qb/tree/b0b49b9b35032508e73231da3a39856a7bc9d21b/schema/schema/create.md) method.
+To begin altering an existing table, call the `alter` method off of the `SchemaBuilder`. This method takes a callback as the second parameter that is passed a `Blueprint` object, much like the [`create`](create.md) method.
 
 | Argument | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -19,7 +19,7 @@ The following methods off of `Blueprint` let you modify the table inside the cal
 
 Add a new column to an existing table. Takes a `Column` instance as the only argument.
 
-Any instance of `Column` is valid like those returned by the [column methods](https://github.com/ortus/qb/tree/b0b49b9b35032508e73231da3a39856a7bc9d21b/schema/schema/columns.md) \(`integer`, `string`, etc.\) as well as the [column modifier methods](https://github.com/ortus/qb/tree/b0b49b9b35032508e73231da3a39856a7bc9d21b/schema/schema/column-modifiers/README.md) \(`unsigned`, `nullable`, etc.\).
+Any instance of `Column` is valid like those returned by the [column methods](columns.md) \(`integer`, `string`, etc.\) as well as the [column modifier methods](column-modifiers.md) \(`unsigned`, `nullable`, etc.\).
 
 | Argument | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -117,7 +117,7 @@ ALTER TABLE `users` CHANGE `name` `username` VARCHAR(255) NOT NULL
 
 ## addConstraint
 
-Add an index or key to an existing table. Any `TableIndex` instance is valid, like those created by the [index methods](https://github.com/ortus/qb/tree/b0b49b9b35032508e73231da3a39856a7bc9d21b/schema/schema/indexes.md) \(`unique`, `index`, `primaryKey`, etc.\).
+Add an index or key to an existing table. Any `TableIndex` instance is valid, like those created by the [index methods](indexes.md) \(`unique`, `index`, `primaryKey`, etc.\).
 
 | Argument | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
