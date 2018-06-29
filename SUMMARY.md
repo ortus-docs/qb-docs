@@ -20,6 +20,7 @@
   * [Inserts](overview/query-builder/inserts.md)
   * [Updates](overview/query-builder/updates.md)
   * [Deletes](overview/query-builder/deletes.md)
+  * [New Query](overview/query-builder/new-query.md)  
 * [Schema Builder](overview/schema-builder/README.md)
   * [Create](overview/schema-builder/create.md)
   * [Columns](overview/schema-builder/columns.md)
