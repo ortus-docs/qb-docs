@@ -246,3 +246,19 @@ writeDump(getResults);
 SELECT * FROM `users` WHERE `modifiedDate` <> `createdDate`
 ```
 
+**WHERE (a = ? OR b = ?) AND c = ?**
+
+Here is an example of how to strategically place parentheses with `OR` using closures.
+
+```text
+//qb
+var getResults = query.from('users')
+    .where( function( q ) {
+        q.where( "a", 1 ).orWhere( "b", 2 );
+    } )
+    .where( "c", 3 );
+writeDump(getResults);
+
+// sql
+SELECT * FROM `users` WHERE (a = ? OR b = ?) AND c = ?
+```
