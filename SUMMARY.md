@@ -19,6 +19,7 @@
   * [Conditionals](overview/query-builder/conditionals.md)
   * [Ordering, Grouping & Limit](overview/query-builder/ordering-grouping-and-limit.md)
   * [Unions](overview/query-builder/unions.md)
+  * [Common Table Expressions (i.e. CTEs)](overview/query-builder/common-table-expressions.md)
   * [Inserts](overview/query-builder/inserts.md)
   * [Updates](overview/query-builder/updates.md)
   * [Deletes](overview/query-builder/deletes.md)
