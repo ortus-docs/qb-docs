@@ -37,7 +37,13 @@ var getResults = query
 writeDump(getResults);
 
 // sql
-WITH `UserCTE` AS (SELECT `fName` as `firstName`, `lName` as `lastName` FROM `users` WHERE `disabled` = 0) SELECT * FROM `UserCTE`
+WITH `UserCTE` AS (
+	SELECT
+		`fName` as `firstName`,
+		`lName` as `lastName`
+	FROM `users`
+	WHERE `disabled` = 0
+) SELECT * FROM `UserCTE`
 ```
 
 
@@ -60,7 +66,14 @@ var getResults = query
 writeDump(getResults);
 
 // sql
-WITH `UserCTE` AS (SELECT `fName` as `firstName`, `lName` as `lastName` FROM `users` WHERE `disabled` = 0) SELECT * FROM `UserCTE`
+WITH `UserCTE` AS (
+	SELECT
+		`fName` as `firstName`,
+		`lName` as `lastName`
+	FROM `users`
+	WHERE `disabled` = 0
+)
+SELECT * FROM `UserCTE`
 ```
 
 
@@ -90,7 +103,23 @@ var getResults = query
 writeDump(getResults);
 
 // sql
-WITH `UserCTE` AS (SELECT `id`, `fName` as `firstName`, `lName` as `lastName` FROM `users` WHERE `disabled` = 0), `BlogCTE` AS (SELECT * FROM `blogs` WHERE `disabled` = 0) SELECT * FROM `BlogCTE` AS `b` INNER JOIN `UserCTE` AS `u` ON `b`.`Creator` = `u`.`id`
+WITH `UserCTE` AS (
+	SELECT
+		`id`,
+		`fName` as `firstName`,
+		`lName` as `lastName`
+	FROM `users`
+	WHERE `disabled` = 0
+),
+`BlogCTE` AS (
+	SELECT *
+	FROM `blogs`
+	WHERE `disabled` = 0
+)
+SELECT *
+FROM `BlogCTE` AS `b`
+INNER JOIN `UserCTE` AS `u`
+ON `b`.`Creator` = `u`.`id`
 ```
 
 
