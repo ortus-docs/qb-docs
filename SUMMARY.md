@@ -13,6 +13,7 @@
   * [Retrieving Results](overview/query-builder/retrieving-results.md)
   * [Aggregates](overview/query-builder/aggregates.md)
   * [Selects](overview/query-builder/selects.md)
+  * [From](overview/query-builder/from.md)
   * [Joins](overview/query-builder/joins.md)
   * [Where Clauses](overview/query-builder/where-clauses.md)
   * [Conditionals](overview/query-builder/conditionals.md)
