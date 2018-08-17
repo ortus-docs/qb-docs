@@ -17,6 +17,7 @@
   * [Where Clauses](overview/query-builder/where-clauses.md)
   * [Conditionals](overview/query-builder/conditionals.md)
   * [Ordering, Grouping & Limit](overview/query-builder/ordering-grouping-and-limit.md)
+  * [Unions](overview/query-builder/unions.md)
   * [Inserts](overview/query-builder/inserts.md)
   * [Updates](overview/query-builder/updates.md)
   * [Deletes](overview/query-builder/deletes.md)
