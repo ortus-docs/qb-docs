@@ -2,7 +2,7 @@
 
 Dropping tables straightforward in `qb`.
 
-> For dropping columns or constraints, see [Alter](https://github.com/ortus/qb/tree/b0b49b9b35032508e73231da3a39856a7bc9d21b/schema/schema/alter.md).
+> For dropping columns or constraints, see [Alter](alter.md).
 
 ## drop
 
