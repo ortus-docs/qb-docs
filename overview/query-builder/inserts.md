@@ -12,7 +12,7 @@ writeDump(addRecords);
 INSERT INTO `users` (`age`, `email`, `name`) VALUES (55, `robert@test.com`, `Robert`)
 ```
 
-You may even insert several records into the table with a single call to `insert` by passing an array of arrays. Each array represents a row to be inserted into the table:
+You may even insert several records into the table with a single call to `insert` by passing an array of structs. Each struct represents a row to be inserted into the table:
 
 ```text
 //qb
