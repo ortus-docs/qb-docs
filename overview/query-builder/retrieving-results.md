@@ -5,17 +5,19 @@ Usage\#\# Retrieving Results
 ## Retrieving All Rows From A Table
 
 ```javascript
-//qb
-var getAllResults = query.from('users')
-    .get();
-writeDump(getAllResults);
+// qb
+var getAllResults = query.from( "users" ).get();
+writeDump( getAllResults );
 
-//sql
-select * from users
+// sql
+// select * from users
 
 // more qb examples
-var getAllResults = query.from('users')
-    .get(columns="Id,Name", options={ datasource='myAdditionalDatasource');
+var getAllResults = query.from( "users" )
+    .get(
+        columns = [ "Id", "Name" ],
+        options = { datasource = "myAdditionalDatasource" }
+    );
 ```
 
 The `get` method returns an `Array` of `Structs` by default. Both `columns` and `options` are optional. 
