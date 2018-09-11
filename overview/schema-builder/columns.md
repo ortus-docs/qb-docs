@@ -11,7 +11,8 @@ The `Blueprint` object has many column types available to construct your table s
 | [mediumText](columns.md#mediumText) | [morphs](columns.md#morphs) | [nullableMorphs](columns.md#nullableMorphs) | [raw](columns.md#raw) |
 | [smallIncrements](columns.md#smallIncrements) | [smallInteger](columns.md#smallInteger) | [string](columns.md#string) | [text](columns.md#text) |
 | [time](columns.md#time) | [timestamp](columns.md#timestamp) | [tinyIncrements](columns.md#tinyIncrements) | [tinyInteger](columns.md#tinyInteger) |
-| [unsignedBigInteger](columns.md#unsignedBigInteger) | [unsignedInteger](columns.md#unsignedInteger) | [unsignedMediumInteger](columns.md#unsignedMediumInteger) | [unsignedSmallInteger](columns.md#unsignedSmallInteger) |
+| [unicodeLongText](columns.md#unicodeLongText) | [unicodeMediumText](columns.md#unicodeMediumText) | [unicodeString](columns.md#unicodeString) | [unicodeText](columns.md#unicodeText) |
+|[unsignedBigInteger](columns.md#unsignedBigInteger) | [unsignedInteger](columns.md#unsignedInteger) | [unsignedMediumInteger](columns.md#unsignedMediumInteger) | [unsignedSmallInteger](columns.md#unsignedSmallInteger) |
 | [unsignedTinyInteger](columns.md#unsignedTinyInteger) | [uuid](columns.md#uuid) |  |  |
 
 ## bigIncrements
@@ -609,7 +610,7 @@ CREATE TABLE `games` (
 
 ## mediumText
 
-Create a column using a `MEDIUMTEXT` equivalent type for your database.
+Create a column using a `MEDIUMTEXT` equivalent type for your database. For databases that distinguish between unicode and non-unicode fields, creates a non-unicode field.
 
 | Argument | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -630,6 +631,14 @@ schema.create( "posts", function( table ) {
 ```sql
 CREATE TABLE `posts` (
     `body` MEDIUMTEXT NOT NULL
+)
+```
+
+**SQL \(MSSQL\)**
+
+```sql
+CREATE TABLE `posts` (
+    `body` VARCHAR(MAX) NOT NULL
 )
 ```
 
@@ -794,7 +803,7 @@ CREATE TABLE `games` (
 
 ## string
 
-Create a column using a `VARCHAR` equivalent type for your database.
+Create a column using a `VARCHAR` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will create a non-unicode string.
 
 | Argument | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -839,7 +848,7 @@ CREATE TABLE `users` (
 
 ## text
 
-Create a column using a `TEXT` equivalent type for your database.
+Create a column using a `TEXT` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will create a non-unicode text field.
 
 | Argument | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -985,6 +994,168 @@ schema.create( "games", function( table ) {
 ```sql
 CREATE TABLE `games` (
     `score` TINYINT(3) NOT NULL
+)
+```
+## unicodeLongText
+
+Create a column using a `LONGTEXT` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will create a unicode text field.
+
+| Argument | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| name | string | `true` |  | The name for the column. |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "posts", function( table ) {
+    table.longText( "body" );
+} );
+```
+
+**SQL \(MySQL\)**
+
+```sql
+CREATE TABLE `posts` (
+    `body` LONGTEXT NOT NULL
+)
+```
+
+
+**SQL \(MSSQL\)**
+
+```sql
+CREATE TABLE [posts] (
+    [body] NVARCHAR(MAX) NOT NULL
+)
+```
+## unicodeMediumText
+
+Create a unicode-enabled column using a `MEDIUMTEXT` equivalent type for your database.  For databases that distinguish between unicode- and non-unicode string data types, this function will create a unicode text field.
+
+| Argument | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| name | string | `true` |  | The name for the column. |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "posts", function( table ) {
+    table.unicodeMediumText( "body" );
+} );
+```
+
+**SQL \(MySQL\)**
+
+```sql
+CREATE TABLE `posts` (
+    `body` MEDIUMTEXT NOT NULL
+)
+```
+
+**SQL \(MSSQL\)**
+
+```sql
+CREATE TABLE [posts] (
+    [body] NVARCHAR(MAX) NOT NULL
+)
+```
+
+## unicodeString
+
+Create a column using a `NVARCHAR` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will create a unicode string.
+
+| Argument | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| name | string | `true` |  | The name for the column. |
+| length | numeric | `false` | 255 | The length of the column. |
+
+**Example \(with defaults\):**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "users", function( table ) {
+    table.unicodeString( "username" );
+} );
+```
+
+**SQL \(MySQL\)**
+
+```sql
+CREATE TABLE `users` (
+    `username` VARCHAR(255) NOT NULL
+)
+```
+
+**SQL \(MSSQL\)**
+
+```sql
+CREATE TABLE [users] (
+    [username] NVARCHAR(255) NOT NULL
+)
+```
+
+**Example \(with length\):**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "users", function( table ) {
+    table.unicodeString( "username", 50 );
+} );
+```
+
+**SQL \(MySQL\)**
+
+```sql
+CREATE TABLE `users` (
+    `username` VARCHAR(50) NOT NULL
+)
+```
+
+**SQL \(MSSQL\)**
+
+```sql
+CREATE TABLE [users] (
+    [username] NVARCHAR(50) NOT NULL
+)
+```
+
+## unicodeText
+
+Create a column using a `NTEXT` equivalent type for your database. 
+
+| Argument | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| name | string | `true` |  | The name for the column. |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "posts", function( table ) {
+    table.unicodeText( "body" );
+} );
+```
+
+**SQL \(MySQL\)**
+
+```sql
+CREATE TABLE `posts` (
+    `body` TEXT NOT NULL
+)
+```
+
+**SQL \(MSSQL\)**
+
+```sql
+CREATE TABLE [posts] (
+    [body] NVARCHAR(MAX) NOT NULL
 )
 ```
 
