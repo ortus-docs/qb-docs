@@ -610,7 +610,7 @@ CREATE TABLE `games` (
 
 ## mediumText
 
-Create a column using a `MEDIUMTEXT` equivalent type for your database. For databases that distinguish between unicode- and non-unicode fields, create a non-unicode field.
+Create a column using a `MEDIUMTEXT` equivalent type for your database. For databases that distinguish between unicode and non-unicode fields, creates a non-unicode field.
 
 | Argument | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -634,7 +634,7 @@ CREATE TABLE `posts` (
 )
 ```
 
-**SQL \(MySQL\)**
+**SQL \(MSSQL\)**
 
 ```sql
 CREATE TABLE `posts` (
@@ -803,7 +803,7 @@ CREATE TABLE `games` (
 
 ## string
 
-Create a column using a `VARCHAR` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will use a non-unicode string.
+Create a column using a `VARCHAR` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will create a non-unicode string.
 
 | Argument | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -848,7 +848,7 @@ CREATE TABLE `users` (
 
 ## text
 
-Create a column using a `TEXT` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will use a non-unicode text field.
+Create a column using a `TEXT` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will create a non-unicode text field.
 
 | Argument | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -998,7 +998,7 @@ CREATE TABLE `games` (
 ```
 ## unicodeLongText
 
-Create a column using a `LONGTEXT` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will use a unicode text field.
+Create a column using a `LONGTEXT` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will create a unicode text field.
 
 | Argument | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -1032,7 +1032,7 @@ CREATE TABLE [posts] (
 ```
 ## unicodeMediumText
 
-Create a unicode-enabled column using a `MEDIUMTEXT` equivalent type for your database.  For databases that distinguish between unicode- and non-unicode string data types, this function will use a unicode text field.
+Create a unicode-enabled column using a `MEDIUMTEXT` equivalent type for your database.  For databases that distinguish between unicode- and non-unicode string data types, this function will create a unicode text field.
 
 | Argument | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -1066,7 +1066,7 @@ CREATE TABLE [posts] (
 
 ## unicodeString
 
-Create a column using a `NVARCHAR` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will use a unicode string.
+Create a column using a `NVARCHAR` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will create a unicode string.
 
 | Argument | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -1087,9 +1087,18 @@ schema.create( "users", function( table ) {
 
 ```sql
 CREATE TABLE `users` (
-    `username` NVARCHAR(255) NOT NULL
+    `username` VARCHAR(255) NOT NULL
 )
 ```
+
+**SQL \(MSSQL\)**
+
+```sql
+CREATE TABLE [users] (
+    [username] NVARCHAR(255) NOT NULL
+)
+```
+
 **Example \(with length\):**
 
 **SchemaBuilder**
@@ -1104,9 +1113,18 @@ schema.create( "users", function( table ) {
 
 ```sql
 CREATE TABLE `users` (
-    `username` NVARCHAR(50) NOT NULL
+    `username` VARCHAR(50) NOT NULL
 )
 ```
+
+**SQL \(MSSQL\)**
+
+```sql
+CREATE TABLE [users] (
+    [username] NVARCHAR(50) NOT NULL
+)
+```
+
 ## unicodeText
 
 Create a column using a `NTEXT` equivalent type for your database. 
@@ -1129,7 +1147,7 @@ schema.create( "posts", function( table ) {
 
 ```sql
 CREATE TABLE `posts` (
-    `body` NTEXT NOT NULL
+    `body` TEXT NOT NULL
 )
 ```
 
