@@ -4,15 +4,28 @@
 
 Of course, you may not always want to select all columns from a database table. Using the `from` method, you can specify a custom `from` clause for the query:
 
-```text
+```javascript
 var getResults = query.from('users')
     .get('name,email,age');
+writeDump(getResults);
+```
+Individual columns can contain fully-qualified names (i.e. "some_table.some_column"), fully-qualified names with table aliases (i.e. "alias.some_column"), and even set column aliases themselves (i.e. "some_column AS c").
+Columns can be a single column, a list or columns (comma-separated), or an array of columns.
+
+```javascript
+var getResults = query.from('users')
+    .get('name as myAccountName,users.email,age');
+writeDump(getResults);
+```
+```javascript
+var getResults = query.from('users as myTableAlias')
+    .get( columns = ['name as myAccountName' ,'myTableAlias.email' ,'age'], options= { datasource='myOtherDatasource'} );
 writeDump(getResults);
 ```
 
 The `distinct` method allows you to force the query to return distinct results:
 
-```text
+```javascript
 var getResults = query.from('users')
     .distinct('email');
 writeDump(getResults);
@@ -20,7 +33,7 @@ writeDump(getResults);
 
 If you already have a query builder instance and you wish to add a column to its existing select clause, you may use the `addSelect` method:
 
-```text
+```javascript
 var getResults = query.from('users')
     .where('age','>=','18');
 getResults = getResults.addSelect('name,email,age').get();
