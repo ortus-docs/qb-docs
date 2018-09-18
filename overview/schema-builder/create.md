@@ -9,7 +9,7 @@ This method allows you to create a table object.
 | options | struct | `false` | `{}` | Options to pass to `queryExecute`. |
 | execute | boolean | `false` | `true` | Run the query immediately after building it. |
 
-The majority of the work comes from calling methods on the `Blueprint` object. A `Blueprint` defines the [columns](https://github.com/ortus/qb/tree/b0b49b9b35032508e73231da3a39856a7bc9d21b/schema/columns.md) and [indexes](indexes.md) for your tables.
+The majority of the work comes from calling methods on the `Blueprint` object. A `Blueprint` defines the [columns](columns.md) and [indexes](indexes.md) for your tables.
 
 Example:
 
