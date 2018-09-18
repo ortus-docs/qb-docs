@@ -4,15 +4,15 @@ The `Blueprint` object has many column types available to construct your table s
 
 |                   Columns                   |                                     |                                                 |                                               |
 |---------------------------------------------|-------------------------------------|-------------------------------------------------|-----------------------------------------------|
-| [bigIncrements](#bigIncrements)             | [bigInteger](#bigInteger)           | [bit](#bit)                                     | [boolean](#boolean)                           |
+| [bigIncrements](#bigincrements)             | [bigInteger](#biginteger)           | [bit](#bit)                                     | [boolean](#boolean)                           |
 | [char](#char)                               | [date](#date)                       | [datetime](#datetime)                           | [decimal](#decimal)                           |
 | [enum](#enum)                               | [float](#float)                     | [increments](#increments)                       | [integer](#integer)                           |
-| [json](#json)                               | [longText](#longText)               | [mediumIncrements](#mediumIncrements)           | [mediumInteger](#mediumInteger)               |
-| [mediumText](#mediumText)                   | [morphs](#morphs)                   | [nullableMorphs](#nullableMorphs)               | [raw](#raw)                                   |
-| [smallIncrements](#smallIncrements)         | [smallInteger](#smallInteger)       | [string](#string)                               | [text](#text)                                 |
-| [time](#time)                               | [timestamp](#timestamp)             | [tinyIncrements](#tinyIncrements)               | [tinyInteger](#tinyInteger)                   |
-| [unsignedBigInteger](#unsignedBigInteger)   | [unsignedInteger](#unsignedInteger) | [unsignedMediumInteger](#unsignedMediumInteger) | [unsignedSmallInteger](#unsignedSmallInteger) |
-| [unsignedTinyInteger](#unsignedTinyInteger) | [uuid](#uuid)                       |                                                 |                                               |
+| [json](#json)                               | [longText](#longText)               | [mediumIncrements](#mediumincrements)           | [mediumInteger](#mediuminteger)               |
+| [mediumText](#mediumtext)                   | [morphs](#morphs)                   | [nullableMorphs](#nullablemorphs)               | [raw](#raw)                                   |
+| [smallIncrements](#smallIncrements)         | [smallInteger](#smallinteger)       | [string](#string)                               | [text](#text)                                 |
+| [time](#time)                               | [timestamp](#timestamp)             | [tinyIncrements](#tinyincrements)               | [tinyInteger](#tinyinteger)                   |
+| [unsignedBigInteger](#unsignedbiginteger)   | [unsignedInteger](#unsignedinteger) | [unsignedMediumInteger](#unsignedmediuminteger) | [unsignedSmallInteger](#unsignedsmallinteger) |
+| [unsignedTinyInteger](#unsignedtinyinteger) | [uuid](#uuid)                       |                                                 |                                               |
 
 
 ## bigIncrements
