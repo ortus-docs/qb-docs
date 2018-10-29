@@ -7,7 +7,7 @@ The `Blueprint` object has many column types available to construct your table s
 | [bigIncrements](#bigincrements)             | [bigInteger](#biginteger)           | [bit](#bit)                                     | [boolean](#boolean)                           |
 | [char](#char)                               | [date](#date)                       | [datetime](#datetime)                           | [decimal](#decimal)                           |
 | [enum](#enum)                               | [float](#float)                     | [increments](#increments)                       | [integer](#integer)                           |
-| [json](#json)                               | [longText](#longText)               | [mediumIncrements](#mediumincrements)           | [mediumInteger](#mediuminteger)               |
+| [json](#json)                               | [longText](#longtext)               | [mediumIncrements](#mediumincrements)           | [mediumInteger](#mediuminteger)               |
 | [mediumText](#mediumtext)                   | [morphs](#morphs)                   | [nullableMorphs](#nullablemorphs)               | [raw](#raw)                                   |
 | [smallIncrements](#smallIncrements)         | [smallInteger](#smallinteger)       | [string](#string)                               | [text](#text)                                 |
 | [time](#time)                               | [timestamp](#timestamp)             | [tinyIncrements](#tinyincrements)               | [tinyInteger](#tinyinteger)                   |
