@@ -1385,8 +1385,9 @@ CREATE TABLE `games` (
 ```
 
 ## uuid
+**SQL Server**: Create a column using a `uniqueidentifier`.
 
-Create a column using a `CHAR` equivalent type for your database and a length of 35. Used in conjunction with the CFML `createUUID` method.
+**MySQL** and Others: Create a column using a `CHAR` equivalent type for your database and a length of 36. Used in conjunction with the CFML `createUUID` method.
 
 | Argument | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -1402,12 +1403,20 @@ schema.create( "users", function( table ) {
 } );
 ```
 
+**MySQL \(SQL Server\)**
+```sql
+CREATE TABLE `games` (
+    `id` uniqueidentifier NOT NULL,
+    CONSTRAINT `pk_games_id` PRIMARY KEY (`id`)
+)
+```
+
 **SQL \(MySQL\)**
 
 ```sql
 CREATE TABLE `games` (
-    `id` VARCHAR(35) NOT NULL,
-    CONSTRAINT `pk_users_id` PRIMARY KEY (`id`)
+    `id` VARCHAR(36) NOT NULL,
+    CONSTRAINT `pk_games_id` PRIMARY KEY (`id`)
 )
 ```
 
