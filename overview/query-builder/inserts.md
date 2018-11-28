@@ -25,9 +25,35 @@ var addRecords = query.from( "users" )
 writeDump(addRecords);
 
 //sql
-INSERT INTO `users` (`age`, `email`, `name`) 
+INSERT INTO `users` (`age`, `email`, `name`)
 VALUES (55, `robert@test.com`, `Robert`),
         (31, `jessica@test.com`, `Jessica`),
         (9, `ross@test.com`, `Ross`)
 ```
 
+## Returning
+
+Certain grammars have the ability to return values from an insert statment.
+That can be useful if you use your built-in database functions to generate
+primary keys that you want to retrieve.
+
+```text
+// qb
+var addRecords = query.from( "users" )
+    .returning( "id" )
+    .insert( { "name" = "Robert", "email" = "robert@test.com", "age" = 55 } );
+writeDump(addRecords);
+
+// Postgres
+INSERT INTO "users" ("age", "email", "name")
+VALUES (55, "robert@test.com", "Robert")
+RETURNING "id"
+
+// MSSQL
+INSERT INTO [users] ([age], [email], [name])
+OUTPUT INSERTED.[id]
+VALUES (55, "robert@test.com", "Robert")
+```
+
+If you attempt to use `returning` on grammars that do not support it,
+you will recieve a `UnsupportedOperation` exception.
