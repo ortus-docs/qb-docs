@@ -2,41 +2,12 @@
 
 Sometimes you want to add constraints on a table level, rather than a column level. The following methods will let you accomplish that.
 
-## foreignKey
-
-Create a foreign key constraint from one or more columns. Follow up this call with calls to the `TableIndex`'s [`references`](indexes.md#references) and [`onTable`](indexes.md#onTable) methods.
-
-| Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
-| columns | string or array | `true` |  | The column or array of columns that references a key or keys on another table. |
-| name | string | `false` | A generated name consisting of the table name and column name\(s\). | The name of the foreign key constraint. |
-
-**Example:**
-
-**SchemaBuilder**
-
-```text
-schema.create( "users", function( table ) {
-    table.unsignedInteger( "country_id" );
-    table.foreignKey( "country_id" ).references( "id" ).onTable( "countries" );
-} );
-```
-
-**SQL \(MySQL\)**
-
-```sql
-CREATE TABLE `users` (
-    `country_id` INTEGER UNSIGNED NOT NULL,
-    CONSTRAINT `fk_users_country_id` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-```
-
 ## index
 
 Create a generic index from one or more columns.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | columns | string or array | `true` |  | The column or array of columns that make up the index. |
 | name | string | `false` | A generated name consisting of the table name and column name\(s\). | The name of the index constraint. |
 |  |  |  |  |  |
@@ -63,12 +34,41 @@ CREATE TABLE `users` (
 )
 ```
 
+## foreignKey
+
+Create a foreign key constraint from one or more columns. Follow up this call with calls to the `TableIndex`'s [`references`]() and [`onTable`]() methods.
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| columns | string or array | `true` |  | The column or array of columns that references a key or keys on another table. |
+| name | string | `false` | A generated name consisting of the table name and column name\(s\). | The name of the foreign key constraint. |
+
+**Example:**
+
+**SchemaBuilder**
+
+```text
+schema.create( "users", function( table ) {
+    table.unsignedInteger( "country_id" );
+    table.foreignKey( "country_id" ).references( "id" ).onTable( "countries" );
+} );
+```
+
+**SQL \(MySQL\)**
+
+```sql
+CREATE TABLE `users` (
+    `country_id` INTEGER UNSIGNED NOT NULL,
+    CONSTRAINT `fk_users_country_id` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+```
+
 ## primaryKey
 
 Create a primary key constraint from one or more columns.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | columns | string or array | `true` |  | The column or array of columns that make up the primary key. |
 | name | string | `false` | A generated name consisting of the table name and column name\(s\). | The name of the primary key constraint. |
 |  |  |  |  |  |
@@ -103,7 +103,7 @@ CREATE TABLE `posts_users` (
 Create a unique constraint from one or more columns.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | columns | string or array | `true` |  | The column or array of columns that make up the unique constraint. |
 | name | string | `false` | A generated name consisting of the table name and column name\(s\). | The name of the unique constraint. |
 

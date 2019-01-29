@@ -3,7 +3,7 @@
 When [creating a column](columns.md) from the `Blueprint` object, a `Column` object is returned. This `column` gives you access to a few modifier commands to further configure the column.
 
 | Methods |  |
-| --- | --- |
+| :--- | :--- |
 | [comment](column-modifiers.md#comment) | [default](column-modifiers.md#default) |
 | [nullable](column-modifiers.md#nullable) | [primaryKey](column-modifiers.md#primaryKey) |
 | [references](column-modifiers.md#references) | [unsigned](column-modifiers.md#unsigned) |
@@ -14,7 +14,7 @@ When [creating a column](columns.md) from the `Blueprint` object, a `Column` obj
 Attach a comment to the column.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | comment | string | `true` |  | The comment text. |
 
 **Example:**
@@ -40,7 +40,7 @@ CREATE TABLE `users` (
 Sets a default value for the column.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | value | string | `true` |  | The default value. |
 
 **Example:**
@@ -66,7 +66,7 @@ CREATE TABLE `users` (
 Sets the column to allow null values.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | No arguments |  |  |  |  |
 
 All columns are created as `NOT NULL` by default. As such, there is no `notNull` method.
@@ -94,7 +94,7 @@ CREATE TABLE `users` (
 Adds the column as a primary key for the table.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | indexName | string | `false` | A derived name built from the table name and column name. | The name to use for the primary key constraint. |
 
 The `primaryKey` method returns a [`TableIndex` instance.](https://github.com/ortus/qb/tree/b0b49b9b35032508e73231da3a39856a7bc9d21b/schema/schema/indexes.md) Additional methods can be chained off of it.
@@ -123,7 +123,7 @@ CREATE TABLE `users` (
 Creates a foreign key constraint for the column.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | value | string | `true` |  | The default value. |
 
 **IMPORTANT:** Additional configuration of the foreign constraint is done by calling methods on the returned [`TableIndex` instance.](https://github.com/ortus/qb/tree/b0b49b9b35032508e73231da3a39856a7bc9d21b/schema/schema/indexes.md)
@@ -152,7 +152,7 @@ CREATE TABLE `users` (
 Sets the column as unsigned.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | No arguments |  |  |  |  |
 
 **Example:**
@@ -178,7 +178,7 @@ CREATE TABLE `users` (
 Sets the column to have the UNIQUE constraint.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | No arguments |  |  |  |  |
 
 **Example:**

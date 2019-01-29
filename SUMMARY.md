@@ -4,7 +4,7 @@
 
 ## Overview
 
-* [README](overview/readme.md)
+* [README](overview/overview.md)
 * [Introduction](overview/introduction.md)
 * [Installation & Usage](overview/installation-and-usage.md)
 * [Query Builder](overview/query-builder/README.md)
@@ -19,16 +19,16 @@
   * [Conditionals](overview/query-builder/conditionals.md)
   * [Ordering, Grouping & Limit](overview/query-builder/ordering-grouping-and-limit.md)
   * [Unions](overview/query-builder/unions.md)
-  * [Common Table Expressions (i.e. CTEs)](overview/query-builder/common-table-expressions.md)
+  * [Common Table Expressions \(i.e. CTEs\)](overview/query-builder/common-table-expressions.md)
   * [Inserts](overview/query-builder/inserts.md)
   * [Updates](overview/query-builder/updates.md)
   * [Deletes](overview/query-builder/deletes.md)
-  * [New Query](overview/query-builder/new-query.md)  
+  * [New Query](overview/query-builder/new-query.md)
 * [Schema Builder](overview/schema-builder/README.md)
   * [Create](overview/schema-builder/create.md)
   * [Columns](overview/schema-builder/columns.md)
   * [Column Modifiers](overview/schema-builder/column-modifiers.md)
-  * [Indexes](overview/schema-builder/indexes.md)
+  * [Column Constraints](overview/schema-builder/column-constraints.md)
   * [Creating Table Constraints](overview/schema-builder/creating-table-constraints.md)
   * [Alter](overview/schema-builder/alter.md)
   * [Drop](overview/schema-builder/drop.md)

@@ -1,7 +1,7 @@
 # Where Clauses
 
 | Base | AND | OR |
-| --- | --- | --- |
+| :--- | :--- | :--- |
 | where\(\) | andWhere\(\) | orWhere\(\) |
 | whereBetween\(\) | andWhereBetween\(\) | orWhereBetween\(\) |
 | whereColumn\(\) | andWhereColumn\(\) | orWhereColumn\(\) |
@@ -137,7 +137,7 @@ writeDump(getResults);
 SELECT * FROM `users` WHERE `age` NOT BETWEEN 18 AND 21
 ```
 
-**whereIn / whereNotIn** (sub-queries)
+**whereIn / whereNotIn** \(sub-queries\)
 
 The `whereIn` method verifies that a given column's value is contained within the provided array or QueryBuilder object:
 
@@ -150,7 +150,7 @@ var getResults = query.from('users')
 writeDump(getResults);
 ```
 
-QueryBuilder (fetch all users whose age is in the all_ages table with a value between 17 and 21):
+QueryBuilder \(fetch all users whose age is in the all\_ages table with a value between 17 and 21\):
 
 ```text
 var getResults = query.from('users')
@@ -246,7 +246,7 @@ writeDump(getResults);
 SELECT * FROM `users` WHERE `modifiedDate` <> `createdDate`
 ```
 
-**WHERE (a = ? OR b = ?) AND c = ?**
+**WHERE \(a = ? OR b = ?\) AND c = ?**
 
 Here is an example of how to strategically place parentheses with `OR` using closures.
 
@@ -262,3 +262,4 @@ writeDump(getResults);
 // sql
 SELECT * FROM `users` WHERE (a = ? OR b = ?) AND c = ?
 ```
+

@@ -19,7 +19,7 @@ SELECT users.name,blogs.title,blogs.ID as blogID FROM `blogs` INNER JOIN `users`
 
 Sometimes you need more control over your `join` clause in order to add grammar specific instructions, such as adding SQL Server table hints to your queries.
 
-If you need complete control over your `join` clause you can use the `joinRaw()` method 
+If you need complete control over your `join` clause you can use the `joinRaw()` method
 
 ```javascript
 //qb
@@ -34,13 +34,13 @@ SELECT * FROM [blogs] INNER JOIN [users] AS u (nolock) ON [u].[ID] = [blogs].[FK
 
 Since the `joinRaw()` takes your string verbatim, it's important that you make sure your SQL declaration is escaped properly. Failure to properly escape your table names may result in SQL errors.
 
-> *NOTE:* Using the `joinRaw()` will most likely tie your code to a specific database, so think carefully before using the `joinRaw()` method if you want your project to be database agnostic. 
+> _NOTE:_ Using the `joinRaw()` will most likely tie your code to a specific database, so think carefully before using the `joinRaw()` method if you want your project to be database agnostic.
+>
+> _NOTE:_ All of the `join` methods have a `*Raw` equivalent method. This means you can use `leftJoinRaw()`, `rightJoinRaw()`, etc.
 
-> *NOTE:* All of the `join` methods have a `*Raw` equivalent method. This means you can use `leftJoinRaw()`, `rightJoinRaw()`, etc.
+### Complex \(multi-conditional\) Join Clause
 
-### Complex (multi-conditional) Join Clause
-
-For a compound join clause, pass in the name of the table as the first argument (just as before) but instead of passing the remaining arguments describing the single join clause, we'll pass a single closure with a `joinClause` argument. Consider a (contrived) example where our `users` and `blogs` had to match not only `ID` but also `type`:
+For a compound join clause, pass in the name of the table as the first argument \(just as before\) but instead of passing the remaining arguments describing the single join clause, we'll pass a single closure with a `joinClause` argument. Consider a \(contrived\) example where our `users` and `blogs` had to match not only `ID` but also `type`:
 
 ```javascript
 //qb
@@ -92,13 +92,13 @@ writeDump(getResults);
 
 ## Joining using Derived Tables
 
-Complex queries often contain derived tables, which are temporal, subqueries defined inline within your SQL. 
+Complex queries often contain derived tables, which are temporal, subqueries defined inline within your SQL.
 
-To join your main table to a derived table you can use the `joinSub()` methods. Each `join` method has a corresponding "sub" method which you can use when you need to use a derived table (i.e. `leftJoinSub()`, `rightJoinSub()`, etc).
+To join your main table to a derived table you can use the `joinSub()` methods. Each `join` method has a corresponding "sub" method which you can use when you need to use a derived table \(i.e. `leftJoinSub()`, `rightJoinSub()`, etc\).
 
 These functions differ slightly than the normal `join` methods, because the first two arguments specify:
 
-* The alias to use for the derived table (which is how you reference your query)
+* The alias to use for the derived table \(which is how you reference your query\)
 * Either a QueryBuilder instances or closure defining the subquery
 
 ```javascript

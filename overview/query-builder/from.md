@@ -16,7 +16,7 @@ SELECT * FROM `users`
 
 This would return all columns from the `users` table.
 
-> *NOTE:* Alternatively, you can use the `table()` method as an alias to `from()`.
+> _NOTE:_ Alternatively, you can use the `table()` method as an alias to `from()`.
 
 ### Declaring a table alias
 
@@ -46,7 +46,7 @@ SELECT * FROM `users` AS `u`
 
 Sometimes you need more control over your `from` clause in order to add grammar specific instructions, such as adding SQL Server table hints to your queries.
 
-If you need complete control over your `from` clause you can use the `fromRaw()`. 
+If you need complete control over your `from` clause you can use the `fromRaw()`.
 
 For example, to provide a table hint for a SQL Server query you could use:
 
@@ -60,7 +60,7 @@ SELECT * FROM [users] u (nolock)
 
 Since the `fromRaw()` takes your string verbatim, it's important that you make sure your SQL declaration is escaped properly. Failure to properly escape your table names may result in SQL errors.
 
-> *NOTE:* Using the `fromRaw()` will most likely tie your code to a specific database, so think carefully before using the `fromRaw()` method if you want your project to be database agnostic. 
+> _NOTE:_ Using the `fromRaw()` will most likely tie your code to a specific database, so think carefully before using the `fromRaw()` method if you want your project to be database agnostic.
 
 ### Adding bindings to your raw `from` clause
 
@@ -71,8 +71,8 @@ You can bind parameters to the `fromRaw()` method by passing a secondary argumen
 ```javascript
 //qb
 var getResults = query
-	.fromRaw('dbo.generateDateTable(?, ?, ?) as dt', ['2017-01-01', '2017-12-31', 'm'])
-	.get()
+    .fromRaw('dbo.generateDateTable(?, ?, ?) as dt', ['2017-01-01', '2017-12-31', 'm'])
+    .get()
 ;
 
 //sql
@@ -85,7 +85,7 @@ Complex queries often contain derived tables. Derived tables are essentially a t
 
 You can build queries that comprise of derived tables by using the `fromSub()` method, which requires two arguments:
 
-* The alias to use for the derived table (which is how you reference your query)
+* The alias to use for the derived table \(which is how you reference your query\)
 * Either a QueryBuilder instances or closure defining the subquery
 
 ### Defining a derived table using a closure
@@ -95,16 +95,16 @@ The simplest way to create a derived table is by using a closure to define the s
 ```javascript
 //qb
 var getResults = query
-	.select('firstName', 'lastName')
-	.fromSub('u', function (q){
-		q
-			.select('lName as lastName', 'fName as firstName')
-			.from('users')
-			.where('age', '>=', 21)
-		;
-	})
-	.orderBy('lastName')
-	.get()
+    .select('firstName', 'lastName')
+    .fromSub('u', function (q){
+        q
+            .select('lName as lastName', 'fName as firstName')
+            .from('users')
+            .where('age', '>=', 21)
+        ;
+    })
+    .orderBy('lastName')
+    .get()
 ;
 
 //sql
@@ -118,16 +118,16 @@ Alternatively you can supply a QueryBuilder instance to the `fromSub()` method:
 ```javascript
 //qb
 var derivedQA = query
-	.select('lName as lastName', 'fName as firstName')
-	.from('users')
-	.where('age', '>=', 21)
+    .select('lName as lastName', 'fName as firstName')
+    .from('users')
+    .where('age', '>=', 21)
 ;
 
 var getResults = query
-	.select('firstName', 'lastName')
-	.fromSub('u', derivedQA)
-	.orderBy('lastName')
-	.get()
+    .select('firstName', 'lastName')
+    .fromSub('u', derivedQA)
+    .orderBy('lastName')
+    .get()
 ;
 
 //sql

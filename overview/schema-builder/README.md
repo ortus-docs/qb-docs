@@ -26,7 +26,7 @@ The `SchemaBuilder` has four main methods to start your database object creation
 Create a new table in the database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | table | string | `true` |  | The name of the table to create. |
 | callback | function | `true` |  | A callback function used to define the table body. It is passed a `Blueprint` as the only argument. |
 | options | struct | `false` | `{}` | Options to pass to `queryExecute`. |
@@ -66,7 +66,7 @@ CREATE TABLE `users` (
 Alter an existing table in the database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | table | string | `true` |  | The name of the table to alter. |
 | callback | function | `true` |  | A callback function used to define the changes to the table. It is passed a `Blueprint` as the only argument. |
 | options | struct | `false` | `{}` | Options to pass to `queryExecute`. |
@@ -97,7 +97,7 @@ ALTER TABLE `users` DROP COLUMN `last_logged_in`;
 Drop a table from the database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | table | string | `true` |  | The name of the table to drop. |
 | options | struct | `false` | `{}` | Options to pass to `queryExecute`. |
 | execute | boolean | `false` | `true` | Run the query immediately after building it. |
@@ -123,7 +123,7 @@ DROP TABLE `user_logins`
 Rename a table from an old name to a new name
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | from | string | `true` |  | The old table name. |
 | to | string | `true` |  | The new table name. |
 | options | struct | `false` | `{}` | Options to pass to `queryExecute`. |
@@ -148,7 +148,7 @@ RENAME TABLE `posts` TO `blog_posts`
 Check if a table exists in the database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name of the table to check. |
 | options | struct | `false` | `{}` | Options to pass to `queryExecute`. |
 | execute | boolean | `false` | `true` | Run the query immediately after building it. |
@@ -174,7 +174,7 @@ WHERE `table_name` = 'users'
 Check if a column exists in a table in the database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | table | string | `true` |  | The name of the table to check for the column in. |
 | column | string | `true` |  | The column to check for in the table. |
 | options | struct | `false` | `{}` | Options to pass to `queryExecute`. |

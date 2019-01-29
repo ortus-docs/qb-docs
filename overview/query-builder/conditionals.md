@@ -17,7 +17,7 @@ This works, but breaks chainability. A better way is to use the `when` helper me
 ## `when`
 
 | Name | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | condition | boolean | true |  | The condition to switch on. |
 | onTrue | Closure | true |  | The callback to execute if the condition is true.  It is passed the `builder` object as the only parameter. |
 | onFalse | Closure | false | function\( q \) { return q; } | The callback to execute if the conditions is false.  It is passed the `builder` object as the only parameter. |

@@ -3,13 +3,13 @@
 This method allows you to create a table object.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | table | string | `true` |  | The name of the table to create. |
 | callback | function | `true` |  | A callback function used to define the table body. It is passed a `Blueprint` as the only argument. |
 | options | struct | `false` | `{}` | Options to pass to `queryExecute`. |
 | execute | boolean | `false` | `true` | Run the query immediately after building it. |
 
-The majority of the work comes from calling methods on the `Blueprint` object. A `Blueprint` defines the [columns](columns.md) and [indexes](indexes.md) for your tables.
+The majority of the work comes from calling methods on the `Blueprint` object. A `Blueprint` defines the [columns](columns.md) and [indexes]() for your tables.
 
 Example:
 
@@ -40,5 +40,5 @@ CREATE TABLE `users` (
 
 Only one table can be created at a time. If you wanted to create multiple tables, you would call `create` multiple times.
 
-The `callback` argument is where you define the schema of your table. It is passed a `Blueprint` object. This is commonly aliased as `table` in the callback. `Blueprint` defines the field, index and constraint methods to build your table. You can find a comprehensive list of all available methods here for [columns](https://github.com/ortus/qb/tree/b0b49b9b35032508e73231da3a39856a7bc9d21b/schema/columns.md) and here for [indexes and constraints](indexes.md).
+The `callback` argument is where you define the schema of your table. It is passed a `Blueprint` object. This is commonly aliased as `table` in the callback. `Blueprint` defines the field, index and constraint methods to build your table. You can find a comprehensive list of all available methods here for [columns](https://github.com/ortus/qb/tree/b0b49b9b35032508e73231da3a39856a7bc9d21b/schema/columns.md) and here for [indexes and constraints]().
 

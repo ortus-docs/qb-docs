@@ -133,7 +133,7 @@ moduleSettings = {
 Two interception points are available from QB: `preQBExecute` and `postQBExecute`. These fire before and after the `queryExecute` call, respectively. The following information is available in the `interceptData` struct:
 
 | Name | Type | Description |
-| --- | --- | --- |
+| :--- | :--- | :--- |
 | sql | String | The sql string to execute |
 | bindings | Struct | The struct of bindings \(keys and values\) for the query |
 | options | Struct | Any options to pass along to `queryExecute` |
@@ -142,8 +142,8 @@ Two interception points are available from QB: `preQBExecute` and `postQBExecute
 
 Thanks goes to these wonderful people \([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)\):
 
-|  [📝](readme.md#blog-tonyjunkes) [📖](https://github.com/elpete/qb-docs/commits?author=tonyjunkes) |  [💬](readme.md#question-elpete) [📝](readme.md#blog-elpete) [🐛](https://github.com/elpete/qb-docs/issues?q=author%3Aelpete) [💻](https://github.com/elpete/qb-docs/commits?author=elpete) [🎨](readme.md#design-elpete) [📖](https://github.com/elpete/qb-docs/commits?author=elpete) [💡](readme.md#example-elpete) [👀](readme.md#review-elpete) [📢](readme.md#talk-elpete) [⚠️](https://github.com/elpete/qb-docs/commits?author=elpete) |  [🐛](https://github.com/elpete/qb-docs/issues?q=author%3ABluewaterSolutions) [💻](https://github.com/elpete/qb-docs/commits?author=BluewaterSolutions) [📖](https://github.com/elpete/qb-docs/commits?author=BluewaterSolutions) |  [🐛](https://github.com/elpete/qb-docs/issues?q=author%3Amurphydan) [💻](https://github.com/elpete/qb-docs/commits?author=murphydan) |  [💬](readme.md#question-aliaspooryorik) [💻](https://github.com/elpete/qb-docs/commits?author=aliaspooryorik) |  [💻](https://github.com/elpete/qb-docs/commits?author=timmaybrown) |
-| :---: | :---: | :---: | :---: | :---: | :---: |
+|  [📝](overview.md#blog-tonyjunkes) [📖](https://github.com/elpete/qb-docs/commits?author=tonyjunkes) |  [💬](overview.md#question-elpete) [📝](overview.md#blog-elpete) [🐛](https://github.com/elpete/qb-docs/issues?q=author%3Aelpete) [💻](https://github.com/elpete/qb-docs/commits?author=elpete) [🎨](overview.md#design-elpete) [📖](https://github.com/elpete/qb-docs/commits?author=elpete) [💡](overview.md#example-elpete) [👀](overview.md#review-elpete) [📢](overview.md#talk-elpete) [⚠️](https://github.com/elpete/qb-docs/commits?author=elpete) |  [🐛](https://github.com/elpete/qb-docs/issues?q=author%3ABluewaterSolutions) [💻](https://github.com/elpete/qb-docs/commits?author=BluewaterSolutions) [📖](https://github.com/elpete/qb-docs/commits?author=BluewaterSolutions) |  [🐛](https://github.com/elpete/qb-docs/issues?q=author%3Amurphydan) [💻](https://github.com/elpete/qb-docs/commits?author=murphydan) |  [💬](overview.md#question-aliaspooryorik) [💻](https://github.com/elpete/qb-docs/commits?author=aliaspooryorik) |  [💻](https://github.com/elpete/qb-docs/commits?author=timmaybrown) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
 
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!

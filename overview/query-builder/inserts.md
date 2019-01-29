@@ -33,9 +33,7 @@ VALUES (55, `robert@test.com`, `Robert`),
 
 ## Returning
 
-Certain grammars have the ability to return values from an insert statment.
-That can be useful if you use your built-in database functions to generate
-primary keys that you want to retrieve.
+Certain grammars have the ability to return values from an insert statment. That can be useful if you use your built-in database functions to generate primary keys that you want to retrieve.
 
 ```text
 // qb
@@ -55,5 +53,5 @@ OUTPUT INSERTED.[id]
 VALUES (55, "robert@test.com", "Robert")
 ```
 
-If you attempt to use `returning` on grammars that do not support it,
-you will recieve a `UnsupportedOperation` exception.
+If you attempt to use `returning` on grammars that do not support it, you will recieve a `UnsupportedOperation` exception.
+

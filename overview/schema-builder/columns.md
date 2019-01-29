@@ -1,9 +1,9 @@
 # Columns
 
-The `Blueprint` object has many column types available to construct your table schema. Additionally, you can modify the columns created [with an additional set of methods](column-modifiers.md) and [indexes](indexes.md).
+The `Blueprint` object has many column types available to construct your table schema. Additionally, you can modify the columns created [with an additional set of methods](column-modifiers.md) and [indexes]().
 
 | Columns |  |  |  |
-| --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- |
 | [bigIncrements](columns.md#bigIncrements) | [bigInteger](columns.md#bigInteger) | [bit](columns.md#bit) | [boolean](columns.md#boolean) |
 | [char](columns.md#char) | [date](columns.md#date) | [datetime](columns.md#datetime) | [decimal](columns.md#decimal) |
 | [enum](columns.md#enum) | [float](columns.md#float) | [increments](columns.md#increments) | [integer](columns.md#integer) |
@@ -12,7 +12,7 @@ The `Blueprint` object has many column types available to construct your table s
 | [smallIncrements](columns.md#smallIncrements) | [smallInteger](columns.md#smallInteger) | [string](columns.md#string) | [text](columns.md#text) |
 | [time](columns.md#time) | [timestamp](columns.md#timestamp) | [tinyIncrements](columns.md#tinyIncrements) | [tinyInteger](columns.md#tinyInteger) |
 | [unicodeLongText](columns.md#unicodeLongText) | [unicodeMediumText](columns.md#unicodeMediumText) | [unicodeString](columns.md#unicodeString) | [unicodeText](columns.md#unicodeText) |
-|[unsignedBigInteger](columns.md#unsignedBigInteger) | [unsignedInteger](columns.md#unsignedInteger) | [unsignedMediumInteger](columns.md#unsignedMediumInteger) | [unsignedSmallInteger](columns.md#unsignedSmallInteger) |
+| [unsignedBigInteger](columns.md#unsignedBigInteger) | [unsignedInteger](columns.md#unsignedInteger) | [unsignedMediumInteger](columns.md#unsignedMediumInteger) | [unsignedSmallInteger](columns.md#unsignedSmallInteger) |
 | [unsignedTinyInteger](columns.md#unsignedTinyInteger) | [uuid](columns.md#uuid) |  |  |
 
 ## bigIncrements
@@ -20,7 +20,7 @@ The `Blueprint` object has many column types available to construct your table s
 Create an auto-incrementing column using an unsigned `BIGINT` type. This column is also set as the primary key for the table.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | indexName | string | `false` |  | The name for the primary key index.  If no name is passed in, the name will be dynamically created based off of the table name and column name. |
 
@@ -48,7 +48,7 @@ CREATE TABLE `users` (
 Create a column using a `BIGINT` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | precision | numeric | `false` |  | The precision for the column. |
 
@@ -93,7 +93,7 @@ CREATE TABLE `users` (
 Create a column using a `BIT` equivalent type for your database. The length can be specified as the second argument.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | length | numeric | `false` | 1 | The length for the column. |
 
@@ -138,7 +138,7 @@ CREATE TABLE `users` (
 Create a column using a `BOOLEAN` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 
 **Example:**
@@ -164,7 +164,7 @@ CREATE TABLE `users` (
 Create a column using a `CHAR` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | length | numeric | `false` | 1 | The length for the column. |
 
@@ -209,7 +209,7 @@ CREATE TABLE `users` (
 Create a column using a `DATE` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 
 **Example:**
@@ -235,7 +235,7 @@ CREATE TABLE `users` (
 Create a column using a `DATETIME` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 
 **Example:**
@@ -261,7 +261,7 @@ CREATE TABLE `users` (
 Create a column using a `DECIMAL` equivalent type for your database. The length and precision can be specified as the second and third arguments.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | length | numeric | `false` | 10 | The length of the column. |
 | precision | numeric | `false` | 0 | The precision of the column. |
@@ -325,7 +325,7 @@ CREATE TABLE `weather` (
 Create a column using a `ENUM` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 
 **Example:**
@@ -351,7 +351,7 @@ CREATE TABLE `users` (
 Create a column using a `FLOAT` equivalent type for your database. The length and precision can be specified as the second and third arguments.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | length | numeric | `false` | 10 | The length of the column. |
 | precision | numeric | `false` | 0 | The precision of the column. |
@@ -415,7 +415,7 @@ CREATE TABLE `weather` (
 Create an auto-incrementing column using an unsigned `INTEGER` type. This column is also set as the primary key for the table.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | indexName | string | `false` |  | The name for the primary key index.  If no name is passed in, the name will be dynamically created based off of the table name and column name. |
 
@@ -443,7 +443,7 @@ CREATE TABLE `users` (
 Create a column using a `INTEGER` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | precision | numeric | `false` |  | The precision for the column. |
 
@@ -488,7 +488,7 @@ CREATE TABLE `games` (
 Create a column using a `JSON` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 
 **Example:**
@@ -514,7 +514,7 @@ CREATE TABLE `users` (
 Create a column using a `LONGTEXT` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 
 **Example:**
@@ -540,7 +540,7 @@ CREATE TABLE `posts` (
 Create an auto-incrementing column using an unsigned `MEDIUMINT` type. This column is also set as the primary key for the table.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | indexName | string | `false` |  | The name for the primary key index.  If no name is passed in, the name will be dynamically created based off of the table name and column name. |
 
@@ -568,7 +568,7 @@ CREATE TABLE `users` (
 Create a column using a `MEDIUMINT` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | precision | numeric | `false` | 10 | The precision for the column. |
 
@@ -613,7 +613,7 @@ CREATE TABLE `games` (
 Create a column using a `MEDIUMTEXT` equivalent type for your database. For databases that distinguish between unicode and non-unicode fields, creates a non-unicode field.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 
 **Example:**
@@ -649,7 +649,7 @@ Creates the necessary columns for a polymorphic relationship. It takes the name 
 If you want different names for your polymorphic relationship columns, feel free to call other schema builder methods individually.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The prefix for the polymorphic columns. |
 
 **Example:**
@@ -679,7 +679,7 @@ Creates the necessary columns for a polymorphic relationship. It takes the name 
 If you want different names for your polymorphic relationship columns, feel free to call other schema builder methods individually.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The prefix for the polymorphic columns. |
 
 **Example:**
@@ -707,7 +707,7 @@ CREATE TABLE `tags` (
 An escape hatch to directly insert any sql in to the statement.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | sql | string | `true` |  | The sql to insert directly into the statement. |
 
 **Example:**
@@ -733,7 +733,7 @@ CREATE TABLE `users` (
 Create an auto-incrementing column using an unsigned `SMALLINT` type. This column is also set as the primary key for the table.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | indexName | string | `false` |  | The name for the primary key index.  If no name is passed in, the name will be dynamically created based off of the table name and column name. |
 
@@ -761,7 +761,7 @@ CREATE TABLE `users` (
 Create a column using a `SMALLINT` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | precision | numeric | `false` |  | The precision for the column. |
 
@@ -806,7 +806,7 @@ CREATE TABLE `games` (
 Create a column using a `VARCHAR` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will create a non-unicode string.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | length | numeric | `false` | 255 | The length of the column. |
 
@@ -851,7 +851,7 @@ CREATE TABLE `users` (
 Create a column using a `TEXT` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will create a non-unicode text field.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 
 **Example:**
@@ -877,7 +877,7 @@ CREATE TABLE `posts` (
 Create a column using a `TIME` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 
 **Example:**
@@ -903,7 +903,7 @@ CREATE TABLE `races` (
 Create a column using a `TIMESTAMP` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 
 **Example:**
@@ -929,7 +929,7 @@ CREATE TABLE `users` (
 Create an auto-incrementing column using an unsigned `TINYINT` type. This column is also set as the primary key for the table.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | indexName | string | `false` |  | The name for the primary key index.  If no name is passed in, the name will be dynamically created based off of the table name and column name. |
 
@@ -957,7 +957,7 @@ CREATE TABLE `users` (
 Create a column using a `TINYINT` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | precision | numeric | `false` |  | The precision for the column. |
 
@@ -996,12 +996,13 @@ CREATE TABLE `games` (
     `score` TINYINT(3) NOT NULL
 )
 ```
+
 ## unicodeLongText
 
 Create a column using a `LONGTEXT` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will create a unicode text field.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 
 **Example:**
@@ -1022,7 +1023,6 @@ CREATE TABLE `posts` (
 )
 ```
 
-
 **SQL \(MSSQL\)**
 
 ```sql
@@ -1030,12 +1030,13 @@ CREATE TABLE [posts] (
     [body] NVARCHAR(MAX) NOT NULL
 )
 ```
+
 ## unicodeMediumText
 
-Create a unicode-enabled column using a `MEDIUMTEXT` equivalent type for your database.  For databases that distinguish between unicode- and non-unicode string data types, this function will create a unicode text field.
+Create a unicode-enabled column using a `MEDIUMTEXT` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will create a unicode text field.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 
 **Example:**
@@ -1069,7 +1070,7 @@ CREATE TABLE [posts] (
 Create a column using a `NVARCHAR` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will create a unicode string.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | length | numeric | `false` | 255 | The length of the column. |
 
@@ -1127,10 +1128,10 @@ CREATE TABLE [users] (
 
 ## unicodeText
 
-Create a column using a `NTEXT` equivalent type for your database. 
+Create a column using a `NTEXT` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 
 **Example:**
@@ -1164,7 +1165,7 @@ CREATE TABLE [posts] (
 Create a column using a `UNSIGNED BIGINT` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | precision | numeric | `false` |  | The precision for the column. |
 
@@ -1209,7 +1210,7 @@ CREATE TABLE `games` (
 Create a column using a `UNSIGNED INTEGER` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | precision | numeric | `false` |  | The precision for the column. |
 
@@ -1254,7 +1255,7 @@ CREATE TABLE `games` (
 Create a column using a `UNSIGNED MEDIUMINT` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | precision | numeric | `false` |  | The precision for the column. |
 
@@ -1299,7 +1300,7 @@ CREATE TABLE `games` (
 Create a column using a `UNSIGNED SMALLINT` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | precision | numeric | `false` |  | The precision for the column. |
 
@@ -1344,7 +1345,7 @@ CREATE TABLE `games` (
 Create a column using a `UNSIGNED TINYINT` equivalent type for your database.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 | precision | numeric | `false` |  | The precision for the column. |
 
@@ -1385,12 +1386,13 @@ CREATE TABLE `games` (
 ```
 
 ## uuid
+
 **SQL Server**: Create a column using a `uniqueidentifier`.
 
 **MySQL** and Others: Create a column using a `CHAR` equivalent type for your database and a length of 36. Used in conjunction with the CFML `createUUID` method.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name for the column. |
 
 **Example:**
@@ -1404,6 +1406,7 @@ schema.create( "users", function( table ) {
 ```
 
 **MySQL \(SQL Server\)**
+
 ```sql
 CREATE TABLE `games` (
     `id` uniqueidentifier NOT NULL,

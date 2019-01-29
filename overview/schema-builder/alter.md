@@ -5,7 +5,7 @@ The alter method loads up an existing table in order to make modifications. Thes
 To begin altering an existing table, call the `alter` method off of the `SchemaBuilder`. This method takes a callback as the second parameter that is passed a `Blueprint` object, much like the [`create`](create.md) method.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | table | string | `true` |  | The name of the table to alter. |
 | callback | function | `true` |  | A callback function used to define the alterations to the table. It is passed a `Blueprint` as the only argument. |
 | options | struct | `false` | `{}` | Options to pass to `queryExecute`. |
@@ -22,7 +22,7 @@ Add a new column to an existing table. Takes a `Column` instance as the only arg
 Any instance of `Column` is valid like those returned by the [column methods](columns.md) \(`integer`, `string`, etc.\) as well as the [column modifier methods](column-modifiers.md) \(`unsigned`, `nullable`, etc.\).
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | column | `Column` | `true` |  | A column object to add to the table. |
 
 **Example:**
@@ -46,7 +46,7 @@ ALTER TABLE `users` ADD `is_active` TINYINT(1) NOT NULL
 Drop a column on an existing table.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name of the column to drop. |
 
 **Example:**
@@ -70,7 +70,7 @@ ALTER TABLE `users` DROP COLUMN `username`
 Modify an existing column on a table.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The name of the column to modify. |
 | column | `Column` | `true` |  | A column object to replace the named column. |
 
@@ -95,7 +95,7 @@ ALTER TABLE `users` CHANGE `name` `username` VARCHAR(255) NOT NULL
 Rename a column on a table. A full `Column` instance is required as the second argument for Grammars that need to redeclare the column definition when renaming.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string | `true` |  | The current name of a column. |
 | column | `Column` | `true` |  | A column object with the new column name and definition. |
 
@@ -117,10 +117,10 @@ ALTER TABLE `users` CHANGE `name` `username` VARCHAR(255) NOT NULL
 
 ## addConstraint
 
-Add an index or key to an existing table. Any `TableIndex` instance is valid, like those created by the [index methods](indexes.md) \(`unique`, `index`, `primaryKey`, etc.\).
+Add an index or key to an existing table. Any `TableIndex` instance is valid, like those created by the [index methods]() \(`unique`, `index`, `primaryKey`, etc.\).
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | constraint | `TableIndex` | `true` |  | The `TableIndex` instance to add to the table. |
 
 **Example:**
@@ -144,7 +144,7 @@ ALTER TABLE `users` ADD CONSTRAINT `unq_users_username` UNIQUE (`username`)
 Drop an existing table constraint.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | name | string OR `TableIndex` | `true` |  | The name of the constraint to drop. You can alternatively pass a `TableIndex` instance to use the dynamic name generated. |
 
 **Example:**
@@ -170,7 +170,7 @@ ALTER TABLE `users` DROP INDEX `unq_users_username`
 Rename an existing table constraint.
 
 | Argument | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :--- | :--- | :--- |
 | oldName | string OR `TableIndex` | `true` |  | The old or current name of the constraint to rename. You can alternatively pass a `TableIndex` instance to use the dynamic name generated. |
 | newName | string OR `TableIndex` | `true` |  | The new name of the constraint.  You can alternatively pass a `TableIndex` instance to use the dynamic name generated. |
 

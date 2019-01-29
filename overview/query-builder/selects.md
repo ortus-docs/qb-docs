@@ -9,14 +9,15 @@ var getResults = query.from('users')
     .get('name,email,age');
 writeDump(getResults);
 ```
-Individual columns can contain fully-qualified names (i.e. "some_table.some_column"), fully-qualified names with table aliases (i.e. "alias.some_column"), and even set column aliases themselves (i.e. "some_column AS c").
-Columns can be a single column, a list or columns (comma-separated), or an array of columns.
+
+Individual columns can contain fully-qualified names \(i.e. "some\_table.some\_column"\), fully-qualified names with table aliases \(i.e. "alias.some\_column"\), and even set column aliases themselves \(i.e. "some\_column AS c"\). Columns can be a single column, a list or columns \(comma-separated\), or an array of columns.
 
 ```javascript
 var getResults = query.from('users')
     .get('name as myAccountName,users.email,age');
 writeDump(getResults);
 ```
+
 ```javascript
 var getResults = query.from('users as myTableAlias')
     .get( columns = ['name as myAccountName' ,'myTableAlias.email' ,'age'], options= { datasource='myOtherDatasource'} );
