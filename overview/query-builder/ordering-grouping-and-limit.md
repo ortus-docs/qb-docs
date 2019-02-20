@@ -16,6 +16,10 @@ writeDump(getResults);
 SELECT * FROM `users` WHERE `age` >= 18 ORDER BY `modifiedDate` DESC
 ```
 
+{% hint style="info" %}
+If you want to order by multiple columns, you can call `orderBy` multiple times.
+{% endhint %}
+
 ## groupBy / having
 
 The `groupBy` and `having` methods may be used to group the query results. The `having` method's signature is similar to that of the `where` method:
