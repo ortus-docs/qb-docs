@@ -8,7 +8,6 @@
 
 ## Query Builder
 
-* [Overview](overview/query-builder/README.md)
 * [Return Format](overview/query-builder/return-format.md)
 * [Interception Points](overview/query-builder/interception-points.md)
 * [Retrieving Results](overview/query-builder/retrieving-results.md)
