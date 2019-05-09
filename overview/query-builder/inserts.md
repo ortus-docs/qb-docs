@@ -33,7 +33,7 @@ VALUES (55, `robert@test.com`, `Robert`),
 
 ## Returning
 
-Certain grammars have the ability to return values from an insert statment. That can be useful if you use your built-in database functions to generate primary keys that you want to retrieve.
+Certain grammars have the ability to return values from an insert statement. That can be useful if you use your built-in database functions to generate primary keys that you want to retrieve.
 
 ```text
 // qb
