@@ -1,4 +1,4 @@
 root: ./
 
 redirects:
-  overview/query-builder: README.md
+  overview/query-builder: ./README.md
