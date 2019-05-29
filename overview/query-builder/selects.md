@@ -41,3 +41,25 @@ getResults = getResults.addSelect('name,email,age').get();
 writeDump(getResults);
 ```
 
+## SelectRaw
+
+If you need to drop into raw SQL when specifying a column to retrieve, you can use `selectRaw()`.
+
+```javascript
+var getResults = query.from('users')
+    .where('age','>=','18')
+    .select('id,age,username')
+    .selectRaw('CONCAT(fname, " ", lname) fullName')
+    .get();
+writeDump(getResults);
+```
+
+If you so choose, you could also use QB's `raw()` function, which is what `selectRaw()` uses under the hood.
+
+```javascript
+var getResults = query.from('users')
+    .where('age','>=','18')
+    .select( query.raw('id,age,username,CONCAT(fname, " ", lname) fullName') )
+    .get();
+writeDump(getResults);
+```
