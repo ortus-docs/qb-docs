@@ -41,7 +41,7 @@ getResults = getResults.addSelect('name,email,age').get();
 writeDump(getResults);
 ```
 
-## SelectRaw
+## `selectRaw`
 
 If you need to drop into raw SQL when specifying a column to retrieve, you can use `selectRaw()`.
 
@@ -63,3 +63,5 @@ var getResults = query.from('users')
     .get();
 writeDump(getResults);
 ```
+
+Remember when using `raw` that no escaping or parameterization is done.  Use caution.
