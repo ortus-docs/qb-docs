@@ -39,6 +39,10 @@ CREATE TABLE `users` (
 
 Sets a default value for the column.
 
+**Note:** The value is not escaped, allowing you to specify
+functions like `NOW()` or literals like `1`.  To specify
+a literal string, wrap the value in quotes.
+
 | Argument | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | value | string | `true` |  | The default value. |
@@ -50,6 +54,8 @@ Sets a default value for the column.
 ```text
 schema.create( "users", function( table ) {
     table.boolean( "is_active" ).default( 1 );
+    table.timestamp( "created_date" ).default( "NOW()" );
+    table.string( "country" ).default( "'USA'" );
 } );
 ```
 
@@ -57,7 +63,9 @@ schema.create( "users", function( table ) {
 
 ```sql
 CREATE TABLE `users` (
-    `is_active` TINYINT(1) DEFAULT 1
+    `is_active` TINYINT(1) DEFAULT 1,
+    `created_date` TIMESTAMP DEFAULT NOW(),
+    `country` VARCHAR(255) DEFAULT 'USA'
 )
 ```
 
