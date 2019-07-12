@@ -13,3 +13,14 @@ writeDump(addRecords);
 UPDATE `users` SET `age` = 55, `email` = `roberto@test.com`, `name` = `Roberto` WHERE `ID` = 10
 ```
 
+You can also use Expressions inside an update statement:
+
+```javascript
+query.from( "posts" )
+    .whereID( 10 )
+    .update( { "likes" = query.raw( "likes + 1" ) } );
+    
+// SQL:      UPDATE `posts` SET `likes` = likes + 1 WHERE `ID` = ?
+// Bindings: [ 10 ]
+```
+

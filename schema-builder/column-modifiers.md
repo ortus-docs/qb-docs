@@ -39,9 +39,7 @@ CREATE TABLE `users` (
 
 Sets a default value for the column.
 
-**Note:** The value is not escaped, allowing you to specify
-functions like `NOW()` or literals like `1`.  To specify
-a literal string, wrap the value in quotes.
+**Note:** The value is not escaped, allowing you to specify functions like `NOW()` or literals like `1`. To specify a literal string, wrap the value in quotes.
 
 | Argument | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
