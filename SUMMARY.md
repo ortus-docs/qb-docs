@@ -25,6 +25,7 @@
 * [Updates](query-builder/updates.md)
 * [Deletes](query-builder/deletes.md)
 * [New Query](query-builder/new-query.md)
+* [Clone](query-builder/clone.md)
 
 ## Schema Builder
 
