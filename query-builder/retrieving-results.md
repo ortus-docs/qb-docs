@@ -44,17 +44,26 @@ select * from users limit(1)
 public any function first( struct options = {} )
 ```
 
-If you don't even need an entire row, you may extract a single value from a record using the `value` method. This method will return the value of the column directly:
+If you don't even need an entire row, you may extract a single value from each record using the `values` method. This method will return the value of the column directly:
 
 ```javascript
-//qb
-var getResults = query.from('users')
-    .values('email');
-writeDump(getResults);
+query.from( "users" ).values( "email" );
+// [ "john@example.com", "jane@example.com", "jim@example.com", ... ]
 ```
 
 ```javascript
-public any function value( required string column, struct options = {} )
+public any function values( required string column, struct options = {} );
+```
+
+If you only need a single column for the first record returned, use the `value` function:
+
+```javascript
+query.from( "users" ).value( "email" );
+// "john@example.com"
+```
+
+```javascript
+public any function value( required string column, struct options = {} );
 ```
 
 ## Options parameter: Retrieving results from alternative datasources
