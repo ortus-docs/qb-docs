@@ -28,9 +28,12 @@ The `distinct` method allows you to force the query to return distinct results:
 
 ```javascript
 var getResults = query.from('users')
-    .distinct('email');
+    .select('email')
+    .distinct();
 writeDump(getResults);
 ```
+
+\(Note that `distinct` applies to the entire query, not just certain fields.\)
 
 If you already have a query builder instance and you wish to add a column to its existing select clause, you may use the `addSelect` method:
 

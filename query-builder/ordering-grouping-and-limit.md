@@ -69,3 +69,26 @@ writeDump(getResults);
 SELECT * FROM `users` WHERE `age` >= ? ORDER BY `modifiedDate` DESC LIMIT 5
 ```
 
+## offset
+
+To offset the number of results returned from the query, use the `offset` method:
+
+```text
+// This will return rows 26 through 50
+query.from( "users" )
+    .offset( 25 )
+    .limit( 25 )
+    .get();
+```
+
+## forPage
+
+Combine `limit` and `offset` in one method.  Pass the current page number and the number of results per page \(`limit`\) and we'll calculate the rest.
+
+```text
+// This will return records 51 to 75
+query.from( "users" )
+    .forPage( 3, 25 )
+    .get();
+```
+

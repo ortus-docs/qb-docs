@@ -1,10 +1,10 @@
 # Table of contents
 
 * [Introduction](README.md)
+* [What's New?](whats-new.md)
 * [Installation & Usage](installation-and-usage.md)
 * [Migration Guide](migration-guide.md)
 * [Contributing & Filing Issues](contributing-and-filing-issues.md)
-* [Contributors](contributors.md)
 
 ## Query Builder
 
@@ -24,6 +24,7 @@
 * [Updates](query-builder/updates.md)
 * [Deletes](query-builder/deletes.md)
 * [New Query](query-builder/new-query.md)
+* [Clone](query-builder/clone.md)
 
 ## Schema Builder
 

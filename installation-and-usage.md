@@ -13,7 +13,7 @@ By default, qb uses a generic Grammar. You can specify your specific grammar in 
 ```text
 moduleSettings = {
     qb = {
-        defaultGrammar = "MySQLGrammar"
+        defaultGrammar = "MySQLGrammar@qb"
     }
 };
 ```
