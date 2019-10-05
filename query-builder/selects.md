@@ -2,45 +2,152 @@
 
 ## Specifying A Select Clause
 
-Of course, you may not always want to select all columns from a database table. Using the `from` method, you can specify a custom `from` clause for the query:
+You may not always want to select all columns from a database table. You can influence the select list of a query with the following methods.
 
+Individual columns can contain fully-qualified names \(`some_table.some_column`\), table aliases \(`alias.some_column`\), and even set column aliases themselves \(`some_column AS c`\). The `columns` argument can be a single column, a list of columns \(comma-separated\), or an array of columns.
+
+## select <a id="get"></a>
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| columns | string \| array | `false` | ​`"*"` | A single column, list of columns, or array of columns to retrieve. |
+
+When calling `select` any previous columns are discarded.  If you want to incrementally select columns, use the `addSelect` method.
+
+If you pass no columns to this method, it will default to `"*"`.
+
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
 ```javascript
-var getResults = query.from('users')
-    .get('name,email,age');
-writeDump(getResults);
+query.select( [ "fname AS firstName", "age" ] ).from( "users" );
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-Individual columns can contain fully-qualified names \(i.e. "some\_table.some\_column"\), fully-qualified names with table aliases \(i.e. "alias.some\_column"\), and even set column aliases themselves \(i.e. "some\_column AS c"\). Columns can be a single column, a list or columns \(comma-separated\), or an array of columns.
+{% code-tabs %}
+{% code-tabs-item title="SQL \(MySQL\)" %}
+```sql
+SELECT `name` AS `firstName`, `age` FROM `users`
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
+## distinct <a id="get"></a>
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| state | boolean | `false` | ​`true` | Value to set the distinct flag. |
+
+Calling distinct will cause the query to be executed with the `DISTINCT` keyword.
+
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
 ```javascript
-var getResults = query.from('users')
-    .get('name as myAccountName,users.email,age');
-writeDump(getResults);
+query.select( "username" ).distinct().from( "users" );
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
+{% code-tabs %}
+{% code-tabs-item title="SQL \(MySQL\)" %}
+```sql
+SELECT DISTINCT `username` FROM `users`
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% hint style="info" %}
+`distinct` applies to the entire query, not just certain fields.
+{% endhint %}
+
+## addSelect <a id="get"></a>
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| columns | string \| array | `true` | ​ | A single column, list of columns, or array of columns to add to the select. |
+
+This method adds the columns passed to it to the currently selected columns.
+
+{% hint style="warning" %}
+If the `QueryBuilder` is currently selecting all columns \(`"*"`\)  when this method is called, the incoming columns will becoming the only columns selected.
+{% endhint %}
+
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
 ```javascript
-var getResults = query.from('users as myTableAlias')
-    .get( columns = ['name as myAccountName' ,'myTableAlias.email' ,'age'], options= { datasource='myOtherDatasource'} );
-writeDump(getResults);
+query.select( [ "fname AS firstName", "age" ] ).from( "users" );
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-The `distinct` method allows you to force the query to return distinct results:
+{% code-tabs %}
+{% code-tabs-item title="SQL \(MySQL\)" %}
+```sql
+SELECT `name` AS `firstName`, `age` FROM `users`
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
+
+
+## selectRaw <a id="get"></a>
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| expression | any | `true` | ​ | The raw expression for the select statement. |
+| bindings | array | `false` | `[]` | Any bindings needed for the raw expression. |
+
+A shortcut to use a raw expression in the select clause.
+
+_\(To learn more about raw and expressions, check out the docs on_ [_Raw Expressions_](raw-expressions.md)_.\)_
+
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
 ```javascript
-var getResults = query.from('users')
-    .select('email')
-    .distinct();
-writeDump(getResults);
+query.selectRaw( "YEAR(birthdate) AS birth_year" ).from( "users" );
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-\(Note that `distinct` applies to the entire query, not just certain fields.\)
+{% code-tabs %}
+{% code-tabs-item title="SQL \(MySQL\)" %}
+```sql
+SELECT YEAR(birthdate) AS birth_year FROM `users`
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-If you already have a query builder instance and you wish to add a column to its existing select clause, you may use the `addSelect` method:
+## subSelect <a id="get"></a>
 
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| alias | string | `true` | ​ | The alias for the subselect expression. |
+| query | Function \| QueryBuilder | `true` |  | The callback or query to use in the subselect. |
+
+The method lets you pass either a callback or a `QueryBuilder` instance to be used as a subselect expression.  If a callback is passed it will be passed a new query instance as the only parameter.
+
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
 ```javascript
-var getResults = query.from('users')
-    .where('age','>=','18');
-getResults = getResults.addSelect('name,email,age').get();
-writeDump(getResults);
+query.subSelect( "last_login_date", function( q ) {
+    q.selectRaw( "MAX(created_date)" )
+        .from( "logins" )
+        .whereColumn( "users.id", "logins.user_id" );
+} ) ).from( "users" );
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="SQL \(MySQL\)" %}
+```sql
+SELECT (
+    SELECT MAX(created_date)
+    FROM `logins`
+    WHERE `users`.`id` = `logins`.`user_id`
+) AS `last_login_date`
+FROM `users
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 

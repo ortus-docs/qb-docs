@@ -10,6 +10,7 @@
 
 * [Return Format](query-builder/return-format.md)
 * [Interception Points](query-builder/interception-points.md)
+* [Raw Expressions](query-builder/raw-expressions.md)
 * [Retrieving Results](query-builder/retrieving-results.md)
 * [Aggregates](query-builder/aggregates.md)
 * [Selects](query-builder/selects.md)

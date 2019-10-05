@@ -119,6 +119,8 @@ query.from( "users" ).value( "firstName" );
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+If no records are returned from the query, one of two things will happen.  If the `throwWhenNotFound` boolean is set to `true`, a `RecordCountException` will be thrown.  Otherwise the `defaultValue` provided to the method will be returned.
+
 ## chunk
 
 | Name | Type | Default | Description |

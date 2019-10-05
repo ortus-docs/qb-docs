@@ -58,6 +58,7 @@ All methods that could conceivably take a subquery as well as a value now accept
 * `orWhereNotExists`
 * `whereNullSub`
 * `orderBySub`
+* `subSelect`
 
 If you are using named parameters with any of the above methods you will need to migrate your method calls.
 
