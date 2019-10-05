@@ -1,31 +1,128 @@
 # Aggregates
 
-The query builder also provides a variety of aggregate methods such as `count`, `max`, `min`, and `sum`. You may call any of these methods after constructing your query:
+The query builder also provides a variety of aggregate methods such as `count`, `max`, `min`, and `sum`. These methods take the headache out of setting up these common aggregate functions.
 
-```text
-var getResults = query.from('users')
-    .count();
-writeDump(getResults);
+When executing any of the aggregate functions, any `where` restrictions on your query will still be applied.
+
+Instead of returning a query, these methods return a simple value.
+
+## exists
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| options | struct | `false` | `{}` | Any additional `queryExecute` options. |
+
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
+```javascript
+query.from( "users" ).where( "username", "like", "jon%" ).exists();
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-```text
-var getResults = query.from('users')
-    .max('age');
-writeDump(getResults);
+{% code-tabs %}
+{% code-tabs-item title="SQL \(MySQL\)" %}
+```sql
+SELECT COUNT(*) AS aggregate FROM `users` WHERE `username` LIKE 'jon%'
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-```text
-var getResults = query.from('users')
-    .min('age');
-writeDump(getResults);
+## count
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| column | string | `false` | `"*"` | The column on which to count records. |
+| options | struct | `false` | `{}` | Any additional `queryExecute` options. |
+
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
+```javascript
+query.from( "users" ).count();
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-Of course, you may combine these methods with other clauses:
-
-```text
-var getResults = query.from('users')
-    .where('active', '=', 1)
-    .max('age');
-writeDump(getResults);
+{% code-tabs %}
+{% code-tabs-item title="SQL \(MySQL\)" %}
+```sql
+SELECT COUNT(*) AS aggregate FROM `users`
 ```
+{% endcode-tabs-item %}
+
+{% code-tabs-item title="SQL Server" %}
+```sql
+SELECT COUNT(*) FROM [users]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+## max
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| column | string | `true` |  | The column on which to find the max. |
+| options | struct | `false` | `{}` | Any additional `queryExecute` options. |
+
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
+```javascript
+query.from( "users" ).max( "age" );
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="SQL \(MySQL\)" %}
+```sql
+SELECT MAX(age) AS aggregate FROM `users`
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+## min
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| column | string | `true` |  | The column on which to find the min. |
+| options | struct | `false` | `{}` | Any additional `queryExecute` options. |
+
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
+```javascript
+query.from( "users" ).min( "age" );
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="SQL \(MySQL\)" %}
+```sql
+SELECT MIN(age) AS aggregate FROM `users`
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+## sum
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| column | string | `true` |  | The column to sum. |
+| options | struct | `false` | `{}` | Any additional `queryExecute` options. |
+
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
+```javascript
+query.from( "employees" ).sum( "salary" );
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="SQL \(MySQL\)" %}
+```sql
+SELECT SUM(salary) AS aggregate FROM `employees`
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
