@@ -1,6 +1,6 @@
 # Contributing & Filing Issues
 
-We welcome all types of contributions, following the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. And please take a look at our wonderful contributors on the [README]()!
+We welcome all types of contributions!
 
 The most common type of contribution is to fix an incorrect SQL generation for a database grammar.
 
