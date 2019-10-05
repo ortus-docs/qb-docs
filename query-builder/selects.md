@@ -99,6 +99,8 @@ SELECT `name` AS `firstName`, `age` FROM `users`
 
 A shortcut to use a raw expression in the select clause.
 
+The expression is added to the other already selected columns.
+
 _\(To learn more about raw and expressions, check out the docs on_ [_Raw Expressions_](raw-expressions.md)_.\)_
 
 {% code-tabs %}
@@ -125,6 +127,8 @@ SELECT YEAR(birthdate) AS birth_year FROM `users`
 | query | Function \| QueryBuilder | `true` |  | The callback or query to use in the subselect. |
 
 The method lets you pass either a callback or a `QueryBuilder` instance to be used as a subselect expression.  If a callback is passed it will be passed a new query instance as the only parameter.
+
+The subselect is added to the other already selected columns.
 
 {% code-tabs %}
 {% code-tabs-item title="QueryBuilder" %}

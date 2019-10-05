@@ -1,136 +1,193 @@
 # From
 
-Queries come in many varieties—from the basic to extremely complex. In order to provide you maximum flexibility there are several ways to define the source table for you query.
+## from <a id="get"></a>
 
-## Using the `from()` method
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| from | string \| Expression | `true` | ​ | The name of the table or a Expression object from which the query is based. |
 
-The most common method for defining the source table is using the `from()` method. For the majority of queries, the `from()` method is all you need. It's syntax is very easy:
+Used to set the base table for the query.
 
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
 ```javascript
-//qb
-var getResults = query.from('users').get();
+query.from( "users" );
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-//sql
+{% code-tabs %}
+{% code-tabs-item title="MySQL" %}
+```sql
 SELECT * FROM `users`
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-This would return all columns from the `users` table.
+You can optionally specify an alias for the table.
 
-> _NOTE:_ Alternatively, you can use the `table()` method as an alias to `from()`.
-
-### Declaring a table alias
-
-Optionally you can specify an alias for the table by using the syntax:
-
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
 ```javascript
-//qb
-var getResults = query.from('users as u').get();
+query.from( "users as u" );
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-//sql
+{% code-tabs %}
+{% code-tabs-item title="MySQL" %}
+```sql
 SELECT * FROM `users` AS `u`
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-This would parse the string `users as u` and convert it into the correct syntax for current grammar.
+## table <a id="get"></a>
 
-Alternatively, you can use the ANSI SQL shorthand and leave out the `as` keyword:
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| table | string \| Expression | `true` | ​ | The name of the table or a Expression object from which the query is based. |
 
+An alias for `from` where you like how calling `table` looks.
+
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
 ```javascript
-//qb
-var getResults = query.from('users u').get();
-
-//sql
-SELECT * FROM `users` AS `u`
+query.table( "users" ).insert( { "name" = "jon" } );
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-## Defining the `from` clause using raw SQL
+{% code-tabs %}
+{% code-tabs-item title="MySQL" %}
+```sql
+INSERT INTO `users` (`name`) VALUES (?)
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+## fromRaw <a id="get"></a>
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| from | string | `true` | ​ | The sql snippet to use as the table. |
+| bindings | array | `false` | `[]` | Any bindings needed for the expression. |
 
 Sometimes you need more control over your `from` clause in order to add grammar specific instructions, such as adding SQL Server table hints to your queries.
 
-If you need complete control over your `from` clause you can use the `fromRaw()`.
-
-For example, to provide a table hint for a SQL Server query you could use:
-
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
 ```javascript
-//qb
-var getResults = query.fromRaw('[users] u (nolock)').get();
-
-//sql
-SELECT * FROM [users] u (nolock)
+query.fromRaw( "[users] u (nolock)" ).get();
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="SQL Server" %}
+```sql
+SELECT * FROM [users] u (nolock) 
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Since the `fromRaw()` takes your string verbatim, it's important that you make sure your SQL declaration is escaped properly. Failure to properly escape your table names may result in SQL errors.
 
-> _NOTE:_ Using the `fromRaw()` will most likely tie your code to a specific database, so think carefully before using the `fromRaw()` method if you want your project to be database agnostic.
-
-### Adding bindings to your raw `from` clause
+{% hint style="warning" %}
+Using `fromRaw` will most likely tie your code to a specific database, so think carefully before using the `fromRaw` method if you want your project to be database agnostic.
+{% endhint %}
 
 Many database engines allow you to define User Defined Functions. For example, SQL Server allows you to define UDFs that will return a table. In these type of cases, it may be necessary to bind parameters to your `from` clause.
 
-You can bind parameters to the `fromRaw()` method by passing a secondary argument that is an array of the parameters to bind:
+You can bind parameters to the `fromRaw()` method by passing a secondary argument that is an array of the parameters to bind.
 
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
 ```javascript
-//qb
-var getResults = query
-    .fromRaw('dbo.generateDateTable(?, ?, ?) as dt', ['2017-01-01', '2017-12-31', 'm'])
-    .get()
-;
-
-//sql
-SELECT * FROM dbo.generateDateTable('2017-01-01', '2017-12-31', 'm') as dt
+query.fromRaw(
+    "dbo.generateDateTable(?, ?, ?) as dt",
+    [ "2017-01-01", "2017-12-31", "m" ]
+).get();
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-## Derived tables
+{% code-tabs %}
+{% code-tabs-item title="SQL Server" %}
+```sql
+SELECT * FROM dbo.generateDateTable(?, ?, ?) as dt
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+## fromSub <a id="get"></a>
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| alias | string | `true` | ​ | The alias for the derived table. |
+| input | Function \| QueryBuilder | `true` |  | Either a `QueryBuilder` instance or a closure to define the derived query. |
 
 Complex queries often contain derived tables. Derived tables are essentially a temporal table defined as a subquery in the `from` statement.
 
-You can build queries that comprise of derived tables by using the `fromSub()` method, which requires two arguments:
-
-* The alias to use for the derived table \(which is how you reference your query\)
-* Either a QueryBuilder instances or closure defining the subquery
-
-### Defining a derived table using a closure
-
-The simplest way to create a derived table is by using a closure to define the subquery:
-
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
 ```javascript
-//qb
-var getResults = query
-    .select('firstName', 'lastName')
-    .fromSub('u', function (q){
-        q
-            .select('lName as lastName', 'fName as firstName')
-            .from('users')
-            .where('age', '>=', 21)
+query.select( [ "firstName", "lastName" ] )
+    .fromSub( "legalUsers", function ( q ) {
+        q.select( [ "lName as lastName", "fName as firstName" ] )
+            .from( "users" )
+            .where( "age", ">=", 21 )
         ;
-    })
-    .orderBy('lastName')
+    } )
+    .orderBy( "lastName" )
     .get()
-;
-
-//sql
-SELECT `firstName`, `lastName` FROM (SELECT `lName` as `lastName`, `fName` as `firstName` FROM `users` WHERE `age` >= 21) AS `u` ORDER BY `lastName`
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-### Defining a derived table using a QueryBuilder instance
+{% code-tabs %}
+{% code-tabs-item title="MySQL" %}
+```sql
+SELECT `firstName`, `lastName`
+FROM (
+    SELECT `lName` as `lastName`, `fName` as `firstName`
+    FROM `users`
+    WHERE `age` >= 21
+) AS `legalUsers`
+ORDER BY `lastName`
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-Alternatively you can supply a QueryBuilder instance to the `fromSub()` method:
+In additional a function callback, a separate `QueryBuilder` instance can be passed to the `fromSub` method.
 
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
 ```javascript
-//qb
-var derivedQA = query
-    .select('lName as lastName', 'fName as firstName')
-    .from('users')
-    .where('age', '>=', 21)
-;
+var legalUsersQuery = query
+    .select( [ "lName as lastName", "fName as firstName" ] )
+    .from( "users" )
+    .where( "age", ">=", 21 );
 
-var getResults = query
-    .select('firstName', 'lastName')
-    .fromSub('u', derivedQA)
-    .orderBy('lastName')
-    .get()
-;
-
-//sql
-SELECT `firstName`, `lastName` FROM (SELECT `lName` as `lastName`, `fName` as `firstName` FROM `users` WHERE `age` >= 21) AS `u` ORDER BY `lastName`
+query.select( [ "firstName", "lastName" ] )
+    .fromSub( "legalUsers", legalUsersQuery )
+    .orderBy( "lastName" )
+    .get();
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="MySQL" %}
+```sql
+SELECT `firstName`, `lastName`
+FROM (
+    SELECT `lName` as `lastName`, `fName` as `firstName`
+    FROM `users`
+    WHERE `age` >= 21
+) AS `legalUsers`
+ORDER BY `lastName`
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
