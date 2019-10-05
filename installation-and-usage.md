@@ -18,6 +18,13 @@ moduleSettings = {
 };
 ```
 
+The grammars provided by qb are:
+
+* MySQLGrammar
+* OracleGrammar
+* PostgresGrammar
+* SqlServerGrammar
+
 If you are not using WireBox, just make sure to wire up the `Builder` object with the correct grammar:
 
 ```text

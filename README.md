@@ -1,9 +1,5 @@
 # Introduction
 
-![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)
-
->
-
 ![Master Branch Build Status](https://img.shields.io/travis/coldbox-modules/qb/master.svg?style=flat-square&label=master)
 
 ![Development Branch Build Status](https://img.shields.io/travis/coldbox-modules/qb/development.svg?style=flat-square&label=development)
@@ -20,15 +16,15 @@ Using qb, you can:
 
 ## Requirements
 
-* Adobe ColdFusion 11+
-* Lucee 4.5+
+* Adobe ColdFusion 2016+
+* Lucee 5+
 
 qb supports four major database grammars:
 
-* MSSQL \(`MSSQLGrammar`\)
 * MySQL \(`MySQLGrammar`\)
 * Oracle \(`OracleGrammar`\)
 * Postgres \(`PostgresGrammar`\)
+* Microsoft SQL Server \(`SqlServerGrammar`\)
 
 ## Installation
 
@@ -96,7 +92,7 @@ By default, qb uses a generic Grammar. You can specify your specific grammar in 
 ```text
 moduleSettings = {
     qb = {
-        defaultGrammar = "MySQLGrammar"
+        defaultGrammar = "MySQLGrammar@qb"
     }
 };
 ```
@@ -107,53 +103,4 @@ If you are not using WireBox, just make sure to wire up the `Builder` object wit
 var grammar = new qb.models.Query.Grammars.MySQLGrammar();
 var builder = new qb.models.Query.Builder( grammar );
 ```
-
-### Return Format
-
-You can influence the return format of the result in two ways.
-
-By default, qb returns an array of structs as the result of your query. You can turn this behavior off by setting `builder.setReturningArrays( false )` for one-offs or setting `returningArrays = false` in your ColdBox config.
-
-```text
-moduleSettings = {
-    qb = {
-        returningArrays = false
-    }
-};
-```
-
-If you want complete control over your return result, you can provide a closure as a `returnFormat`. The results of the closure will be returned as the results of the builder.
-
-```text
-moduleSettings = {
-    qb = {
-        returnFormat = function( q ) {
-            return application.wirebox.getInstance(
-                name = "Collection",
-                initArguments = { collection = q }
-            );
-        }
-    }
-};
-```
-
-## Interception Points
-
-Two interception points are available from QB: `preQBExecute` and `postQBExecute`. These fire before and after the `queryExecute` call, respectively. The following information is available in the `interceptData` struct:
-
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| sql | String | The sql string to execute |
-| bindings | Struct | The struct of bindings \(keys and values\) for the query |
-| options | Struct | Any options to pass along to `queryExecute` |
-
-## Contributors
-
-Thanks goes to these wonderful people \([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)\):
-
-|  [📝]() [📖](https://github.com/elpete/qb-docs/commits?author=tonyjunkes) |  [💬]() [📝]() [🐛](https://github.com/elpete/qb-docs/issues?q=author%3Aelpete) [💻](https://github.com/elpete/qb-docs/commits?author=elpete) [🎨]() [📖](https://github.com/elpete/qb-docs/commits?author=elpete) [💡]() [👀]() [📢]() [⚠️](https://github.com/elpete/qb-docs/commits?author=elpete) |  [🐛](https://github.com/elpete/qb-docs/issues?q=author%3ABluewaterSolutions) [💻](https://github.com/elpete/qb-docs/commits?author=BluewaterSolutions) [📖](https://github.com/elpete/qb-docs/commits?author=BluewaterSolutions) |  [🐛](https://github.com/elpete/qb-docs/issues?q=author%3Amurphydan) [💻](https://github.com/elpete/qb-docs/commits?author=murphydan) |  [💬]() [💻](https://github.com/elpete/qb-docs/commits?author=aliaspooryorik) |  [💻](https://github.com/elpete/qb-docs/commits?author=timmaybrown) |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-
-
-This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
 

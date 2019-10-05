@@ -2,7 +2,15 @@
 
 ## v7.0.0
 
+### Lucee 4.5 and Adobe ColdFusion EOL
+
 Support for Lucee 4.5 and Adobe ColdFusion 11 has been dropped.  If you need support for these engines, please remain on an earlier version of qb.
+
+### MSSQLGrammar renamed to SqlServerGrammar
+
+`MSSQLGrammar` was visually too close to `MySQLGrammar` and was hard to differentiate quickly. `SqlServerGrammar` is much more unique and easily identifiable. Additionally, more people that use this library refer to their database engine as "SQL Server" than "MSSQL".
+
+To migrate, replace any instances of `MSSQLGrammar` with `SqlServerGrammar`.  Make sure to also append the `@qb` namespace, if needed, [as explained below.](migration-guide.md#defaultgrammar-updated-to-be-the-full-wirebox-mapping)
 
 ### Variadic Parameters Support Removed
 

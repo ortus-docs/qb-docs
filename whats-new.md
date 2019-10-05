@@ -7,6 +7,7 @@
 _Please see the_ [_Migration Guide_](migration-guide.md#v-7-0-0) _for more information on these changes._
 
 * Drop support for Lucee 4.5 and Adobe ColdFusion 11.
+* `MSSQLGrammar` renamed to `SqlServerGrammar`
 * Remove variadic parameters support in builder functions like `select`.
 * The `defaultGrammar` mapping needs to be the full WireBox mapping, including the `@qb`, if needed.
   * For instance, `MSSQLGrammar` would become `MSSQLGrammar@qb`.
