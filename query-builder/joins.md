@@ -2,6 +2,13 @@
 
 Join clauses range from simple to complex including joining complete subqueries on multiple conditions.  qb has your back with all of these use cases.
 
+| Table of Contents |  |  |  |
+| :--- | :--- | :--- | :--- |
+| [join](joins.md#join) | [joinRaw](joins.md#joinraw) | [joinSub](joins.md#joinsub) | [joinWhere](joins.md#joinwhere) |
+| [leftJoin](joins.md#leftjoin) | [leftJoinRaw](joins.md#leftjoinraw) | [leftJoinSub](joins.md#leftjoinsub) | [newJoin](joins.md#newjoin) |
+| [rightJoin](joins.md#get) | [rightJoinRaw](joins.md#rightjoinraw) | [rightJoinSub](joins.md#rightjoinsub) | [JoinClause](joins.md#joinclause) |
+| [crossJoin](joins.md#crossjoin) | [crossJoinRaw](joins.md#crossjoinraw) | [crossJoinSub](joins.md#crossjoinsub) |  |
+
 ## join <a id="join"></a>
 
 | Name | Type | Required | Default | Description |
@@ -964,38 +971,4 @@ JOIN `posts`
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
-## 
-
-## 
-
-## 
-
-## Joining using Derived Tables
-
-Complex queries often contain derived tables, which are temporal, subqueries defined inline within your SQL.
-
-To join your main table to a derived table you can use the `joinSub()` methods. Each `join` method has a corresponding "sub" method which you can use when you need to use a derived table \(i.e. `leftJoinSub()`, `rightJoinSub()`, etc\).
-
-These functions differ slightly than the normal `join` methods, because the first two arguments specify:
-
-* The alias to use for the derived table \(which is how you reference your query\)
-* Either a QueryBuilder instances or closure defining the subquery
-
-```javascript
-//qb
-var getResults = query
-    .from('blogs')
-    .joinSub('u', function (q){
-        q
-            .from('users')
-            .where('disabled', 0)
-        ;
-    }, 'u.ID', '=', 'blogs.FK_usersID')
-    .get();
-writeDump(getResults);
-
-//sql
-SELECT * FROM `blogs` INNER JOIN (SELECT * FROM `users` WHERE `disabled` = 0) AS `u` ON `u`.`ID` = `blogs`.`FK_usersID`
-```
 
