@@ -116,7 +116,7 @@ JOIN `posts`
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-You can specify [`where`](where-clauses.md) clauses in your joins as well.
+You can specify [`where`](wheres.md) clauses in your joins as well.
 
 {% code-tabs %}
 {% code-tabs-item title="QueryBuilder" %}
@@ -845,7 +845,7 @@ CROSS JOIN (
 | table | string \| [Expression](raw-expressions.md) | `true` | ​ | The name of the table or a [`Expression`](raw-expressions.md) object from which the query is based. |
 | type | string | `false` | `"inner"` | The type of the join.  Valid types are `inner`, `left`, `right`, or `cross`. |
 
-Creates a new [`JoinClause`](joins.md#joinclause).  A [`JoinClause`](joins.md#joinclause) is a specialized version of a `QueryBuilder`.  You may call `on` or `orOn` to constrain the [`JoinClause`](joins.md#joinclause).  You may also call any [`where`](where-clauses.md) methods.
+Creates a new [`JoinClause`](joins.md#joinclause).  A [`JoinClause`](joins.md#joinclause) is a specialized version of a `QueryBuilder`.  You may call `on` or `orOn` to constrain the [`JoinClause`](joins.md#joinclause).  You may also call any [`where`](wheres.md) methods.
 
 Creating a [`JoinClause`](joins.md#joinclause) directly is useful when you need to share a join between different queries.  You can create and configure the [`JoinClause`](joins.md#joinclause) in a function and pass it to queries as needed.
 
@@ -903,7 +903,7 @@ JOIN `posts`
 
 ## JoinClause
 
-A `JoinClause` is a specialized version of a `QueryBuilder`.  You may call `on` or `orOn` to constrain the `JoinClause`.  You may also call any [`where`](where-clauses.md) methods.
+A `JoinClause` is a specialized version of a `QueryBuilder`.  You may call `on` or `orOn` to constrain the `JoinClause`.  You may also call any [`where`](wheres.md) methods.
 
 ### on
 

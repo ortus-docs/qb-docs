@@ -16,7 +16,7 @@
 * [Selects](query-builder/selects.md)
 * [From](query-builder/from.md)
 * [Joins](query-builder/joins.md)
-* [Where Clauses](query-builder/where-clauses.md)
+* [Wheres](query-builder/wheres.md)
 * [Conditionals](query-builder/conditionals.md)
 * [Ordering, Grouping & Limit](query-builder/ordering-grouping-and-limit.md)
 * [Unions](query-builder/unions.md)
