@@ -263,3 +263,64 @@ writeDump(getResults);
 SELECT * FROM `users` WHERE (a = ? OR b = ?) AND c = ?
 ```
 
+## Dynamic Where Methods
+
+qb uses `onMissingMethod` to provide a few different helpers when working with `where...` methods.
+
+### andWhere... and orWhere...
+
+Every `where...` method in qb can be called prefixed with either `and` or `or`.  Doing so will call the original method using the corresponding combinator.
+
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .where( "username", "like", "j%" )
+    .andWhere( function( q ) {
+        q.where( "isSubscribed", 1 )
+            .orWhere( "isOnFreeTrial", 1 );
+     } );
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="MySQL" %}
+```sql
+SELECT *
+FROM `users`
+WHERE `username` LIKE ?
+  AND (
+    `isSubscribed` = ?
+    OR
+    `isOnFreeTrial` = ?
+  )
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### where{Column}
+
+If you call a method starting with `where` that does not match an existing qb method, qb will instead call the `where` method using the rest of the method name as the first column name.  \(The rest of the arguments will be shifted to account for this.\)  This also applies to `andWhere{Column}` and `orWhere{Column}` method signatures.
+
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .whereUsername( "like", "j%" )
+    .whereActive( 1 );
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="MySQL" %}
+```sql
+SELECT *
+FROM `users`
+WHERE `username` LIKE ?
+  AND `active` = ?
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
