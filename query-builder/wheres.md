@@ -506,7 +506,7 @@ WHERE `id` IN (?, ?, ?)
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Any value in the list or array can also be passed using a [custom parameter type](wheres.md#custom-parameter-types) to have more control over the parameter settings.
+Any value in the list or array can also be passed using a [custom parameter type](parameters-and-bindings.md#custom-parameter-types) to have more control over the parameter settings.
 
 {% code-tabs %}
 {% code-tabs-item title="QueryBuilder" %}
@@ -596,7 +596,7 @@ Adds a where not in clause to the query.  This behaves identically to the `where
 | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | sql | string | `true` |  | The raw SQL to add to the query. |
-| whereBindings | array | `false` | `[]` | Any bindings needed for the raw SQL.  Bindings can be simple values or [custom parameters.](wheres.md#custom-parameter-types) |
+| whereBindings | array | `false` | `[]` | Any bindings needed for the raw SQL.  Bindings can be simple values or [custom parameters](parameters-and-bindings.md#custom-parameter-types). |
 | combinator | string | `false` | `"and"` | The boolean combinator for the clause.  Valid options are `"and"` or `"or"`.  Avoid passing this parameter explicitly.  Where possible use the `andWhere` and `orWhere` [dynamic methods ](wheres.md#andwhere-and-orwhere)instead. |
 
 Shorthand to add a raw SQL statement to the where clauses.
@@ -661,33 +661,6 @@ WHERE `id` IS NULL
 | negate | boolean | `false` | `false` | False for NULL, True for NOT NULL. |
 
 Adds a where not in clause to the query.  This behaves identically to the [`whereNull`](wheres.md#wherenull) method with the `negate`flag set to `true`.  See the documentation for [`whereNull`](wheres.md#wherenull) for usage and examples.
-
-## Custom Parameter Types
-
-When passing a parameter to qb, it will infer the sql type to be used.  If you pass a number, `CF_SQL_NUMERIC` will be used. If it is a date, `CF_SQL_TIMESTAMP`, and so forth. If you need more control, you can pass a struct with the parameters you would pass to [`cfqueryparam`](https://cfdocs.org/cfqueryparam).
-
-{% hint style="success" %}
-You can pass include any parameters you would use with [`cfqueryparam`](https://cfdocs.org/cfqueryparam) including `null`, `list`, etc.  This applies anywhere parameters are used including `where`, `update`, and `insert` methods.
-{% endhint %}
-
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
-```javascript
-query.from( "users" )
-    .where( "id", "=", { value = 18, cfsqltype = "CF_SQL_VARCHAR" } );
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
-```sql
-SELECT *
-FROM `users`
-WHERE `id` = ?
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
 
 ## Dynamic Where Methods
 

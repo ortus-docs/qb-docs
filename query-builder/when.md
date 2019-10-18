@@ -1,4 +1,4 @@
-# Conditionals
+# When / Conditionals
 
 If you store the builder object in a variable, you can use `if` and `else` statements like you would expect.
 
