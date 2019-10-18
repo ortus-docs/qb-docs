@@ -1,36 +1,58 @@
 # Conditionals
 
-## Basic `if` and `else`
-
 If you store the builder object in a variable, you can use `if` and `else` statements like you would expect.
 
-```text
-var builder = builder.from( "posts" );
-if ( rc.recent ) {
-    builder.orderBy( "published_date", "desc" );
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
+```javascript
+var q = query.from( "posts" );
+if ( someFlag ) {
+    q.orderBy( "published_date", "desc" );
 }
-var results = builder.get();
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-This works, but breaks chainability. A better way is to use the `when` helper method.
+This works, but breaks chainability. To keep chainability you can use the `when` helper method.
 
 ## `when`
 
 | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | condition | boolean | true |  | The condition to switch on. |
-| onTrue | Closure | true |  | The callback to execute if the condition is true.  It is passed the `builder` object as the only parameter. |
-| onFalse | Closure | false | function\( q \) { return q; } | The callback to execute if the conditions is false.  It is passed the `builder` object as the only parameter. |
+| onTrue | Function | true |  | The callback to execute if the condition is true.  It is passed the `builder` object as the only parameter. |
+| onFalse | Function | false | function\( q \) { return q; } | The callback to execute if the conditions is false.  It is passed the `builder` object as the only parameter. |
 
-We can rewrite the above query like so:
+The `when` helper is used to allow conditional statements when defining queries without using if statements and having to store temporary variables.
 
-```text
-var results = builder.from( "posts" )
-    .when( rc.recent, function( q ) {
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
+```javascript
+query.from( "posts" )
+    .when( someFlag, function( q ) {
         q.orderBy( "published_date", "desc" );
     } )
     .get();
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-Nice. We keep chainability this way and reduce the number of temporary variables we need.
+You can pass a third argument to be called in the `else` case.
+
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
+```javascript
+query.from( "posts" )
+    .when(
+        someFlag,
+        function( q ) {
+            q.orderBy( "published_date", "desc" );
+        },
+        function( q ) {
+            q.orderBy( "modified_date", "desc" );
+        }
+    );
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
