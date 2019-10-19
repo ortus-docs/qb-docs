@@ -24,11 +24,12 @@
 * [Limit, Offset, and Pagination](query-builder/limit-offset-and-pagination.md)
 * [Unions](query-builder/unions.md)
 * [Common Table Expressions \(i.e. CTEs\)](query-builder/common-table-expressions.md)
-* [Inserts](query-builder/inserts.md)
+* [Inserts, Updates, and Deletes](query-builder/inserts.md)
 * [Updates](query-builder/updates.md)
 * [Deletes](query-builder/deletes.md)
 * [New Query](query-builder/new-query.md)
 * [Clone](query-builder/clone.md)
+* [Debugging](query-builder/debugging.md)
 
 ## Schema Builder
 

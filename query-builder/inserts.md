@@ -1,4 +1,4 @@
-# Inserts
+# Inserts, Updates, and Deletes
 
 The query builder also provides an `insert` method for inserting records into the database table. The `insert` method accepts an array of column names and values:
 
