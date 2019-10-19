@@ -1,4 +1,4 @@
-# Parameters and Bindings
+# Query Parameters and Bindings
 
 ## Custom Parameter Types
 

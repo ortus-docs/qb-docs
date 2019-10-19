@@ -12,11 +12,15 @@ _Please see the_ [_Migration Guide_](migration-guide.md#v-7-0-0) _for more infor
 * The `defaultGrammar` mapping needs to be the full WireBox mapping, including the `@qb`, if needed.
   * For instance, `MSSQLGrammar` would become `MSSQLGrammar@qb`.
   * This will allow for other grammars to be more easily contributed via third party modules.
+* The argument names of `forPage` changed to match the new `paginate` method.
 * Add `defaultValue` and optional exception throwing to `value`. \(This changed the argument order.\)
 * All methods that could conceivably take a subquery as well as a value now accept a closure or another builder instance to use as a subquery. \(This changed the argument names in some instances.\)
 
 #### **Other Changes**
 
+* Completely revamped documentation! \(You're looking at it right now.\)
+* Add new flag to `toSQL( showBindings = true )` to replace question marks \(`?`\) with `cfqueryparam`-compatible structs for debugging.
+* Add a new paginate method to generate a pagination struct alongside the results.  This can be customized using a custom PaginationCollector.
 * Allow raw values in `insert` calls.
 * Allow default `queryExecute` `options` to be configure at a Query Builder level.  This also enables custom `QueryBuilders` a la [Hyper](https://www.forgebox.io/view/hyper).
 * Add a `whereLike` method.

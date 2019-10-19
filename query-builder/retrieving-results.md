@@ -144,6 +144,58 @@ query.from( "users" ).chunk( 100, function( users ) {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## paginate
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| page | numeric | `false` | `1` | The page number to retrieve. |
+| maxRows | numeric | `false` | `25` | The number of records per page.  If a number less than 0 is passed, 0 is used instead. |
+
+Generates a pagination struct along with the results of the executed query.  It does this by calling both `count` and `forPage`.
+
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .paginate();
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="Results" %}
+```javascript
+{
+    "pagination": {
+        "maxRows": 25,
+        "offset": 0,
+        "page": 1,
+        "totalPages": 2,
+        "totalRecords": 45
+    },
+    "results": [ { /* ... */ }, ]
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### Custom Pagination Collectors
+
+A pagination collector is the name given to the struct returned from calling the [`paginate`](retrieving-results.md#paginate) method.  It can be a struct or a component.  It needs one function defined and will be passed the following parameters.
+
+#### generateWithResults
+
+| Name | Type | Description |
+| :--- | :--- | :--- |
+| totalRecords | numeric | The total records count. |
+| results | any | The results of the query execution.  It will be passed as whatever return format the user has defined. |
+| page | numeric | The current page number. |
+| maxRows | numeric | The maximum number of rows retrieved per page. |
+
+You can set your custom pagination collector either in the constructor using the `paginationCollector` argument or by calling `setPaginationCollector` on a query builder instance.
+
+By default, qb ships with [`cbpaginator`](https://forgebox.io/view/cbpaginator) as its pagination collector.  The return format of `cbpaginator` is the example shown above.
+
 ## Options parameter: Retrieving results from alternative datasources
 
 In `Application.cfc` you can specify your default datasource which will be used by qb. If you want to retrieve data from other datasources you can specify this in all retrieval functions by using the extra options parameter such as:
