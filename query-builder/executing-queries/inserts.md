@@ -1,5 +1,7 @@
 # Inserts, Updates, and Deletes
 
+## Inserts
+
 The query builder also provides an `insert` method for inserting records into the database table. The `insert` method accepts an array of column names and values:
 
 ```javascript
@@ -69,4 +71,58 @@ VALUES (55, "robert@test.com", "Robert")
 ```
 
 If you attempt to use `returning` on grammars that do not support it, you will recieve a `UnsupportedOperation` exception.
+
+## Updates
+
+Of course, in addition to inserting records into the database, the query builder can also update existing records using the `update` method. The `update` method, like the `insert` method, accepts an array of column and value pairs containing the columns to be updated. You may constrain the `update` query using `where` clauses:
+
+```text
+//qb
+var addRecords = query.from( "users" )
+    .whereID( 10 )
+    .update(  { "name" = "Roberto", "email" = "roberto@test.com", "age" = 55 });
+writeDump(addRecords);
+
+//sql
+UPDATE `users` SET `age` = 55, `email` = `roberto@test.com`, `name` = `Roberto` WHERE `ID` = 10
+```
+
+You can also use Expressions inside an update statement:
+
+```javascript
+query.from( "posts" )
+    .whereID( 10 )
+    .update( { "likes" = query.raw( "likes + 1" ) } );
+    
+// SQL:      UPDATE `posts` SET `likes` = likes + 1 WHERE `ID` = ?
+// Bindings: [ 10 ]
+```
+
+## Deletes
+
+The query builder may also be used to delete records from the table via the `delete` method. You may constrain `delete` statements by adding `where` clauses before calling the `delete` method:
+
+```text
+//qb
+var deleteRecords = query.from( "users" )
+    .whereID( 10 )
+    .delete();
+writeDump(deleteRecords);
+
+//sql
+DELETE FROM `users` WHERE `ID` = 10;
+```
+
+This utilizes the where clause on a column other than the ID:
+
+```text
+//qb
+var deleteRecords = query.from( "users" )
+    .where( 'age', '>', 50 )
+    .delete();
+writeDump(deleteRecords);
+
+//sql
+DELETE FROM `users` WHERE `age` > 50
+```
 

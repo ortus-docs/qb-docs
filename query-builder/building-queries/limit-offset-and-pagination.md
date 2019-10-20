@@ -112,7 +112,7 @@ OFFSET 30
 
 ## paginate
 
-This method combines `forPage`, `count`, and `get` to create a pagination struct alongside the results. Information on the `paginate` method, including custom pagination collectors, can be found in the [Retreiving Results](retrieving-results.md#paginate) section of the documentation.
+This method combines `forPage`, `count`, and `get` to create a pagination struct alongside the results. Information on the `paginate` method, including custom pagination collectors, can be found in the [Retreiving Results](../executing-queries/retrieving-results.md#paginate) section of the documentation.
 
 
 

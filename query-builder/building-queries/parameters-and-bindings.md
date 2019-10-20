@@ -59,8 +59,12 @@ Bindings are the values that will be sent as parameters to a prepared SQL statem
 
 If you need to inspect the bindings for the current query you can retrieve them in order using the `getBindings` method.
 
+{% hint style="info" %}
+You can view the current SQL for the query with bindings inline for debugging purposes using the [`toSQL`](../debugging.md#tosql) method.
+{% endhint %}
+
 {% hint style="danger" %}
- Use this method only for debugging. Modifying the bindings directly will likely cause issues when executing your query.  Adding or removing bindings should be done using the public API.
+ Use these methods only for debugging. Modifying the bindings directly will likely cause issues when executing your query.  Adding or removing bindings should be done using the public API.
 {% endhint %}
 
 ### getBindings

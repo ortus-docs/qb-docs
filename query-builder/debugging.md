@@ -108,5 +108,5 @@ qb can be quite chatty when executing many database queries.  Make sure that thi
 
 ### ColdBox Interception Points
 
-ColdBox Interception Points can also be used for logging, though you may find it easier to use LogBox.  See the documentation for [qb's Interception Points](interception-points.md) for more information.
+ColdBox Interception Points can also be used for logging, though you may find it easier to use LogBox.  See the documentation for [qb's Interception Points](options-and-utilities/interception-points.md) for more information.
 

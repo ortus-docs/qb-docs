@@ -26,7 +26,7 @@ _Please see the_ [_Migration Guide_](migration-guide.md#v-7-0-0) _for more infor
 * Add a `whereLike` method.
 * Allow closures to be used in left and right joins.
 * Provide an `addUpdate` method to programmatically build the `SET` clause of an update query.
-* [Add a new `chunk` method](query-builder/retrieving-results.md#chunking-results) to grab records from the database in small sets.
+* [Add a new `chunk` method](query-builder/executing-queries/retrieving-results.md#chunking-results) to grab records from the database in small sets.
 * Add `raw` in `alterTable` segments.
 * Add `dropAllObjects` support for `MSSQLGrammar` and `OracleGrammar` to support `migrate fresh`.
 * Add a `renameTable` alias for `rename`.
@@ -49,5 +49,5 @@ _Please see the_ [_Migration Guide_](migration-guide.md#v-7-0-0) _for more infor
 
 ## 6.4.0
 
-* [Allow Expressions \(`query.raw`\) in update statements.](query-builder/updates.md)
+* [Allow Expressions \(`query.raw`\) in update statements.]()
 
