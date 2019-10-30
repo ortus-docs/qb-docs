@@ -29,9 +29,9 @@ _Please see the_ [_Migration Guide_](migration-guide.md#v-7-0-0) _for more infor
 * Provide an [`addUpdate`](query-builder/executing-queries/inserts-updates-deletes.md#addupdate) method to programmatically build the `SET` clause of an update query.
 * [Add a new `chunk` method](query-builder/executing-queries/retrieving-results.md#chunking-results) to grab records from the database in small sets.
 * Add `raw` in `alterTable` segments.
-* Add `dropAllObjects` support for `MSSQLGrammar` and `OracleGrammar` to support `migrate fresh`.
+* Add `dropAllObjects` support for `SqlServerGrammar` and `OracleGrammar` to support `migrate fresh` from cfmigrations.
 * Add a `renameTable` alias for `rename`.
-* Rename default constraints when dropping columns with a default on `MSSQLGrammar`.
+* Remove default constraints when dropping columns with a default on `SqlServerGrammar`.
 * Add more column types and column helpers to `SchemaBuilder`, including:
   * `datetimeTz`
   * `lineString`
