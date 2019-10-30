@@ -25,7 +25,7 @@
 * [Executing Queries](query-builder/executing-queries/README.md)
   * [Retrieving Results](query-builder/executing-queries/retrieving-results.md)
   * [Aggregates](query-builder/executing-queries/aggregates.md)
-  * [Inserts, Updates, and Deletes](query-builder/executing-queries/inserts.md)
+  * [Inserts, Updates, and Deletes](query-builder/executing-queries/inserts-updates-deletes.md)
 * [Options and Utilities](query-builder/options-and-utilities/README.md)
   * [Query Options](query-builder/options-and-utilities/query-options.md)
   * [Clone](query-builder/options-and-utilities/clone.md)
