@@ -60,6 +60,30 @@ VALUES (?, ?, ?)
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+Raw values can be supplied to an insert statement.
+
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .insert( {
+        "name" = "Robert",
+        "email" = "robert@test.com",
+        "updatedDate" = query.raw( "NOW()" )
+    } );
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="MySQL" %}
+```sql
+INSERT INTO `users` (`age`, `email`, `updatedDate`)
+VALUES (?, ?, NOW())
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 Multiple rows can be inserted in a batch by passing an array of structs to `insert`.
 
 {% hint style="info" %}

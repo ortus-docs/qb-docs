@@ -19,14 +19,14 @@ _Please see the_ [_Migration Guide_](migration-guide.md#v-7-0-0) _for more infor
 #### **Other Changes**
 
 * Completely revamped documentation! \(You're looking at it right now.\)
-* Add new flag to `toSQL( showBindings = true )` to replace question marks \(`?`\) with `cfqueryparam`-compatible structs for debugging.
-* Preserve column case and order when converting a query to an array.
-* Add a new paginate method to generate a pagination struct alongside the results.  This can be customized using a custom PaginationCollector.
-* Allow raw values in `insert` calls.
-* Allow default `queryExecute` `options` to be configure at a Query Builder level.  This also enables custom `QueryBuilders` a la [Hyper](https://www.forgebox.io/view/hyper).
-* Add a `whereLike` method.
+* Add new flag to [`toSQL( showBindings = true )`](query-builder/debugging.md#tosql) to replace question marks \(`?`\) with `cfqueryparam`-compatible structs for debugging.
+* Preserve column case and order when converting a query to an array using the default `"array"` return format.
+* Add a new [paginate](query-builder/executing-queries/retrieving-results.md#paginate) method to generate a pagination struct alongside the results.  This can be customized using a custom [PaginationCollector](query-builder/executing-queries/retrieving-results.md#custom-pagination-collectors).
+* Allow raw values in [`insert`](query-builder/executing-queries/inserts-updates-deletes.md#insert) calls.
+* Allow [default `queryExecute` `options`](query-builder/options-and-utilities/query-options.md#default-options) to be configure at a Query Builder level.  This also enables custom `QueryBuilders` a la [Hyper](https://www.forgebox.io/view/hyper).
+* Add a [`whereLike`](query-builder/building-queries/wheres.md#wherelike) method.
 * Allow closures to be used in left and right joins.
-* Provide an `addUpdate` method to programmatically build the `SET` clause of an update query.
+* Provide an [`addUpdate`](query-builder/executing-queries/inserts-updates-deletes.md#addupdate) method to programmatically build the `SET` clause of an update query.
 * [Add a new `chunk` method](query-builder/executing-queries/retrieving-results.md#chunking-results) to grab records from the database in small sets.
 * Add `raw` in `alterTable` segments.
 * Add `dropAllObjects` support for `MSSQLGrammar` and `OracleGrammar` to support `migrate fresh`.
