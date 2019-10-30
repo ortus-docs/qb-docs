@@ -2,15 +2,15 @@
 
 The query builder also lets you create union statements on your queries using either `UNION` or `UNION ALL` strategies.
 
-The `union` methods take either a Query Builder instance or a closure, which you use to define a new QueryBuilder instance.
+The `union` methods take either a Query Builder instance or a closure which you use to define a new QueryBuilder instance.
 
 Union statements are added in the order in which the `union` methods are invoked, but the `union` statements can be in any order in your API call stack. This means you can safely declare your `union` method calls before the `select`, `from` and `orderBy` calls on the source Query Builder instance.
 
-* union\(\) — This method builds a SQL statement using the ANSI SQL `union` clause which combines two SQL queries into a single resultset containing all the matching rows. The two queries _must_ have the same defined columns and compatible data types or the SQL engine will generate an error. The `union` clause only returns unique rows.
-* unionAll\(\) — This builds a SQL statement using the `union all` clause. This is the same as `union` but includes duplicate rows. 
+* `union()` — This method builds a SQL statement using the `UNION` clause which combines two SQL queries into a single result set containing all the matching rows. The two queries _must_ have the same defined columns and compatible data types or the SQL engine will generate an error. The `union` clause only returns unique rows.
+* `unionAll()` — This builds a SQL statement using the `UNION ALL` clause. This is the same as `union` but includes duplicate rows. 
 
 {% hint style="danger" %}
-**IMPORTANT:** The QueryBuilder instances passed to a `union` statement _cannot_ contain a defined order. Any use of the `orderBy()` method on the unioned QueryBuilder instances will result in an exception. To order the results, add an `orderBy()` call to the parent source Query Builder instance.
+**IMPORTANT:** The QueryBuilder instances passed to a `union` statement _cannot_ contain a defined order. Any use of the `orderBy()` method on the unioned QueryBuilder instances will result in an `OrderByNotAllowed`exception. To order the results, add an `orderBy()` call to the parent source Query Builder instance.
 {% endhint %}
 
 ## union

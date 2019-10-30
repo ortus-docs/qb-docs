@@ -20,6 +20,7 @@ _Please see the_ [_Migration Guide_](migration-guide.md#v-7-0-0) _for more infor
 
 * Completely revamped documentation! \(You're looking at it right now.\)
 * Add new flag to `toSQL( showBindings = true )` to replace question marks \(`?`\) with `cfqueryparam`-compatible structs for debugging.
+* Preserve column case and order when converting a query to an array.
 * Add a new paginate method to generate a pagination struct alongside the results.  This can be customized using a custom PaginationCollector.
 * Allow raw values in `insert` calls.
 * Allow default `queryExecute` `options` to be configure at a Query Builder level.  This also enables custom `QueryBuilders` a la [Hyper](https://www.forgebox.io/view/hyper).

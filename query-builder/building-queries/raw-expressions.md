@@ -36,10 +36,9 @@ Expressions can be passed to most qb methods, like `select`, `from`, `where`, or
 
 * [selectRaw](selects.md#get-3)
 * [fromRaw](from.md#get-2)
-* joinRaw
-* leftJoinRaw
-* rightJoinRaw
-* crossJoinRaw
-* whereRaw
-* orWhereRaw
+* [joinRaw](joins.md#joinraw)
+* [leftJoinRaw](joins.md#leftjoinraw)
+* [rightJoinRaw](joins.md#rightjoinraw)
+* [crossJoinRaw](joins.md#crossjoinraw)
+* [whereRaw](wheres.md#whereraw)
 

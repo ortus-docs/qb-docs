@@ -1,6 +1,6 @@
 # Common Table Expressions \(i.e. CTEs\)
 
-Common Table Expressions \(CTEs\) are powerful SQL concept that allow you to create re-usable temporal resultset, which can be referenced as a table within your SQL. CTEs are available in many common database engines and are available in latest versions of all of the support grammars.
+Common Table Expressions \(CTEs\) are powerful SQL concept that allow you to create re-usable temporal result sets, which can be referenced as a table within your SQL. CTEs are available in many common database engines and are available in latest versions of all of the support grammars.
 
 CTEs come in two basic types:
 
@@ -16,27 +16,40 @@ To add CTEs to your queries, you have two methods available:
 * `with()` — Allows you to define a non-recursive CTE.
 * `withRecursive()` — Allows you to define a recursive CTE.
 
-> _NOTE:_ Some database engines require the `recursive` keyword is implemented anytime at least one of your CTEs is recursive, but some database engines \(e.g. SQL Server and Oracle\) do not require the keyword. For engines that do not require the `recursive` keyword the grammar will manage adding the keyword if necessary. If your query does use recursion, you should always use the `withRecursive()` method to avoid issues with other grammars.
+{% hint style="info" %}
+Some database engines require the `recursive` keyword anytime at least one of your CTEs is recursive, but some database engines \(e.g. SQL Server and Oracle\) do not require the keyword. qb will manage adding the keyword, if necessary. If your query does use recursion you should use the `withRecursive()`method to avoid issues when migrating grammars.
+{% endhint %}
 
-## Simple CTE using a closure
+## with
 
-Building a CTE is as easy as using the `with()` method with a closure:
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| name | string | `true` |  | The name of the CTE. |
+| input | QueryBuilder \| Function | `true` |  | Either a QueryBuilder instance or a function to define the derived query. |
+| columns | Array&lt;String&gt; | `false` | `[]` | An optional array containing the columns to include in the CTE. |
+| recursive | boolean | `false` | `false` | Determines if the CTE statement should be a recursive CTE. Passing this as an argument is discouraged. Use the dedicated `withRecursive` where possible. |
 
+You can build a CTE using a function:
+
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
 ```javascript
 // qb
-var getResults = query
-    .with('UserCTE', function (q){
+query.with( "UserCTE", function ( q ) {
         q
-            .select('fName as firstName', 'lName as lastName')
-            .from('users')
-            .where('disabled', 0)
-        ;
-    })
-    .from('UserCTE')
+            .select( [ "fName as firstName", "lName as lastName" ] )
+            .from( "users" )
+            .where( "disabled", 0 );
+    } )
+    .from( "UserCTE" )
     .get();
-writeDump(getResults);
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-// sql
+{% code-tabs %}
+{% code-tabs-item title="MySQL" %}
+```sql
 WITH `UserCTE` AS (
     SELECT
         `fName` as `firstName`,
@@ -45,26 +58,30 @@ WITH `UserCTE` AS (
     WHERE `disabled` = 0
 ) SELECT * FROM `UserCTE`
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-## Simple CTE using a QueryBuilder instance
+Alternatively, you can use a QueryBuilder instance instead of a function:
 
-Alternatively, you can use a QueryBuilder instance instead of a closure:
-
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
 ```javascript
 // qb
 var cte = query
-    .select('fName as firstName', 'lName as lastName')
-    .from('users')
-    .where('disabled', 0)
-;
+    .select( [ "fName as firstName", "lName as lastName" ] )
+    .from( "users" )
+    .where( "disabled", 0 );
 
-var getResults = query
-    .with('UserCTE', cte)
-    .from('UserCTE')
+query.with( "UserCTE", cte )
+    .from( "UserCTE" )
     .get();
-writeDump(getResults);
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-// sql
+{% code-tabs %}
+{% code-tabs-item title="MySQL" %}
+```sql
 WITH `UserCTE` AS (
     SELECT
         `fName` as `firstName`,
@@ -74,33 +91,33 @@ WITH `UserCTE` AS (
 )
 SELECT * FROM `UserCTE`
 ```
-
-## Multiple CTEs
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 A single query can reference multiple CTEs:
 
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
 ```javascript
-// qb
-var getResults = query
-    .with('UserCTE', function (q){
-        q
-            .select('id', 'fName as firstName', 'lName as lastName')
-            .from('users')
-            .where('disabled', 0)
-        ;
-    })
-    .with('BlogCTE', function (q){
-        q
-            .from('blogs')
-            .where('disabled', 0)
-        ;
-    })
-    .from('BlogCTE as b')
-    .join('UserCTE as u', 'b.Creator', 'u.id')
+query.with( "UserCTE", function ( q ) {
+        q.select( [ "id", "fName as firstName", "lName as lastName" ] )
+            .from( "users" )
+            .where( "disabled", 0 );
+    } )
+    .with( "BlogCTE", function ( q ) {
+        q.from( "blogs" )
+            .where( "disabled", 0 );
+    } )
+    .from( "BlogCTE as b" )
+    .join( "UserCTE as u", "b.Creator", "u.id" )
     .get();
-writeDump(getResults);
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-// sql
+{% code-tabs %}
+{% code-tabs-item title="MySQL" %}
+```sql
 WITH `UserCTE` AS (
     SELECT
         `id`,
@@ -119,37 +136,70 @@ FROM `BlogCTE` AS `b`
 INNER JOIN `UserCTE` AS `u`
 ON `b`.`Creator` = `u`.`id`
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-## Recursive CTEs
+## withRecursive
 
-> **IMPORTANT** — The way the SQL in a recursive CTEs are written, using them in your code is likely to lock in you in to a specific database engine, unless you structure your code to build the correct SQL based on the current grammar being used.
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| name | string | `true` |  | The name of the CTE. |
+| input | QueryBuilder \| Function | `true` |  | Either a QueryBuilder instance or a function to define the derived query. |
+| columns | Array&lt;String&gt; | `false` | `[]` | An optional array containing the columns to include in the CTE. |
+
+{% hint style="warning" %}
+**IMPORTANT** — The way the SQL in a recursive CTEs are written, using them in your code is likely to lock in you in to a specific database engine, unless you structure your code to build the correct SQL based on the current grammar being used.
+{% endhint %}
 
 Here is an example of building a recursive CTE using SQL Server which would return all parent/child rows and show their generation/level depth:
 
+{% code-tabs %}
+{% code-tabs-item title="QueryBuilder" %}
 ```javascript
-// qb
-var getResults = query
-    .withRecursive('Hierarchy', function (q){
-        q
-            // get the parent rows only
-            .select('Id', 'ParentId', 'Name', q.raw('0 AS [Generation]'))
-            .from('Sample')
-            .whereNull('ParentId')
-            // use recursion to join the child rows to their parents
-            .unionAll(function (q){
-                q
-                    .select('child.Id', 'child.ParentId', 'child.Name', q.raw('[parent].[Generation] + 1'))
-                    .from("Sample as child)
-                    .join("Hierarchy as parent", "child.ParentId", "parent.Id")
-                ;
-            })
-        ;
-    }, ['Id', 'ParentId', 'Name', 'Generation'])
-    .from('Hierarchy')
+query.withRecursive( "Hierarchy", function ( q ) {
+    q.select( [ "Id", "ParentId", "Name", q.raw( "0 AS [Generation]" ) ] )
+        .from( "Sample" )
+        .whereNull( "ParentId" )
+        // use recursion to join the child rows to their parents
+        .unionAll( function ( q ) {
+            q.select( [
+                    "child.Id",
+                    "child.ParentId",
+                    "child.Name",
+                    q.raw( "[parent].[Generation] + 1" )
+                ] )
+                .from( "Sample as child" )
+                .join( "Hierarchy as parent", "child.ParentId", "parent.Id" );
+        } );
+    }, [ "Id", "ParentId", "Name", "Generation" ] )
+    .from( "Hierarchy" )
     .get();
-writeDump(getResults);
-
-// sql
-;WITH [Hierarchy] ([Id], [ParentId], [Name], [Generation]) AS (SELECT [Id], [ParentId], [Name], 0 AS [Generation] FROM [Sample] WHERE [ParentId] IS NULL UNION ALL SELECT [child].[Id], [child].[ParentId], [child].[Name], [parent].[Generation] + 1 FROM [Sample] AS [child] INNER JOIN [Hierarchy] AS [parent] ON [child].[ParentId] = [parent].[Id]) SELECT * FROM [Hierarchy]
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="SqlServer" %}
+```sql
+WITH [Hierarchy] ([Id], ParentId], [Name], [Generation]) AS (
+    SELECT
+        [Id],
+        [ParentId],
+        [Name],
+        0 AS [Generation]
+    FROM [Sample]
+    WHERE [ParentId] IS NULL
+    UNION ALL
+    SELECT
+        [child].[Id],
+        [child].[ParentId],
+        [child].[Name],
+        [parent].[Generation] + 1
+    FROM [Sample] AS [child]
+    INNER JOIN [Hierarchy] AS [parent]
+        ON [child].[ParentId] = [parent].[Id]
+) SELECT * FROM [Hierarchy]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
