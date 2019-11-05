@@ -2,19 +2,6 @@
 
 The `Blueprint` object has many column types available to construct your table schema. Additionally, you can modify the columns created [with an additional set of methods](column-modifiers.md) and [indexes](column-modifiers.md).
 
-| Columns |  |  |  |
-| :--- | :--- | :--- | :--- |
-| [bigIncrements](columns.md#bigIncrements) | [bigInteger](columns.md#bigInteger) | [bit](columns.md#bit) | [boolean](columns.md#boolean) |
-| [char](columns.md#char) | [date](columns.md#date) | [datetime](columns.md#datetime) | [decimal](columns.md#decimal) |
-| [enum](columns.md#enum) | [float](columns.md#float) | [increments](columns.md#increments) | [integer](columns.md#integer) |
-| [json](columns.md#json) | [longText](columns.md#longText) | [mediumIncrements](columns.md#mediumIncrements) | [mediumInteger](columns.md#mediumInteger) |
-| [mediumText](columns.md#mediumText) | [morphs](columns.md#morphs) | [nullableMorphs](columns.md#nullableMorphs) | [raw](columns.md#raw) |
-| [smallIncrements](columns.md#smallIncrements) | [smallInteger](columns.md#smallInteger) | [string](columns.md#string) | [text](columns.md#text) |
-| [time](columns.md#time) | [timestamp](columns.md#timestamp) | [tinyIncrements](columns.md#tinyIncrements) | [tinyInteger](columns.md#tinyInteger) |
-| [unicodeLongText](columns.md#unicodeLongText) | [unicodeMediumText](columns.md#unicodeMediumText) | [unicodeString](columns.md#unicodeString) | [unicodeText](columns.md#unicodeText) |
-| [unsignedBigInteger](columns.md#unsignedBigInteger) | [unsignedInteger](columns.md#unsignedInteger) | [unsignedMediumInteger](columns.md#unsignedMediumInteger) | [unsignedSmallInteger](columns.md#unsignedSmallInteger) |
-| [unsignedTinyInteger](columns.md#unsignedTinyInteger) | [uuid](columns.md#uuid) |  |  |
-
 ## bigIncrements
 
 Create an auto-incrementing column using an unsigned `BIGINT` type. This column is also set as the primary key for the table.
@@ -253,6 +240,36 @@ schema.create( "users", function( table ) {
 ```sql
 CREATE TABLE `users` (
     `hire_date` DATETIME NOT NULL
+)
+```
+
+## datetimeTz
+
+Create a column using a timezone-specific `DATETIME` equivalent type for your database.
+
+{% hint style="info" %}
+Some databases do not have the concept of a timezone-specific datetime.  Those databases will use a normal `DATETIME` type.
+{% endhint %}
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| name | string | `true` |  | The name for the column. |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "posts", function( table ) {
+    table.datetimeTz( "posted_date" );
+} );
+```
+
+**SQL \(SQL Server\)**
+
+```sql
+CREATE TABLE [posts] (
+    [posted_date] DATETIMEOFFSET NOT NULL
 )
 ```
 
@@ -509,6 +526,32 @@ CREATE TABLE `users` (
 )
 ```
 
+## lineString
+
+Create a column using a `LINESTRING` equivalent type for your database.
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| name | string | `true` |  | The name for the column. |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "users", function( table ) {
+    table.lineString( "positions" );
+} );
+```
+
+**SQL \(MySQL\)**
+
+```sql
+CREATE TABLE `users` (
+    `positions` LINESTRING NOT NULL
+)
+```
+
 ## longText
 
 Create a column using a `LONGTEXT` equivalent type for your database.
@@ -702,6 +745,87 @@ CREATE TABLE `tags` (
 )
 ```
 
+## nullableTimestamps
+
+Creates the `createdDate` and `modifiedDate` `TIMESTAMP` columns. It creates the columns as nullable.
+
+If you want different names for your timestamp columns, feel free to call other schema builder methods individually.
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| No arguments |  |  |  |  |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "posts", function( table ) {
+    table.nullableTimestamps();
+} );
+```
+
+**SQL \(MySQL\)**
+
+```sql
+CREATE TABLE `posts` (
+    `createdDate` TIMESTAMP,
+    `modifiedDate` TIMESTAMP
+)
+```
+
+## point
+
+Create a column using a `POINT` equivalent type for your database.
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| name | string | `true` |  | The name for the column. |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "users", function( table ) {
+    table.point( "position" );
+} );
+```
+
+**SQL \(MySQL\)**
+
+```sql
+CREATE TABLE `users` (
+    `position` POINT NOT NULL
+)
+```
+
+## polygon
+
+Create a column using a `POLYGON` equivalent type for your database.
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| name | string | `true` |  | The name for the column. |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "users", function( table ) {
+    table.polygon( "positions" );
+} );
+```
+
+**SQL \(MySQL\)**
+
+```sql
+CREATE TABLE `users` (
+    `positions` POLYGON NOT NULL
+)
+```
+
 ## raw
 
 An escape hatch to directly insert any sql in to the statement.
@@ -801,6 +925,62 @@ CREATE TABLE `games` (
 )
 ```
 
+## softDeletes
+
+Creates a nullable `deletedDate` `TIMESTAMP` column.
+
+If you want different names for your timestamp column, feel free to call other schema builder methods individually.
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| No arguments |  |  |  |  |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "posts", function( table ) {
+    table.softDeletes();
+} );
+```
+
+**SQL \(MySQL\)**
+
+```sql
+CREATE TABLE `posts` (
+    `deletedDate` TIMESTAMP
+)
+```
+
+## softDeletesTz
+
+Creates a nullable `deletedDate` timezone-specific `TIMESTAMP` column.
+
+If you want different names for your timestamp column, feel free to call other schema builder methods individually.
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| No arguments |  |  |  |  |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "posts", function( table ) {
+    table.softDeletesTz();
+} );
+```
+
+**SQL \(SQL Server\)**
+
+```sql
+CREATE TABLE [posts] (
+    [deletedDate] DATETIMEOFFSET
+)
+```
+
 ## string
 
 Create a column using a `VARCHAR` equivalent type for your database. For databases that distinguish between unicode- and non-unicode string data types, this function will create a non-unicode string.
@@ -885,16 +1065,42 @@ Create a column using a `TIME` equivalent type for your database.
 **SchemaBuilder**
 
 ```javascript
-schema.create( "races", function( table ) {
-    table.time( "finish_time" );
+schema.create( "recurring_tasks", function( table ) {
+    table.time( "fire_time" );
 } );
 ```
 
-**SQL \(MySQL\)**
+**SQL \(Postgres\)**
 
 ```sql
-CREATE TABLE `races` (
-    `finish_time` TIME NOT NULL
+CREATE TABLE "recurring_tasks" (
+    "fire_time" TIME NOT NULL
+)
+```
+
+## timeTz
+
+Create a column using a timezone-specific `TIME` equivalent type for your database.
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| name | string | `true` |  | The name for the column. |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "recurring_tasks", function( table ) {
+    table.timeTz( "fire_time" );
+} );
+```
+
+**SQL \(Postgres\)**
+
+```sql
+CREATE TABLE "recurring_tasks" (
+    "fire_time" TIME WITH TIME ZONE NOT NULL
 )
 ```
 
@@ -921,6 +1127,90 @@ schema.create( "users", function( table ) {
 ```sql
 CREATE TABLE `users` (
     `created_at` TIMESTAMP NOT NULL
+)
+```
+
+## timestamps
+
+Creates the `createdDate` and `modifiedDate` `TIMESTAMP` columns.
+
+If you want different names for your timestamp columns, feel free to call other schema builder methods individually.
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| No arguments |  |  |  |  |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "posts", function( table ) {
+    table.timestamps();
+} );
+```
+
+**SQL \(MySQL\)**
+
+```sql
+CREATE TABLE `posts` (
+    `createdDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `modifiedDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+)
+```
+
+## timestampTz
+
+Create a column using a timezone-specific `TIMESTAMP` equivalent type for your database.
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| name | string | `true` |  | The name for the column. |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "posts", function( table ) {
+    table.timestampTz( "posted_date" );
+} );
+```
+
+**SQL \(Postgres\)**
+
+```sql
+CREATE TABLE "posts" (
+    "posted_date" TIMESTAMP WITH TIME ZONE NOT NULL
+)
+```
+
+## timestampsTz
+
+Creates the `createdDate` and `modifiedDate` timezone-specific `TIMESTAMP` columns.
+
+If you want different names for your timestamp columns, feel free to call other schema builder methods individually.
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| No arguments |  |  |  |  |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "posts", function( table ) {
+    table.timestampsTz();
+} );
+```
+
+**SQL \(Postgres\)**
+
+```sql
+CREATE TABLE "posts" (
+    "createdDate" TIMESTAMP WITH TIME ZONE NOT NULL,
+    "modifiedDate" TIMESTAMP WITH TIME ZONE NOT NULL
 )
 ```
 
