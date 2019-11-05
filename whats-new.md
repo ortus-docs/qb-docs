@@ -44,7 +44,7 @@ _Please see the_ [_Migration Guide_](migration-guide.md#v-7-0-0) _for more infor
   * `timestamps`
   * `timestampTz`
   * `timestampsTz`
-  * ```withCurrent```
+  * `withCurrent`
 
 \*\*\*\*
 

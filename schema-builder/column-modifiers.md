@@ -2,13 +2,6 @@
 
 When [creating a column](columns.md) from the `Blueprint` object, a `Column` object is returned. This `column` gives you access to a few modifier commands to further configure the column.
 
-| Methods |  |
-| :--- | :--- |
-| [comment](column-modifiers.md#comment) | [default](column-modifiers.md#default) |
-| [nullable](column-modifiers.md#nullable) | [primaryKey](column-modifiers.md#primaryKey) |
-| [references](column-modifiers.md#references) | [unsigned](column-modifiers.md#unsigned) |
-| [unique](column-modifiers.md#unique) |  |
-
 ## comment
 
 Attach a comment to the column.
@@ -202,6 +195,32 @@ schema.create( "email", function( table ) {
 ```sql
 CREATE TABLE `users` (
     `email` VARCHAR(255) NOT NULL UNIQUE
+)
+```
+
+## withCurrent
+
+Sets the column to have the a default value of `CURRENT_TIMESTAMP`.
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| No arguments |  |  |  |  |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "posts", function( table ) {
+    table.timestamp( "posted_date" ).withCurrent();
+} );
+```
+
+**SQL \(Postgres\)**
+
+```sql
+CREATE TABLE "posts" (
+    "posted_date" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 ```
 

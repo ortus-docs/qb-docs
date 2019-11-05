@@ -41,6 +41,34 @@ schema.alter( "users", function( table ) {
 ALTER TABLE `users` ADD `is_active` TINYINT(1) NOT NULL
 ```
 
+## raw
+
+An escape hatch to directly insert any sql in to the statement.
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| sql | string | `true` |  | The sql to insert directly into the statement. |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.alter( "registrars", function ( table ) {
+    table.addColumn(
+        table.raw( "HasDNSSecAPI bit NOT NULL CONSTRAINT DF_registrars_HasDNSSecAPI DEFAULT (0)" )
+    );
+} );
+```
+
+**SQL \(MySQL\)**
+
+```sql
+ALTER TABLE `registrars`
+ADD HasDNSSecAPI bit NOT NULL
+CONSTRAINT DF_registrars_HasDNSSecAPI DEFAULT (0)
+```
+
 ## dropColumn
 
 Drop a column on an existing table.
@@ -188,5 +216,51 @@ schema.alter( "users", function( table ) {
 
 ```sql
 ALTER TABLE `users` RENAME INDEX `unq_users_first_name_last_name` TO `unq_users_full_name`
+```
+
+## renameTable
+
+Rename an existing table.
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| oldName | string | `true` |  | The old or current name of the table to rename. |
+| newName | string | `true` |  | The new name of the table. |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.renameTable( "workers", "employees" );
+```
+
+**SQL \(MySQL\)**
+
+```sql
+RENAME TABLE `workers` TO `employees`
+```
+
+## rename
+
+An alias for `renameTable`.
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| oldName | string | `true` |  | The old or current name of the table to rename. |
+| newName | string | `true` |  | The new name of the table. |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.rename( "workers", "employees" );
+```
+
+**SQL \(MySQL\)**
+
+```sql
+RENAME TABLE `workers` TO `employees`
 ```
 
