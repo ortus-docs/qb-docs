@@ -24,3 +24,26 @@ query.from( "posts" )
 // Bindings: [ 10 ]
 ```
 
+### Updating Null values
+
+Null values can be inserted by using queryparam syntax:  
+
+
+```javascript
+query.from("user")
+		.whereId( 10 )
+		.update( {
+			manager_FK = { value = "", null=true },
+		} )
+```
+
+if you are using Lucee with full null support the following \(easier\) syntax is also allowed:
+
+```javascript
+query.from("user")
+		.whereId( 10 )
+		.update( {
+			manager_FK = { value = null },
+		} )
+```
+
