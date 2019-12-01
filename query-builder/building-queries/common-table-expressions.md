@@ -31,8 +31,7 @@ Some database engines require the `recursive` keyword anytime at least one of yo
 
 You can build a CTE using a function:
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 // qb
 query.with( "UserCTE", function ( q ) {
@@ -44,11 +43,9 @@ query.with( "UserCTE", function ( q ) {
     .from( "UserCTE" )
     .get();
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 WITH `UserCTE` AS (
     SELECT
@@ -58,13 +55,11 @@ WITH `UserCTE` AS (
     WHERE `disabled` = 0
 ) SELECT * FROM `UserCTE`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Alternatively, you can use a QueryBuilder instance instead of a function:
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 // qb
 var cte = query
@@ -76,11 +71,9 @@ query.with( "UserCTE", cte )
     .from( "UserCTE" )
     .get();
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 WITH `UserCTE` AS (
     SELECT
@@ -91,13 +84,11 @@ WITH `UserCTE` AS (
 )
 SELECT * FROM `UserCTE`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 A single query can reference multiple CTEs:
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.with( "UserCTE", function ( q ) {
         q.select( [ "id", "fName as firstName", "lName as lastName" ] )
@@ -112,11 +103,9 @@ query.with( "UserCTE", function ( q ) {
     .join( "UserCTE as u", "b.Creator", "u.id" )
     .get();
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 WITH `UserCTE` AS (
     SELECT
@@ -136,8 +125,7 @@ FROM `BlogCTE` AS `b`
 INNER JOIN `UserCTE` AS `u`
 ON `b`.`Creator` = `u`.`id`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## withRecursive
 
@@ -153,8 +141,7 @@ ON `b`.`Creator` = `u`.`id`
 
 Here is an example of building a recursive CTE using SQL Server which would return all parent/child rows and show their generation/level depth:
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.withRecursive( "Hierarchy", function ( q ) {
     q.select( [ "Id", "ParentId", "Name", q.raw( "0 AS [Generation]" ) ] )
@@ -175,11 +162,9 @@ query.withRecursive( "Hierarchy", function ( q ) {
     .from( "Hierarchy" )
     .get();
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="SqlServer" %}
+{% code title="SqlServer" %}
 ```sql
 WITH [Hierarchy] ([Id], ParentId], [Name], [Generation]) AS (
     SELECT
@@ -200,6 +185,5 @@ WITH [Hierarchy] ([Id], ParentId], [Name], [Generation]) AS (
         ON [child].[ParentId] = [parent].[Id]
 ) SELECT * FROM [Hierarchy]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

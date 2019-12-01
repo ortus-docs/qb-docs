@@ -8,8 +8,7 @@
 
 By default, qb returns an array of structs as the result of your query. This is the same as specifying `array` as your `returnFormat`:
 
-{% code-tabs %}
-{% code-tabs-item title="config/ColdBox.cfc" %}
+{% code title="config/ColdBox.cfc" %}
 ```javascript
 moduleSettings = {
     "qb": {
@@ -17,13 +16,11 @@ moduleSettings = {
     }
 };
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 You can get the original query object that CFML generates by setting the `returnFormat` to `query`:
 
-{% code-tabs %}
-{% code-tabs-item title="config/ColdBox.cfc" %}
+{% code title="config/ColdBox.cfc" %}
 ```javascript
 moduleSettings = {
     "qb": {
@@ -31,13 +28,11 @@ moduleSettings = {
     }
 };
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 If you want complete control over your return result, you can provide a function as a `returnFormat`. The results of the function will be returned as the results of the builder.
 
-{% code-tabs %}
-{% code-tabs-item title="config/ColdBox.cfc" %}
+{% code title="config/ColdBox.cfc" %}
 ```javascript
 moduleSettings = {
     "qb": {
@@ -50,6 +45,5 @@ moduleSettings = {
     }
 };
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

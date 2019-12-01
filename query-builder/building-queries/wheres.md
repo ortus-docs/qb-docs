@@ -21,24 +21,20 @@
 
 Adds a where clause to a query.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .where( "active", "=", 1 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
 WHERE `active` = ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="info" %}
 Using the `where` method will parameterize the `value` passed.  If you want to constrain a column to another column, use the [`whereColumn`](wheres.md#wherecolumn) method.
@@ -46,24 +42,20 @@ Using the `where` method will parameterize the `value` passed.  If you want to c
 
 You can also pass an [Expression](raw-expressions.md) as the value.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .where( "last_logged_in", ">", query.raw( "NOW()" ) );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
 WHERE `last_logged_in` > NOW()
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Any of the following operators can be used in a where clause.
 
@@ -81,24 +73,20 @@ Any of the following operators can be used in a where clause.
 
 When using the `"="` constraint, you can use a shortcut and define the value as the second argument.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .where( "active", 1 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
 WHERE `active` = ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="info" %}
 You may also use [dynamic where{Column}](wheres.md#dynamic-where-methods) statements to simplify this further.
@@ -106,8 +94,7 @@ You may also use [dynamic where{Column}](wheres.md#dynamic-where-methods) statem
 
 To group where statements together, pass a function to the where clause as the only parameter.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .where( function( q ) {
@@ -115,11 +102,9 @@ query.from( "users" )
             .where( "last_logged_in", ">", dateAdd( "ww", -1, now() ) )
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
@@ -129,8 +114,7 @@ WHERE (
     `last_logged_in` > ?
 )
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="info" %}
 This grouping can be nested as many levels as you require.
@@ -138,8 +122,7 @@ This grouping can be nested as many levels as you require.
 
 A Function or QueryBuilder can be used as a subselect expression when passed to `value`.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .where( "email", "foo" )
@@ -149,11 +132,9 @@ query.from( "users" )
             .where( "email", "bar" );
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
@@ -164,8 +145,7 @@ WHERE `email` = ?
     WHERE `email` = ?
   )
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### andWhere
 
@@ -199,29 +179,24 @@ This method is simply an alias for [`where`](wheres.md#where) with the combinato
 
 Adds a where between clause to the query.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .whereBetween( "id", 1, 2 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
 WHERE `id` BETWEEN ? AND ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 If a function or QueryBuilder is passed it is used as a subselect expression.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .whereBetween(
@@ -237,11 +212,9 @@ query.from( "users" )
             .where( "email", "bar" )
     );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
@@ -256,8 +229,7 @@ AND (
     WHERE `email` = ?
 )
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### whereNotBetween
 
@@ -281,66 +253,54 @@ Adds a where not in clause to the query.  This behaves identically to the [`wher
 
 Adds a where clause to a query that compares two columns.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .whereColumn( "first_name", "=", "last_name" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
 WHERE `first_name` = `last_name`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Just as with `where`, when using `"="` as the operator you can use a shorthand passing the second column in as the operator and leaving the second column `null`.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .whereColumn( "first_name", "last_name" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
 WHERE `first_name` = `last_name`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 `Expressions` can be passed in place of either column.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .whereColumn( "first_name", query.raw( "LOWER(first_name)" ) );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
 WHERE `first_name` = LOWER(first_name)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### whereExists
 
@@ -354,8 +314,7 @@ Adds a where exists clause to the query.
 
 It can be configured with a function.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "orders" )
     .whereExists( function( q ) {
@@ -364,11 +323,9 @@ query.from( "orders" )
             .whereColumn( "products.id", "orders.id" );
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `orders`
@@ -378,13 +335,11 @@ WHERE EXISTS (
     WHERE `products`.`id` = `orders`.`id`
 )
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 It can also be configured with a QueryBuilder instance.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 var existsQuery = query.newQuery()
     .select( q.raw( 1 ) )
@@ -394,11 +349,9 @@ var existsQuery = query.newQuery()
 query.from( "orders" )
     .whereExists( existsQuery );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `orders`
@@ -408,8 +361,7 @@ WHERE EXISTS (
     WHERE `products`.`id` = `orders`.`id`
 )
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### whereNotExists
 
@@ -430,24 +382,20 @@ Adds a where not in clause to the query.  This behaves identically to the [`wher
 
 A shortcut for calling [`where`](wheres.md#where) with `"like"` set as the operator.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .whereLike( "username", "J%" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
 WHERE `username` LIKE ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### whereIn
 
@@ -462,24 +410,20 @@ Adds a where in clause to the query.
 
 The values passed to `whereIn` can be a single value, a list of values, or an array of values.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "orders" )
     .whereIn( "id", [ 1, 4, 66 ] );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `orders`
 WHERE `id` IN (?, ?, ?)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="warning" %}
 Some database grammars have a hard limit on the number of parameters passed to a SQL statement.  Keep this in mind while writing your queries.
@@ -487,71 +431,58 @@ Some database grammars have a hard limit on the number of parameters passed to a
 
 If a list of values is passed in, it is converted to an array of values using a single comma \(`","`\) delimiter.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "orders" )
     .whereIn( "id", "1,4,66" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `orders`
 WHERE `id` IN (?, ?, ?)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Any value in the list or array can also be passed using a [custom parameter type](parameters-and-bindings.md#custom-parameter-types) to have more control over the parameter settings.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "orders" )
     .whereIn( "id", [ 1, 4, { value = "66", cfsqltype = "CF_SQL_VARCHAR" } ] );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `orders`
 WHERE `id` IN (?, ?, ?)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 `Expressions` can be freely mixed in with other values.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "orders" )
     .whereIn( "id", [ query.raw( "MAX(id)" ), 4, 66 ] );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `orders`
 WHERE `id` IN (MAX(id), ?, ?)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 A function or QueryBuilder instance can be passed to be used as a subquery expression instead of a list of values.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .whereIn( "id", function( q ) {
@@ -560,11 +491,9 @@ query.from( "users" )
             .where( "age", ">", 25 );
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
@@ -574,8 +503,7 @@ WHERE IN (
     WHERE `age` > ?
 )
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="warning" %}
 You may find a `whereExists` method performs better for you than a `whereIn` with a subquery.
@@ -601,8 +529,7 @@ Adds a where not in clause to the query.  This behaves identically to the `where
 
 Shorthand to add a raw SQL statement to the where clauses.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .whereRaw(
@@ -610,18 +537,15 @@ query.from( "users" )
         [ 1, "foo" ]
     );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
 WHERE id = ? OR email = ? OR is_admin = 1
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### whereNull
 
@@ -633,24 +557,20 @@ WHERE id = ? OR email = ? OR is_admin = 1
 
 Adds a where null clause to the query.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .whereNull( "id" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
 WHERE `id` IS NULL
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### whereNotNull
 
@@ -670,8 +590,7 @@ qb uses `onMissingMethod` to provide a few different helpers when working with `
 
 Every `where...` method in qb can be called prefixed with either `and` or `or`.  Doing so will call the original method using the corresponding combinator.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .where( "username", "like", "j%" )
@@ -680,11 +599,9 @@ query.from( "users" )
             .orWhere( "isOnFreeTrial", 1 );
      } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
@@ -695,31 +612,26 @@ WHERE `username` LIKE ?
     `isOnFreeTrial` = ?
   )
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### where{Column}
 
 If you call a method starting with `where` that does not match an existing qb method, qb will instead call the `where` method using the rest of the method name as the first column name.  \(The rest of the arguments will be shifted to account for this.\)  This also applies to `andWhere{Column}` and `orWhere{Column}` method signatures.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .whereUsername( "like", "j%" )
     .whereActive( 1 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
 WHERE `username` LIKE ?
   AND `active` = ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

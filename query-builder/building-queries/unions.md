@@ -22,8 +22,7 @@ Union statements are added in the order in which the `union` methods are invoked
 
 Adds a UNION statement to the query.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .select( "name" )
@@ -34,11 +33,9 @@ query.from( "users" )
             .where( "id", 2 );
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT `name`
 FROM `users`
@@ -48,13 +45,11 @@ SELECT `name`
 FROM `users`
 WHERE `id` = ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Adding multiple union statements will append it to the query.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .select( "name" )
@@ -70,11 +65,9 @@ query.from( "users" )
             .where( "id", 3 );
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT `name`
 FROM `users`
@@ -88,13 +81,11 @@ SELECT `name`
 FROM `users`
 WHERE `id` = ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 It can also add union queries as QueryBuilder instances.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 var q1 = query.newQuery()
     .from( "users" )
@@ -112,11 +103,9 @@ query.from( "users" )
     .union( q1 )
     .union( q2 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT `name`
 FROM `users`
@@ -130,8 +119,7 @@ SELECT `name`
 FROM `users`
 WHERE `id` = ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## unionAll
 
@@ -141,8 +129,7 @@ WHERE `id` = ?
 
 Adds a UNION ALL statement to the query.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .select( "name" )
@@ -153,11 +140,9 @@ query.from( "users" )
             .where( "id", 2 );
      } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT `name`
 FROM `users`
@@ -167,13 +152,11 @@ SELECT `name`
 FROM `users`
 WHERE `id` = ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Adding multiple `unionAll` statements will append it to the query.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .select( "name" )
@@ -189,11 +172,9 @@ query.from( "users" )
             .where( "id", 3 );
      } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT `name`
 FROM `users`
@@ -207,13 +188,11 @@ SELECT `name`
 FROM `users`
 WHERE `id` = ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 It can also add union queries as QueryBuilder instances.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 var q1 = query.newQuery()
     .from( "users" )
@@ -231,11 +210,9 @@ query.from( "users" )
     .unionAll( q1 )
     .unionAll( q2 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT `name`
 FROM `users`
@@ -249,8 +226,7 @@ SELECT `name`
 FROM `users`
 WHERE `id` = ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 
 

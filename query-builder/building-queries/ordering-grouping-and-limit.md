@@ -13,39 +13,32 @@ Calling `orderBy` multiple times appends to the order list.
 | column | any | `true` |  | The name of the column to order by. An [`Expression`](raw-expressions.md) can be passed as well. |
 | direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`.  |
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .orderBy( "email" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
 ORDER BY `email` ASC
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Calling `orderBy` multiple times will append to the order list.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .orderBy( "email" )
     .orderBy( "username", "desc" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
@@ -53,29 +46,24 @@ ORDER BY
   `email` ASC,
   `username` DESC
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 You can also provide an [`Expression`](raw-expressions.md).
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .orderBy( query.raw( "DATE(created_at)" ) );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
 ORDER BY DATE(created_at)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Order By \(List\)
 
@@ -84,17 +72,14 @@ ORDER BY DATE(created_at)
 | column | any | `true` |  | The list of the columns to order by.  Each column can optionally declare it's sort direction after a pipe delimiter. \(e.g. `"height|desc"`\). |
 | direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`.  This value will be used as the default value for all entries in the column list that fail to specify a direction for a specific column. |
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .orderBy( "email|asc,username", "desc" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
@@ -102,8 +87,7 @@ ORDER BY
   `email` ASC,
   `username` DESC
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Order By \(Array of Strings\)
 
@@ -112,17 +96,14 @@ ORDER BY
 | column | any | `true` |  | The array of the columns to order by.  Each column can optionally declare it's sort direction after a pipe delimiter. \(e.g. `"height|desc"`\). |
 | direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`.  This value will be used as the default value for all entries in the column array that fail to specify a direction for a specific column. |
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .orderBy( [ "email|asc", "username" ], "desc" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
@@ -130,8 +111,7 @@ ORDER BY
   `email` ASC,
   `username` DESC
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Order By \(Array of Structs\)
 
@@ -140,8 +120,7 @@ ORDER BY
 | column | any | `true` |  | The array of the columns to order by.  Each column can optionally declare it's sort direction using a struct.  The struct should have a column key and an optional direction key. \(e.g. `{ column = "favorite_color", direction = "desc" }`\). |
 | direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`.  This value will be used as the default value for all entries in the column array that fail to specify a direction for a specific column. |
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .orderBy( [
@@ -149,11 +128,9 @@ query.from( "users" )
         "username"
     ], "desc" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
@@ -161,8 +138,7 @@ ORDER BY
   `email` ASC,
   `username` DESC
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Order By \(Subquery\)
 
@@ -173,8 +149,7 @@ ORDER BY
 
 You can order with a subquery using either a function or a QueryBuilder instance.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .orderBy( function( q ) {
@@ -183,11 +158,9 @@ query.from( "users" )
             .whereColumn( "users.id", "logins.user_id" );
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
@@ -197,6 +170,5 @@ ORDER BY (
     WHERE `users`.`id` = `logins`.`user_id`
 )
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

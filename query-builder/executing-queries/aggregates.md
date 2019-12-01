@@ -14,21 +14,17 @@ Instead of returning a query, these methods return a simple value.
 
 Returns `true` if the query returns any rows.  Returns `false` otherwise.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" ).where( "username", "like", "jon%" ).exists();
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="SQL \(MySQL\)" %}
+{% code title="SQL \(MySQL\)" %}
 ```sql
 SELECT COUNT(*) AS aggregate FROM `users` WHERE `username` LIKE 'jon%'
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## count
 
@@ -39,27 +35,25 @@ SELECT COUNT(*) AS aggregate FROM `users` WHERE `username` LIKE 'jon%'
 
 Returns an integer number of rows returned by the query.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" ).count();
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="SQL \(MySQL\)" %}
+{% tabs %}
+{% tab title="SQL \(MySQL\)" %}
 ```sql
 SELECT COUNT(*) AS aggregate FROM `users`
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="SQL Server" %}
+{% tab title="SQL Server" %}
 ```sql
 SELECT COUNT(*) FROM [users]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 ## max
 
@@ -70,21 +64,17 @@ SELECT COUNT(*) FROM [users]
 
 Returns the maximum value for the given column.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" ).max( "age" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="SQL \(MySQL\)" %}
+{% code title="SQL \(MySQL\)" %}
 ```sql
 SELECT MAX(age) AS aggregate FROM `users`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## min
 
@@ -95,21 +85,17 @@ SELECT MAX(age) AS aggregate FROM `users`
 
 Returns the minimum value for the given column.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" ).min( "age" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="SQL \(MySQL\)" %}
+{% code title="SQL \(MySQL\)" %}
 ```sql
 SELECT MIN(age) AS aggregate FROM `users`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## sum
 
@@ -120,19 +106,15 @@ SELECT MIN(age) AS aggregate FROM `users`
 
 Returns the sum of all returned rows for the given column.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "employees" ).sum( "salary" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="SQL \(MySQL\)" %}
+{% code title="SQL \(MySQL\)" %}
 ```sql
 SELECT SUM(salary) AS aggregate FROM `employees`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

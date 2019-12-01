@@ -16,21 +16,17 @@ When calling `select` any previous columns are discarded.  If you want to increm
 
 If you pass no columns to this method, it will default to `"*"`.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.select( [ "fname AS firstName", "age" ] ).from( "users" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="SQL \(MySQL\)" %}
+{% code title="SQL \(MySQL\)" %}
 ```sql
 SELECT `name` AS `firstName`, `age` FROM `users`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## distinct <a id="get"></a>
 
@@ -40,21 +36,17 @@ SELECT `name` AS `firstName`, `age` FROM `users`
 
 Calling distinct will cause the query to be executed with the `DISTINCT` keyword.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.select( "username" ).distinct().from( "users" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="SQL \(MySQL\)" %}
+{% code title="SQL \(MySQL\)" %}
 ```sql
 SELECT DISTINCT `username` FROM `users`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="info" %}
 `distinct` applies to the entire query, not just certain fields.
@@ -72,21 +64,17 @@ This method adds the columns passed to it to the currently selected columns.
 If the `QueryBuilder` is currently selecting all columns \(`"*"`\)  when this method is called, the incoming columns will becoming the only columns selected.
 {% endhint %}
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.select( [ "fname AS firstName", "age" ] ).from( "users" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="SQL \(MySQL\)" %}
+{% code title="SQL \(MySQL\)" %}
 ```sql
 SELECT `name` AS `firstName`, `age` FROM `users`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 
 
@@ -103,21 +91,17 @@ The expression is added to the other already selected columns.
 
 _\(To learn more about raw and expressions, check out the docs on_ [_Raw Expressions_](raw-expressions.md)_.\)_
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.selectRaw( "YEAR(birthdate) AS birth_year" ).from( "users" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="SQL \(MySQL\)" %}
+{% code title="SQL \(MySQL\)" %}
 ```sql
 SELECT YEAR(birthdate) AS birth_year FROM `users`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## subSelect <a id="get"></a>
 
@@ -130,8 +114,7 @@ The method lets you pass either a callback or a `QueryBuilder` instance to be us
 
 The subselect is added to the other already selected columns.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.subSelect( "last_login_date", function( q ) {
     q.selectRaw( "MAX(created_date)" )
@@ -139,11 +122,9 @@ query.subSelect( "last_login_date", function( q ) {
         .whereColumn( "users.id", "logins.user_id" );
 } ) ).from( "users" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="SQL \(MySQL\)" %}
+{% code title="SQL \(MySQL\)" %}
 ```sql
 SELECT (
     SELECT MAX(created_date)
@@ -152,6 +133,5 @@ SELECT (
 ) AS `last_login_date`
 FROM `users
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

@@ -2,16 +2,14 @@
 
 If you store the builder object in a variable, you can use `if` and `else` statements like you would expect.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 var q = query.from( "posts" );
 if ( someFlag ) {
     q.orderBy( "published_date", "desc" );
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This works, but breaks chainability. To keep chainability you can use the `when` helper method.
 
@@ -25,8 +23,7 @@ This works, but breaks chainability. To keep chainability you can use the `when`
 
 The `when` helper is used to allow conditional statements when defining queries without using if statements and having to store temporary variables.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "posts" )
     .when( someFlag, function( q ) {
@@ -34,13 +31,11 @@ query.from( "posts" )
     } )
     .get();
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 You can pass a third argument to be called in the `else` case.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "posts" )
     .when(
@@ -53,6 +48,5 @@ query.from( "posts" )
         }
     );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

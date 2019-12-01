@@ -8,29 +8,24 @@ When passing a parameter to qb, it will infer the sql type to be used.  If you p
 You can pass include any parameters you would use with [`cfqueryparam`](https://cfdocs.org/cfqueryparam) including `null`, `list`, etc.  This applies anywhere parameters are used including `where`, `update`, and `insert` methods.
 {% endhint %}
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .where( "id", "=", { value = 18, cfsqltype = "CF_SQL_VARCHAR" } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT *
 FROM `users`
 WHERE `id` = ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 This can be used when inserting or updating records as well.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.table( "users" )
     .insert( {
@@ -39,19 +34,16 @@ query.table( "users" )
         "updatedDate" = { value = now(), cfsqltype = "CF_SQL_DATE" }
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 INSERT INTO `users`
     (`id`, `age`, `updatedDate`)
 VALUES
     (?, ?, ?)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Bindings
 
@@ -75,8 +67,7 @@ You can view the current SQL for the query with bindings inline for debugging pu
 
 This method returns the current bindings in order to be used for the query.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .join( "logins", function( j ) {
@@ -85,19 +76,16 @@ query.from( "users" )
     } )
     .where( "active", 1 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="Result" %}
+{% code title="Result" %}
 ```sql
 [
     { value = "01 May 2019", cfsqltype = "CF_SQL_TIMESTAMP"  },
     { value = 1, cfsqltype = "CF_SQL_NUMERIC" }
 ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 You can also retrieve the bindings associated to their corresponding types.
 
@@ -109,8 +97,7 @@ You can also retrieve the bindings associated to their corresponding types.
 
 This method returns the current bindings  to be used for the query associated to their corresponding types.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .join( "logins", function( j ) {
@@ -119,11 +106,9 @@ query.from( "users" )
     } )
     .where( "active", 1 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="Result" %}
+{% code title="Result" %}
 ```sql
 {
     "commonTables" = [],
@@ -140,6 +125,5 @@ query.from( "users" )
     "update" = []
 };
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

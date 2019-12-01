@@ -8,39 +8,31 @@
 
 Used to set the base table for the query.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT * FROM `users`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 You can optionally specify an alias for the table.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users as u" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT * FROM `users` AS `u`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## table <a id="get"></a>
 
@@ -50,21 +42,17 @@ SELECT * FROM `users` AS `u`
 
 An alias for `from` where you like how calling `table` looks.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.table( "users" ).insert( { "name" = "jon" } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 INSERT INTO `users` (`name`) VALUES (?)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## fromRaw <a id="get"></a>
 
@@ -75,21 +63,17 @@ INSERT INTO `users` (`name`) VALUES (?)
 
 Sometimes you need more control over your `from` clause in order to add grammar specific instructions, such as adding SQL Server table hints to your queries.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.fromRaw( "[users] u (nolock)" ).get();
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="SQL Server" %}
+{% code title="SQL Server" %}
 ```sql
 SELECT * FROM [users] u (nolock) 
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Since the `fromRaw()` takes your string verbatim, it's important that you make sure your SQL declaration is escaped properly. Failure to properly escape your table names may result in SQL errors.
 
@@ -101,24 +85,20 @@ Many database engines allow you to define User Defined Functions. For example, S
 
 You can bind parameters to the `fromRaw()` method by passing a secondary argument that is an array of the parameters to bind.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.fromRaw(
     "dbo.generateDateTable(?, ?, ?) as dt",
     [ "2017-01-01", "2017-12-31", "m" ]
 ).get();
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="SQL Server" %}
+{% code title="SQL Server" %}
 ```sql
 SELECT * FROM dbo.generateDateTable(?, ?, ?) as dt
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## fromSub <a id="get"></a>
 
@@ -129,8 +109,7 @@ SELECT * FROM dbo.generateDateTable(?, ?, ?) as dt
 
 Complex queries often contain derived tables. Derived tables are essentially a temporal table defined as a subquery in the `from` statement.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.select( [ "firstName", "lastName" ] )
     .fromSub( "legalUsers", function ( q ) {
@@ -142,11 +121,9 @@ query.select( [ "firstName", "lastName" ] )
     .orderBy( "lastName" )
     .get()
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT `firstName`, `lastName`
 FROM (
@@ -156,13 +133,11 @@ FROM (
 ) AS `legalUsers`
 ORDER BY `lastName`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 In additional a function callback, a separate `QueryBuilder` instance can be passed to the `fromSub` method.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 var legalUsersQuery = query
     .select( [ "lName as lastName", "fName as firstName" ] )
@@ -174,11 +149,9 @@ query.select( [ "firstName", "lastName" ] )
     .orderBy( "lastName" )
     .get();
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT `firstName`, `lastName`
 FROM (
@@ -188,6 +161,5 @@ FROM (
 ) AS `legalUsers`
 ORDER BY `lastName`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

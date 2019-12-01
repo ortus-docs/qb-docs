@@ -16,21 +16,17 @@ The first way to retrieve an `Expression` is to call the `raw` method on the `Qu
 
 The sql snippet passed to `raw` is not processed by qb at all.  With that in mind, it is important to follow all best practices and security recommendations with the sql you use with `raw`.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" ).select( query.raw( "MAX(created_date)" ) );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 SELECT MAX(created_date) FROM `users`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Expressions can be passed to most qb methods, like `select`, `from`, `where`, or `orderBy`, among others.  Additionally, qb provides some convenience methods to add raw values in different parts of the query:
 

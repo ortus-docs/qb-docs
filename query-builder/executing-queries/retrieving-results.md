@@ -9,39 +9,31 @@
 
 The `get` method is the most common method used for retrieving results.  It executes using the configured `QueryBuilder` and returns the results.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" ).get();
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="SQL \(MySQL\)" %}
+{% code title="SQL \(MySQL\)" %}
 ```sql
 SELECT * FROM `users`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 `get` can also take a list or array of columns to use as a shortcut.  If any are passed, those columns will be used instead of any columns previously set on the `QueryBuilder`.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" ).get( [ "id", "name" ] );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="SQL \(MySQL\)" %}
+{% code title="SQL \(MySQL\)" %}
 ```sql
 SELECT `id`, `name` FROM `users`
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## first
 
@@ -51,21 +43,17 @@ SELECT `id`, `name` FROM `users`
 
 If you just need to retrieve a single row from the database table, you may use the `first` method. This method will return a single record \(a `Struct` by default\). If no row is found an empty `Struct` will be returned by default.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" ).first();
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="SQL \(MySQL\)" %}
+{% code title="SQL \(MySQL\)" %}
 ```sql
 SELECT * FROM `users` LIMIT(1)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## values
 
@@ -76,21 +64,17 @@ SELECT * FROM `users` LIMIT(1)
 
 If you don't even need an entire row, you may extract a single value from each record using the `values` method. The `values` method will return the column of your choosing as a simple array.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" ).values( "firstName" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="Result" %}
+{% code title="Result" %}
 ```text
 [ "jon", "jane", "jill", ... ]
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## value
 
@@ -103,21 +87,17 @@ query.from( "users" ).values( "firstName" );
 
 This method is similar to `values` except it only returns a single, simple value.  Where `values` calls `get` under the hood, this method calls `first`.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" ).value( "firstName" );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="Result" %}
+{% code title="Result" %}
 ```text
 "jon"
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 If no records are returned from the query, one of two things will happen.  If the `throwWhenNotFound` boolean is set to `true`, a `RecordCountException` will be thrown.  Otherwise the `defaultValue` provided to the method will be returned.
 
@@ -133,16 +113,14 @@ Large datasets can be broken up and retrieved in chunks.  This allows you to wor
 
 `chunk` can be called on any query like you would call `get`.  You can stop the retrieving and processing early by returning `false` from the callback.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" ).chunk( 100, function( users ) {
     // Process the users here
     // Returning false from the callback stops processing
 } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## paginate
 
@@ -153,17 +131,14 @@ query.from( "users" ).chunk( 100, function( users ) {
 
 Generates a pagination struct along with the results of the executed query.  It does this by calling both `count` and `forPage`.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .paginate();
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="Results" %}
+{% code title="Results" %}
 ```javascript
 {
     "pagination": {
@@ -176,8 +151,7 @@ query.from( "users" )
     "results": [ { /* ... */ }, ]
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Custom Pagination Collectors
 

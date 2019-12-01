@@ -14,8 +14,7 @@ This call must come after setting the query's table using [`from`](../building-q
 
 You can insert a single record by passing a struct:
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .insert( {
@@ -24,22 +23,18 @@ query.from( "users" )
         "age" = 55
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 INSERT INTO `users` (`age`, `email`, `name`)
 VALUES (?, ?, ?)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 You can specify any [query param](../building-queries/parameters-and-bindings.md#custom-parameter-types) options such as the SQL type by passing a struct with the parameters you would pass to [`cfqueryparam`](https://cfdocs.org/cfqueryparam).
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .insert( {
@@ -48,22 +43,18 @@ query.from( "users" )
         "age" = { value = 55, cfsqltype = "CF_SQL_INTEGER" }
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 INSERT INTO `users` (`age`, `email`, `name`)
 VALUES (?, ?, ?)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Raw values can be supplied to an insert statement.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .insert( {
@@ -72,17 +63,14 @@ query.from( "users" )
         "updatedDate" = query.raw( "NOW()" )
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 INSERT INTO `users` (`age`, `email`, `updatedDate`)
 VALUES (?, ?, NOW())
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Multiple rows can be inserted in a batch by passing an array of structs to `insert`.
 
@@ -90,34 +78,32 @@ Multiple rows can be inserted in a batch by passing an array of structs to `inse
 This is not the same as looping over and array and calling `insert` in the loop.  Using an array with `insert` will batch the inserts in one SQL call.  Looping over an array and calling `insert` each time will create a SQL request for each item in the array.  Bottom line, pass your array to `insert`!
 {% endhint %}
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" ).insert( [
     { "email" = "john@example.com", "name" = "John Doe" },
     { "email" = "jane@example.com", "name" = "Jane Doe" }
 ] );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% tabs %}
+{% tab title="MySQL" %}
 ```sql
 INSERT INTO `users` (`email`, `name`)
 VALUES (?, ?), (?, ?)
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="Oracle" %}
+{% tab title="Oracle" %}
 ```sql
 INSERT ALL
 INTO "USERS" ("EMAIL", "NAME") VALUES (?, ?)
 INTO "USERS" ("EMAIL", "NAME") VALUES (?, ?)
 SELECT 1 FROM dual
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 ## returning
 
@@ -131,8 +117,7 @@ SELECT 1 FROM dual
 
 Specifies columns to be returned from the insert query.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .returning( "id" )
@@ -141,26 +126,25 @@ query.from( "users" )
         "name" = "bar"
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="SQL Server" %}
+{% tabs %}
+{% tab title="SQL Server" %}
 ```sql
 INSERT INTO [users] ([email], [name])
 OUTPUT INSERTED.[id]
 VALUES (?, ?)
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="Postgres" %}
+{% tab title="Postgres" %}
 ```sql
 INSERT INTO "users" ("email", "name")
 VALUES (?, ?)
 RETURNING "id"
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 ## update
 
@@ -176,8 +160,7 @@ This call must come after setting the query's table using [`from`](../building-q
 
 Updates a table with a struct of column and value pairs.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .update( {
@@ -185,23 +168,19 @@ query.from( "users" )
         "name" = "bar"
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 UPDATE `users`
 SET `email` = ?,
     `name` = ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 You can specify any [query param](../building-queries/parameters-and-bindings.md#custom-parameter-types) options such as the SQL type by passing a struct with the parameters you would pass to [`cfqueryparam`](https://cfdocs.org/cfqueryparam).
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .update( {
@@ -210,24 +189,20 @@ query.from( "users" )
         "updatedDate" = { value = now(), cfsqltype = "CF_SQL_TIMESTAMP" }
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 UPDATE `users`
 SET `email` = ?,
     `name` = ?,
     `updatedDate` = ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Any constraining of the update query should be done using the appropriate [WHERE](../building-queries/wheres.md) statement before calling `update`.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .whereId( 1 )
@@ -236,24 +211,20 @@ query.from( "users" )
         "name" = "bar"
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 UPDATE `users`
 SET `email` = ?,
     `name` = ?
 WHERE `Id` = ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 You can update a column based on another column using a raw expression.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "hits" )
     .where( "page", "someUrl" )
@@ -261,18 +232,37 @@ query.from( "hits" )
         "count" = query.raw( "count + 1" )
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 UPDATE `hits`
 SET `count` = count + 1
 WHERE `page` = ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
+
+### Updating Null values
+
+Null values can be inserted by using queryparam syntax:
+
+```sql
+query.from("user")
+		.whereId( 10 )
+		.update( {
+			manager_FK = { value = "", null=true },
+		} )
+```
+
+if you are using Lucee with full null support the following \(easier\) syntax is also allowed:
+
+```sql
+query.from("user")
+		.whereId( 10 )
+		.update( {
+			manager_FK = { value = null },
+		} )
+```
 
 ## addUpdate
 
@@ -282,8 +272,7 @@ WHERE `page` = ?
 
 Adds values to a later [`update`](inserts-updates-deletes.md#update), similar to [`addSelect`](../building-queries/selects.md#get-2).
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .whereId( 1 )
@@ -303,11 +292,9 @@ query.from( "users" )
     } )
     .update();
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 UPDATE `users`
 SET `email` = ?,
@@ -315,8 +302,7 @@ SET `email` = ?,
     `name` = ?
 WHERE `Id` = ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## updateOrInsert
 
@@ -330,8 +316,7 @@ Performs an update statement if the configured query returns `true` for `exists`
 
 If an update statement is performed qb applies a `limit( 1 )` to the update statement.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .where( "email", "foo" )
@@ -340,11 +325,9 @@ query.from( "users" )
         "name" = "baz"
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 UPDATE `users`
 SET `email` = ?,
@@ -352,13 +335,11 @@ SET `email` = ?,
 WHERE `email` = ?
 LIMIT 1
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 If the configured query returns 0 records, then an insert statement is performed.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .where( "email", "foo" )
@@ -367,17 +348,14 @@ query.from( "users" )
         "name" = "baz"
     } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 INSERT INTO `users` (`email`, `name`)
 VALUES (?, ?)
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## delete
 
@@ -390,42 +368,34 @@ VALUES (?, ?)
 
 Deletes all records that the query returns.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .where( "email", "foo" )
     .delete();
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 DELETE FROM `users`
 WHERE `email` = ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 The `id` argument is a convenience to delete a single record by id.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .delete( 1 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="MySQL" %}
+{% code title="MySQL" %}
 ```sql
 DELETE FROM `users`
 WHERE `id` = ?
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

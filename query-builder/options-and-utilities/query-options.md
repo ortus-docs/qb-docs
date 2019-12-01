@@ -10,8 +10,7 @@ qb allows you to specify default options when creating the QueryBuilder instance
 When mapping to components provided by modules, such as qb, use the [`afterAspectsLoad`](https://coldbox.ortusbooks.com/digging-deeper/interceptors/core-interception-points/application-life-cycle-events) interception point inside your `config/WireBox.cfc` to ensure all modules are fully loaded and available.
 {% endhint %}
 
-{% code-tabs %}
-{% code-tabs-item title="config/WireBox.cfc" %}
+{% code title="config/WireBox.cfc" %}
 ```javascript
 component {
     
@@ -26,30 +25,25 @@ component {
     
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Retrieving results from alternative datasources
 
 In `Application.cfc` you can specify your default datasource which will be used by qb. If you want to retrieve data from other datasources you can specify this in all retrieval functions by using the extra options parameter such as:
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 query.from( "users" )
     .get( options = { datasource: "MyOtherDatasourceName" } );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 If you also want to use a non-default SQL Grammar you have to specify this when creating your `QueryBuilder`.
 
-{% code-tabs %}
-{% code-tabs-item title="QueryBuilder" %}
+{% code title="QueryBuilder" %}
 ```javascript
 var query = wirebox.getInstance( "QueryBuilder@qb" )
     .setGrammar( wirebox.getInstance( "MSSQLGrammar@qb" ) );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
