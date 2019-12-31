@@ -1,5 +1,11 @@
 # What's New?
 
+## 7.1.0
+
+* Lambdas \(arrow functions\) are now allowed wherever closures are allowed.
+* Add an [`orderByRaw`](query-builder/building-queries/ordering-grouping-and-limit.md#order-by-raw) method.
+* Allow for fully-qualified column names \(`table_name.column.name`\) in the [`value`](query-builder/executing-queries/retrieving-results.md#value) and [`values`](query-builder/executing-queries/retrieving-results.md#values) methods.
+
 ## 7.0.0
 
 #### **BREAKING CHANGES**
