@@ -172,19 +172,3 @@ ORDER BY (
 ```
 {% endcode %}
 
-## Order By Raw
-
-| Name | Type | Required | Default | Description |
-| :--- | :--- | :--- | :--- | :--- |
-| sql | string | `true` |  | The SQL to use in a raw [Expression](raw-expressions.md). |
-
-You can order with a subquery using a raw sql string
-
-{% tabs %}
-{% tab title="QueryBuilder" %}
-```javascript
-query.from( "users" ).orderByRaw( "NVL(type, 0)" );
-```
-{% endtab %}
-{% endtabs %}
-
