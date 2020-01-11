@@ -9,11 +9,13 @@
 
 The `get` method is the most common method used for retrieving results.  It executes using the configured `QueryBuilder` and returns the results.
 
-{% code title="QueryBuilder" %}
+{% tabs %}
+{% tab title="QueryBuilder" %}
 ```javascript
 query.from( "users" ).get();
 ```
-{% endcode %}
+{% endtab %}
+{% endtabs %}
 
 {% code title="SQL \(MySQL\)" %}
 ```sql
@@ -64,17 +66,39 @@ SELECT * FROM `users` LIMIT(1)
 
 If you don't even need an entire row, you may extract a single value from each record using the `values` method. The `values` method will return the column of your choosing as a simple array.
 
-{% code title="QueryBuilder" %}
+{% tabs %}
+{% tab title="QueryBuilder" %}
 ```javascript
 query.from( "users" ).values( "firstName" );
 ```
-{% endcode %}
+{% endtab %}
+{% endtabs %}
 
-{% code title="Result" %}
+{% tabs %}
+{% tab title="Result" %}
 ```text
 [ "jon", "jane", "jill", ... ]
 ```
-{% endcode %}
+{% endtab %}
+{% endtabs %}
+
+You can also use fully-qualified column names when retrieving the values.
+
+{% tabs %}
+{% tab title="QueryBuilder" %}
+```javascript
+query.from( "users" ).values( "users.firstName" );
+```
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title="Result" %}
+```text
+[ "jon", "jane", "jill", ... ]
+```
+{% endtab %}
+{% endtabs %}
 
 ## value
 
@@ -100,6 +124,24 @@ query.from( "users" ).value( "firstName" );
 {% endcode %}
 
 If no records are returned from the query, one of two things will happen.  If the `throwWhenNotFound` boolean is set to `true`, a `RecordCountException` will be thrown.  Otherwise the `defaultValue` provided to the method will be returned.
+
+You can also use fully-qualified column names when retrieving the values.
+
+{% tabs %}
+{% tab title="QueryBuilder" %}
+```javascript
+query.from( "users" ).values( "users.firstName" );
+```
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title="Result" %}
+```text
+"jon"
+```
+{% endtab %}
+{% endtabs %}
 
 ## chunk
 
