@@ -1,15 +1,5 @@
 # What's New?
 
-## 7.2.0
-
-* Allow a [parent query](query-builder/options-and-utilities/parent-query.md) to be set.  A parent query will receive any method calls that are not found on the Query Builder instance.  This is especially useful for instances like [Quick](https://quick.ortusbooks.com/) to allow Quick features like scopes to be available inside any closures.
-
-## 7.1.0
-
-* Lambdas \(arrow functions\) are now allowed wherever closures are allowed.
-* Add an [`orderByRaw`](query-builder/building-queries/ordering-grouping-and-limit.md#order-by-raw) method.
-* Allow for fully-qualified column names \(`table_name.column.name`\) in the [`value`](query-builder/executing-queries/retrieving-results.md#value) and [`values`](query-builder/executing-queries/retrieving-results.md#values) methods.
-
 ## 7.0.0
 
 #### **BREAKING CHANGES**

@@ -76,7 +76,7 @@ One caveat when using a WireBox Provider: WireBox Providers proxy methods on to 
 
 ### newQuery
 
-Once you have access to a QueryBuilder instance, you can create a new query using the same `grammar`, `utils`, `returnFormat`, `paginationCollector`, `columnFormatter`, `parentQuery`, and `defaultOptions` as the current QueryBuilder instance.
+Once you have access to a QueryBuilder instance, you can create a new query using the same datasource, utils, returnFormat, paginationCollector, columnFormatter, and defaultOptions as the current QueryBuilder instance.
 
 ```javascript
 // This will cause you pain and grief...
