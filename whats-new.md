@@ -1,5 +1,13 @@
 # What's New?
 
+## 7.3.4
+
+* Correctly wrap [comments](schema-builder/column-modifiers.md#comment) in `MySQLGrammar`.
+
+## 7.3.2, 7.3.3
+
+* Publish qb apidocs to [Ortus API Docs](https://apidocs.ortussolutions.com/#/coldbox-modules/qb/).
+
 ## 7.3.1
 
 * Fix for null values breaking the new `checkIsActuallyNumeric` method in `QueryUtils`.
