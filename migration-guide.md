@@ -2,7 +2,7 @@
 
 ## v7.0.0
 
-### Lucee 4.5 and Adobe ColdFusion EOL
+### Lucee 4.5 and Adobe ColdFusion 11 EOL
 
 Support for Lucee 4.5 and Adobe ColdFusion 11 has been dropped.  If you need support for these engines, please remain on an earlier version of qb.
 
