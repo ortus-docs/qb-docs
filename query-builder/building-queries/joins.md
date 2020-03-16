@@ -872,3 +872,9 @@ JOIN `posts`
 ```
 {% endcode %}
 
+## Preventing Duplicate Joins
+
+qb can optionally prevent duplicate joins from being added to a query.  This is done by opting-in to the `preventDuplicateJoins` setting in your `moduleSettings`.  When on, qb will compare a join clause against all other currently configured joins on the query before adding it.  If it matches a current join clause, it will not be added.  This is especially useful in a heavily filtered and dynamic query where you may or may not need the join at all or more than one column may need the same join.
+
+`preventDuplicateJoins` is an opt-in feature.  It may be turned on by default in a future version of qb.
+
