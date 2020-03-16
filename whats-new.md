@@ -1,5 +1,39 @@
 # What's New?
 
+## 7.3.15
+
+* Fix using `whereBetween` with query param structs \([07c9b72](https://github.com/coldbox-modules/qb/commit/07c9b728bdbad6bf02ccd9d21dbdf6968062c02e)\)
+
+## 7.3.14
+
+* Ignore orders in aggregate queries \([39e1338](https://github.com/coldbox-modules/qb/commit/39e1338a147838165e05225bd91ef7e6cde2319a)\)
+
+## 7.3.13
+
+* Format with cfformat \([dc2a9b6](https://github.com/coldbox-modules/qb/commit/dc2a9b61503690d753a71c3b7bce002ebdf4ccda)\)
+
+## 7.3.12
+
+* Improve column wrapping with trimming \([d98a5cb](https://github.com/coldbox-modules/qb/commit/d98a5cb65851c154b6755e90254d1a2c1df82833)\)
+* Prefer the parent query over magic methods when the parent query has the exact method. \([f9fd8d1](https://github.com/coldbox-modules/qb/commit/f9fd8d157cdc0d7480811c4659c130ee1d58888f)\)
+
+## 7.3.9, 7.3.10, 7.3.11
+
+* Switch to using [ForgeBox Storage](https://commandbox.ortusbooks.com/forgebox-enterprise/storage#storing-package-binaries-on-forgebox).
+
+## 7.3.8
+
+* Allow passing query options in to paginate \([cdecfb3](https://github.com/coldbox-modules/qb/commit/cdecfb36f5acab87edd3a478c570f77d285df554)\)
+
+## 7.3.7
+
+* Fix for inserting null values directly \([1de27a6](https://github.com/coldbox-modules/qb/commit/1de27a697f65bfdeed63442ad66be47cd0d30344)\)
+
+## 7.3.5, 7.3.6
+
+* Use cfformat for automatic formatting \([119e434](https://github.com/coldbox-modules/qb/commit/119e434b307a2cc2323b857a214c20842cafbbd4)\)
+* Add a type to the onMissingMethod exception \([90d1093](https://github.com/coldbox-modules/qb/commit/90d109312b2ea86c00db34020b12b5ab22bb377b)\)
+
 ## 7.3.4
 
 * Correctly wrap [comments](schema-builder/column-modifiers.md#comment) in `MySQLGrammar`.
