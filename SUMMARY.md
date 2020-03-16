@@ -31,6 +31,7 @@
   * [Clone](query-builder/options-and-utilities/clone.md)
   * [Return Format](query-builder/options-and-utilities/return-format.md)
   * [Column Formatter](query-builder/options-and-utilities/column-formatter.md)
+  * [Parent Query](query-builder/options-and-utilities/parent-query.md)
   * [Interception Points](query-builder/options-and-utilities/interception-points.md)
 * [Debugging](query-builder/debugging.md)
 
