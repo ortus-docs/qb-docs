@@ -15,7 +15,7 @@ When mapping to components provided by modules, such as qb, use the [`afterAspec
 component {
     
     function afterAspectsLoad() {
-        binder.map( "MyCustomQueryBuilder" )
+        map( "MyCustomQueryBuilder" )
             .to( "qb.models.Query.QueryBuilder" )
             .initArg( name = "grammar", ref = "AutoDiscover@qb" )
             .initArg( name = "defaultOptions", value = {
