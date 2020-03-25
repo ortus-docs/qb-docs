@@ -1,5 +1,9 @@
 # What's New?
 
+## 7.5.1
+
+Fixed an issue using column formatters with `update` and `insert`.
+
 ## 7.5.0
 
 Using a new `preventDuplicateJoins` setting in the module settings, qb can detect duplicate joins and ignore them. This is especially useful in a heavily filtered and dynamic query where you may or may not need the join at all or more than one column may need the same join. `preventDuplicateJoins` defaults to `false`, so it is opt-in. It may be turned on by default in a future breaking release of qb.
