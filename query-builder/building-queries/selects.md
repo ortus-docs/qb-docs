@@ -82,7 +82,7 @@ SELECT `name` AS `firstName`, `age` FROM `users`
 
 | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| expression | any | `true` | ​ | The raw expression for the select statement. |
+| expression | any | `true` | ​ | The raw expression or array of expressions for the select statement. |
 | bindings | array | `false` | `[]` | Any bindings needed for the raw expression. |
 
 A shortcut to use a raw expression in the select clause.
