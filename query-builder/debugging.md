@@ -32,7 +32,7 @@ The bindings for the query are represented by question marks \(`?`\) just as whe
 var q = query.from( "users" )
     .where( "active", "=", 1 );
 
-writeOutput( q.toSQL() );
+writeOutput( q.toSQL( showBindings = true ) );
 ```
 {% endcode %}
 
