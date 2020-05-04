@@ -1,5 +1,13 @@
 # What's New?
 
+## 7.6.2
+
+* Fix a case where a column was not wrapped correctly when a `where` used a subquery for the value.
+
+## 7.6.1
+
+* Avoid `duplicate` function due to cbORM / Hibernate bugs when used in the same application.
+
 ## 7.6.0
 
 * Split off a private `whereBasic` method.  This is used in Quick to provide extra sql type features.
