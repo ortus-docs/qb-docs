@@ -6,7 +6,7 @@
 
 | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| withBindings | boolean | `false` | ​`false` | If true, the bindings for the query will be substituted back in where the question marks \(`?`\) appear. |
+| showBindings | boolean | `false` | ​`false` | If true, the bindings for the query will be substituted back in where the question marks \(`?`\) appear. |
 
 Returns the SQL that would be executed for the current query.
 
@@ -25,7 +25,7 @@ SELECT * FROM "users" WHERE "active" = ?
 ```
 {% endcode %}
 
-The bindings for the query are represented by question marks \(`?`\) just as when using `queryExecute`.  qb can replace each question mark with the corresponding `cfqueryparam`-compatible struct by passing `withBindings = true` to the method.
+The bindings for the query are represented by question marks \(`?`\) just as when using `queryExecute`.  qb can replace each question mark with the corresponding `cfqueryparam`-compatible struct by passing `showBindings = true` to the method.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -75,6 +75,12 @@ SELECT * FROM "users" WHERE "active" = ?
 {% endcode %}
 
 ## Debugging All Queries
+
+### cbDebugger
+
+Starting in [cbDebugger](https://forgebox.io/view/cbdebugger) 2.0.0 you can view all your qb queries for a request.  This is enabled by default if you have qb installed.  Make sure your debug output is configured correctly and scroll to the bottom of the page to find the debug output.
+
+![](../.gitbook/assets/2020-05-04_12-40.png)
 
 ### LogBox Appender
 
