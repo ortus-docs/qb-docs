@@ -31,6 +31,7 @@
   * [Clone](query-builder/options-and-utilities/clone.md)
   * [Return Format](query-builder/options-and-utilities/return-format.md)
   * [Column Formatter](query-builder/options-and-utilities/column-formatter.md)
+  * [Parent Query](query-builder/options-and-utilities/parent-query.md)
   * [Interception Points](query-builder/options-and-utilities/interception-points.md)
 * [Debugging](query-builder/debugging.md)
 
@@ -44,4 +45,10 @@
 * [Creating Table Constraints](schema-builder/creating-table-constraints.md)
 * [Alter](schema-builder/alter.md)
 * [Drop](schema-builder/drop.md)
+
+## External Links
+
+* [API Docs](https://s3.amazonaws.com/apidocs.ortussolutions.com/coldbox-modules/qb/7.6.0/index.html)
+* [Source Code](https://github.com/coldbox-modules/qb/tree/v7.6.0)
+* [Issue Tracker](https://github.com/coldbox-modules/qb/issues)
 
