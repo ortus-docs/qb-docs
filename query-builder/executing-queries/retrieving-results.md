@@ -51,7 +51,8 @@ query.from( "users" ).first();
 
 {% code title="SQL \(MySQL\)" %}
 ```sql
-SELECT * FROM `users` LIMIT(1)
+SELECT * FROM `users`
+ LIMIT(1)
 ```
 {% endcode %}
 
@@ -72,7 +73,8 @@ query.from( "users" ).values( "firstName" );
 
 {% code title="Result" %}
 ```text
-[ "jon", "jane", "jill", ... ]
+[ "jon", "jane", "jill", ... 
+]
 ```
 {% endcode %}
 
@@ -128,6 +130,8 @@ query.from( "users" ).chunk( 100, function( users ) {
 | :--- | :--- | :--- | :--- | :--- |
 | page | numeric | `false` | `1` | The page number to retrieve. |
 | maxRows | numeric | `false` | `25` | The number of records per page.  If a number less than 0 is passed, 0 is used instead. |
+| options | struct | `false` | `{}` | Any additional `queryExecute` options. |
+
 
 Generates a pagination struct along with the results of the executed query.  It does this by calling both `count` and `forPage`.
 
