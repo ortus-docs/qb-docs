@@ -15,14 +15,14 @@ var posts = query.from( "posts" ).get();
 ```
 {% endcode %}
 
-As such, be careful when injecting QueryBuilder in to a component.  If the component is a singleton, you will need to create the QueryBuilder inline or use a provider.  This applies to ColdBox handlers as well.
+As such, be careful when injecting QueryBuilder in to a component. If the component is a singleton, you will need to create the QueryBuilder inline or use a provider. This applies to ColdBox handlers as well.
 
 {% code title="handlers/posts.cfc" %}
 ```javascript
 component {
 
     property name="query" inject="QueryBuilder@qb";
-   
+
     function create( event, rc, prc ) {
         query.table( "posts" )
             .where( "id", rc.id )
@@ -33,14 +33,14 @@ component {
 ```
 {% endcode %}
 
-While the above may seem innoculous, it can run in to issues as multiple requests come in to your application.  Each request is sharing the same query builder instance and subsequent requests will have unintended results as the `where` clause keeps growing request after request.
+While the above may seem innoculous, it can run in to issues as multiple requests come in to your application. Each request is sharing the same query builder instance and subsequent requests will have unintended results as the `where` clause keeps growing request after request.
 
 The solution is to either create the QueryBuilder inline, ensuring that each request has its own query to execute:
 
 {% code title="handlers/posts.cfc" %}
 ```javascript
 component {
-   
+
     function create( event, rc, prc ) {
         getInstance( "QueryBuilder@qb" )
             .table( "posts" )
@@ -59,7 +59,7 @@ Or to use a WireBox provider to create a new query each time it is accessed:
 component {
 
     property name="query" inject="provider:QueryBuilder@qb";
-   
+
     function create( event, rc, prc ) {
         query.table( "posts" )
             .where( "id", rc.id )
@@ -71,10 +71,10 @@ component {
 {% endcode %}
 
 {% hint style="warning" %}
-One caveat when using a WireBox Provider: WireBox Providers proxy methods on to a new instance of the provided mapping on all methods except `get`.  `get` is a method on the Provider itself.  If you call `get` as the first method on a Provider it will return a new instance of QueryBuilder, not execute the query.  In those \(rare\) cases you will need to call `query.get().get()`.
+One caveat when using a WireBox Provider: WireBox Providers proxy methods on to a new instance of the provided mapping on all methods except `get`. `get` is a method on the Provider itself. If you call `get` as the first method on a Provider it will return a new instance of QueryBuilder, not execute the query. In those \(rare\) cases you will need to call `query.get().get()`.
 {% endhint %}
 
-### newQuery
+## newQuery
 
 Once you have access to a QueryBuilder instance, you can create a new query using the same datasource, utils, returnFormat, paginationCollector, columnFormatter, and defaultOptions as the current QueryBuilder instance.
 

@@ -11,7 +11,7 @@ Calling `orderBy` multiple times appends to the order list.
 | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | column | any | `true` |  | The name of the column to order by. An [`Expression`](raw-expressions.md) can be passed as well. |
-| direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`.  |
+| direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`. |
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -67,10 +67,10 @@ ORDER BY DATE(created_at)
 
 ## Order By \(List\)
 
-| Name | Type | Required | Default | Description |
-| :--- | :--- | :--- | :--- | :--- |
-| column | any | `true` |  | The list of the columns to order by.  Each column can optionally declare it's sort direction after a pipe delimiter. \(e.g. `"height|desc"`\). |
-| direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`.  This value will be used as the default value for all entries in the column list that fail to specify a direction for a specific column. |
+| Name | Type | Required | Default | Description |  |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| column | any | `true` |  | The list of the columns to order by.  Each column can optionally declare it's sort direction after a pipe delimiter. \(e.g. \`"height | desc"\`\). |
+| direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`.  This value will be used as the default value for all entries in the column list that fail to specify a direction for a specific column. |  |
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -91,10 +91,10 @@ ORDER BY
 
 ## Order By \(Array of Strings\)
 
-| Name | Type | Required | Default | Description |
-| :--- | :--- | :--- | :--- | :--- |
-| column | any | `true` |  | The array of the columns to order by.  Each column can optionally declare it's sort direction after a pipe delimiter. \(e.g. `"height|desc"`\). |
-| direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`.  This value will be used as the default value for all entries in the column array that fail to specify a direction for a specific column. |
+| Name | Type | Required | Default | Description |  |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| column | any | `true` |  | The array of the columns to order by.  Each column can optionally declare it's sort direction after a pipe delimiter. \(e.g. \`"height | desc"\`\). |
+| direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`.  This value will be used as the default value for all entries in the column array that fail to specify a direction for a specific column. |  |
 
 {% code title="QueryBuilder" %}
 ```javascript
