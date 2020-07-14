@@ -12,7 +12,7 @@ Individual columns can contain fully-qualified names \(`some_table.some_column`\
 | :--- | :--- | :--- | :--- | :--- |
 | columns | string \| array | `false` | ​`"*"` | A single column, list of columns, or array of columns to retrieve. |
 
-When calling `select` any previous columns are discarded.  If you want to incrementally select columns, use the `addSelect` method.
+When calling `select` any previous columns are discarded. If you want to incrementally select columns, use the `addSelect` method.
 
 If you pass no columns to this method, it will default to `"*"`.
 
@@ -61,7 +61,7 @@ SELECT DISTINCT `username` FROM `users`
 This method adds the columns passed to it to the currently selected columns.
 
 {% hint style="warning" %}
-If the `QueryBuilder` is currently selecting all columns \(`"*"`\)  when this method is called, the incoming columns will becoming the only columns selected.
+If the `QueryBuilder` is currently selecting all columns \(`"*"`\) when this method is called, the incoming columns will becoming the only columns selected.
 {% endhint %}
 
 {% code title="QueryBuilder" %}
@@ -75,8 +75,6 @@ query.select( [ "fname AS firstName", "age" ] ).from( "users" );
 SELECT `name` AS `firstName`, `age` FROM `users`
 ```
 {% endcode %}
-
-
 
 ## selectRaw <a id="get"></a>
 
@@ -110,7 +108,7 @@ SELECT YEAR(birthdate) AS birth_year FROM `users`
 | alias | string | `true` | ​ | The alias for the subselect expression. |
 | query | Function \| QueryBuilder | `true` |  | The callback or query to use in the subselect. |
 
-The method lets you pass either a callback or a `QueryBuilder` instance to be used as a subselect expression.  If a callback is passed it will be passed a new query instance as the only parameter.
+The method lets you pass either a callback or a `QueryBuilder` instance to be used as a subselect expression. If a callback is passed it will be passed a new query instance as the only parameter.
 
 The subselect is added to the other already selected columns.
 

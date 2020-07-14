@@ -685,6 +685,40 @@ CREATE TABLE `posts` (
 )
 ```
 
+## money
+
+Create a column using a `MONEY` equivalent type for your database.
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| name | string | `true` |  | The name for the column. |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "transactions", function( table ) {
+    table.money( "amount" );
+} );
+```
+
+**SQL \(MySQL\)**
+
+```sql
+CREATE TABLE `transactions` (
+    `amount` INTEGER NOT NULL
+)
+```
+
+**SQL \(MSSQL\)**
+
+```sql
+CREATE TABLE [transactions] (
+    [amount] MONEY NOT NULL
+)
+```
+
 ## morphs
 
 Creates the necessary columns for a polymorphic relationship. It takes the name provided and creates an `_id` and an `_type` column.
@@ -922,6 +956,40 @@ schema.create( "games", function( table ) {
 ```sql
 CREATE TABLE `games` (
     `score` SMALLINT(3) NOT NULL
+)
+```
+
+## smallMoney
+
+Create a column using a `SMALLMONEY` equivalent type for your database.
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| name | string | `true` |  | The name for the column. |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "transactions", function( table ) {
+    table.smallMoney( "amount" );
+} );
+```
+
+**SQL \(MySQL\)**
+
+```sql
+CREATE TABLE `transactions` (
+    `amount` INTEGER NOT NULL
+)
+```
+
+**SQL \(MSSQL\)**
+
+```sql
+CREATE TABLE [transactions] (
+    [amount] SMALLMONEY NOT NULL
 )
 ```
 
