@@ -1,5 +1,15 @@
 # What's New?
 
+## 7.7.3
+
+* Fix wrapping of enum types for Postgres.
+
+## 7.7.2
+
+* Compatibility fix for ACF 2018 and listLast parsing.
+* Include current\_timestamp default for `timestamp` columns in SchemaBuilder.
+* Ignore table qualifiers for insert and update
+
 ## 7.7.1
 
 * Fix a bug with preventDuplicateJoins when using the closure syntax with a join.

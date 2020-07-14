@@ -7,7 +7,7 @@
 | columns | string \| array | false |  | A shortcut parameter to retrieve only these columns overriding any columns previously set on the QueryBuilder. |
 | options | struct | false | `{}` | Any additional `queryExecute` options. |
 
-The `get` method is the most common method used for retrieving results.  It executes using the configured `QueryBuilder` and returns the results.
+The `get` method is the most common method used for retrieving results. It executes using the configured `QueryBuilder` and returns the results.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -21,7 +21,7 @@ SELECT * FROM `users`
 ```
 {% endcode %}
 
-`get` can also take a list or array of columns to use as a shortcut.  If any are passed, those columns will be used instead of any columns previously set on the `QueryBuilder`.
+`get` can also take a list or array of columns to use as a shortcut. If any are passed, those columns will be used instead of any columns previously set on the `QueryBuilder`.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -87,7 +87,7 @@ query.from( "users" ).values( "firstName" );
 | throwWhenNotFound | boolean | `false` | `false` | If `true`, it throws a `RecordCountException` if no records are returned from the query. |
 | options | struct | `false` | `{}` | Any additional `queryExecute` options. |
 
-This method is similar to `values` except it only returns a single, simple value.  Where `values` calls `get` under the hood, this method calls `first`.
+This method is similar to `values` except it only returns a single, simple value. Where `values` calls `get` under the hood, this method calls `first`.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -101,19 +101,19 @@ query.from( "users" ).value( "firstName" );
 ```
 {% endcode %}
 
-If no records are returned from the query, one of two things will happen.  If the `throwWhenNotFound` boolean is set to `true`, a `RecordCountException` will be thrown.  Otherwise the `defaultValue` provided to the method will be returned.
+If no records are returned from the query, one of two things will happen. If the `throwWhenNotFound` boolean is set to `true`, a `RecordCountException` will be thrown. Otherwise the `defaultValue` provided to the method will be returned.
 
 ## chunk
 
 | Name | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| max | numeric |  | The number of results to return in each chunk.  |
+| max | numeric |  | The number of results to return in each chunk. |
 | callback | Function |  | The function that will be called with each chunk. |
 | options | struct | `{}` | Any additional `queryExecute` options. |
 
-Large datasets can be broken up and retrieved in chunks.  This allows you to work with a subset of results at once to keep your memory footprint under control.
+Large datasets can be broken up and retrieved in chunks. This allows you to work with a subset of results at once to keep your memory footprint under control.
 
-`chunk` can be called on any query like you would call `get`.  You can stop the retrieving and processing early by returning `false` from the callback.
+`chunk` can be called on any query like you would call `get`. You can stop the retrieving and processing early by returning `false` from the callback.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -132,8 +132,7 @@ query.from( "users" ).chunk( 100, function( users ) {
 | maxRows | numeric | `false` | `25` | The number of records per page.  If a number less than 0 is passed, 0 is used instead. |
 | options | struct | `false` | `{}` | Any additional `queryExecute` options. |
 
-
-Generates a pagination struct along with the results of the executed query.  It does this by calling both `count` and `forPage`.
+Generates a pagination struct along with the results of the executed query. It does this by calling both `count` and `forPage`.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -159,7 +158,7 @@ query.from( "users" )
 
 ### Custom Pagination Collectors
 
-A pagination collector is the name given to the struct returned from calling the [`paginate`](retrieving-results.md#paginate) method.  It can be a struct or a component.  It needs one function defined and will be passed the following parameters.
+A pagination collector is the name given to the struct returned from calling the [`paginate`](retrieving-results.md#paginate) method. It can be a struct or a component. It needs one function defined and will be passed the following parameters.
 
 #### generateWithResults
 
@@ -172,5 +171,5 @@ A pagination collector is the name given to the struct returned from calling the
 
 You can set your custom pagination collector either in the constructor using the `paginationCollector` argument or by calling `setPaginationCollector` on a query builder instance.
 
-By default, qb ships with [`cbpaginator`](https://forgebox.io/view/cbpaginator) as its pagination collector.  The return format of `cbpaginator` is the example shown above.
+By default, qb ships with [`cbpaginator`](https://forgebox.io/view/cbpaginator) as its pagination collector. The return format of `cbpaginator` is the example shown above.
 

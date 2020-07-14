@@ -4,13 +4,13 @@
 
 ### Lucee 4.5 and Adobe ColdFusion 11 EOL
 
-Support for Lucee 4.5 and Adobe ColdFusion 11 has been dropped.  If you need support for these engines, please remain on an earlier version of qb.
+Support for Lucee 4.5 and Adobe ColdFusion 11 has been dropped. If you need support for these engines, please remain on an earlier version of qb.
 
 ### MSSQLGrammar renamed to SqlServerGrammar
 
 `MSSQLGrammar` was visually too close to `MySQLGrammar` and was hard to differentiate quickly. `SqlServerGrammar` is much more unique and easily identifiable. Additionally, more people that use this library refer to their database engine as "SQL Server" than "MSSQL".
 
-To migrate, replace any instances of `MSSQLGrammar` with `SqlServerGrammar`.  Make sure to also append the `@qb` namespace, if needed, [as explained below.](migration-guide.md#defaultgrammar-updated-to-be-the-full-wirebox-mapping)
+To migrate, replace any instances of `MSSQLGrammar` with `SqlServerGrammar`. Make sure to also append the `@qb` namespace, if needed, [as explained below.](migration-guide.md#defaultgrammar-updated-to-be-the-full-wirebox-mapping)
 
 ### Variadic Parameters Support Removed
 
@@ -20,7 +20,7 @@ Variadic parameter support was the ability to pass any number of arguments to ce
 qb.select( "name", "email", "createdDate" );
 ```
 
-This code came with a slight performance cost and readability cost. That, combined with the fact that the above syntax is very close to an array, we are dropping support for variadic parameters.  To migrate, wrap instances of variadic parameters in an array:
+This code came with a slight performance cost and readability cost. That, combined with the fact that the above syntax is very close to an array, we are dropping support for variadic parameters. To migrate, wrap instances of variadic parameters in an array:
 
 ```javascript
 qb.select( [ "name", "email", "createdDate" ] );
@@ -28,7 +28,7 @@ qb.select( [ "name", "email", "createdDate" ] );
 
 ### defaultGrammar updated to be the full WireBox mapping
 
-In previous versions, the value passed to `defaultGrammar` was used to look up a mapping in the `@qb` namespace.  This made it difficult to add or use grammars that weren't part of qb. \(You could get around this be registering your custom grammar in the `@qb` namespace, but doing so seemed strange.\)
+In previous versions, the value passed to `defaultGrammar` was used to look up a mapping in the `@qb` namespace. This made it difficult to add or use grammars that weren't part of qb. \(You could get around this be registering your custom grammar in the `@qb` namespace, but doing so seemed strange.\)
 
 To migrate this code, change your `defaultGrammar` to be the full WireBox mapping in your `moduleSettings`:
 
@@ -42,7 +42,7 @@ moduleSettings = {
 
 ### value method argument order changed
 
-A `defaultValue` parameter and optional exception throwing was added to `value`.  This pushed the `options` struct to the end of the method.  If you are using positional parameters with `value`, you will need to update your method calls to either use named parameters or the new positions.
+A `defaultValue` parameter and optional exception throwing was added to `value`. This pushed the `options` struct to the end of the method. If you are using positional parameters with `value`, you will need to update your method calls to either use named parameters or the new positions.
 
 ```javascript
 public any function value(
