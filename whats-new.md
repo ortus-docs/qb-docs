@@ -1,5 +1,9 @@
 # What's New?
 
+## 7.9.8
+
+* Allow nullable [timestamps](schema-builder/columns.md#timestamp) in MySQL.
+
 ## 7.9.7
 
 * Return 0 on null [aggregates](query-builder/executing-queries/aggregates.md).
