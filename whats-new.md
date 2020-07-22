@@ -1,5 +1,17 @@
 # What's New?
 
+## 8.0.0
+
+#### BREAKING CHANGES
+
+* \`\`[`when`](query-builder/building-queries/when.md#when) callbacks now automatically scope and group where clauses when an `OR` combinator is used.
+
+#### Other Changes
+
+* Combine [`clearOrders`](query-builder/building-queries/ordering-grouping-and-limit.md#clearorders) and `orderBy` with a new [`reorder`](query-builder/building-queries/ordering-grouping-and-limit.md#reorder)method.
+* Clear current selected columns with [`clearSelect`](query-builder/building-queries/selects.md#clearselect).
+* Combine [`clearSelect`](query-builder/building-queries/selects.md#clearselect) and either [`select`](query-builder/building-queries/selects.md#get) or [`selectRaw`](query-builder/building-queries/selects.md#get-3) with [`reselect`](query-builder/building-queries/selects.md#reselect) and [`reselectRaw`](query-builder/building-queries/selects.md#reselectraw) respectively.
+
 ## 7.10.0
 
 * Expose nested where functions to enable advanced query manipulation in downstream libraries like Quick.
