@@ -1,5 +1,9 @@
 # What's New?
 
+## 7.9.9
+
+* Fixes for OracleGrammar including table aliases and wrapped subqueries.
+
 ## 7.9.8
 
 * Allow nullable [timestamps](schema-builder/columns.md#timestamp) in MySQL.
