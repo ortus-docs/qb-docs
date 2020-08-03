@@ -1,5 +1,9 @@
 # What's New?
 
+## 8.0.1
+
+* Trim table definitions before searching for aliases.  Makes qb more lenient with extra whitespace.
+
 ## 8.0.0
 
 {% hint style="success" %}
