@@ -2,6 +2,10 @@
 
 ## 8.0.0
 
+{% hint style="success" %}
+📹  [Watch a walkthrough of these changes on CFCasts.](https://cfcasts.com/series/whats-new-in-qb-8)
+{% endhint %}
+
 #### BREAKING CHANGES
 
 * \`\`[`when`](query-builder/building-queries/when.md#when) callbacks now automatically scope and group where clauses when an `OR` combinator is used.
