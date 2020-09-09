@@ -24,7 +24,7 @@ query.select( [ "fname AS firstName", "age" ] ).from( "users" );
 
 {% code title="SQL \(MySQL\)" %}
 ```sql
-SELECT `name` AS `firstName`, `age` FROM `users`
+SELECT `fname` AS `firstName`, `age` FROM `users`
 ```
 {% endcode %}
 
@@ -66,13 +66,13 @@ If the `QueryBuilder` is currently selecting all columns \(`"*"`\) when this met
 
 {% code title="QueryBuilder" %}
 ```javascript
-query.select( [ "fname AS firstName", "age" ] ).from( "users" );
+query.addSelect( [ "fname AS firstName", "age" ] ).from( "users" );
 ```
 {% endcode %}
 
 {% code title="SQL \(MySQL\)" %}
 ```sql
-SELECT `name` AS `firstName`, `age` FROM `users`
+SELECT `fname` AS `firstName`, `age` FROM `users`
 ```
 {% endcode %}
 
