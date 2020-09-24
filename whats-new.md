@@ -1,5 +1,40 @@
 # What's New?
 
+## 8.1.0
+
+* `orderByRaw` now can accept bindings.
+* A new, optional [`strictDateDetection`](query-builder/building-queries/parameters-and-bindings.md#strict-date-detection) setting is available to check the underlying Java class of a date object instead of using `isDate`.
+
+## 8.0.3
+
+* Ignore select bindings for aggregate queries.
+* Allow spaces in table aliases.
+* Split FLOAT and DECIMAL column types in SQL Server.
+
+## 8.0.2
+
+* Clear orderBy bindings when calling `clearOrders`.
+
+## 8.0.1
+
+* Trim table definitions before searching for aliases.  Makes qb more lenient with extra whitespace.
+
+## 8.0.0
+
+{% hint style="success" %}
+📹  [Watch a walkthrough of these changes on CFCasts.](https://cfcasts.com/series/whats-new-in-qb-8)
+{% endhint %}
+
+#### BREAKING CHANGES
+
+* \`\`[`when`](query-builder/building-queries/when.md#when) callbacks now automatically scope and group where clauses when an `OR` combinator is used.
+
+#### Other Changes
+
+* Combine [`clearOrders`](query-builder/building-queries/ordering-grouping-and-limit.md#clearorders) and `orderBy` with a new [`reorder`](query-builder/building-queries/ordering-grouping-and-limit.md#reorder)method.
+* Clear current selected columns with [`clearSelect`](query-builder/building-queries/selects.md#clearselect).
+* Combine [`clearSelect`](query-builder/building-queries/selects.md#clearselect) and either [`select`](query-builder/building-queries/selects.md#get) or [`selectRaw`](query-builder/building-queries/selects.md#get-3) with [`reselect`](query-builder/building-queries/selects.md#reselect) and [`reselectRaw`](query-builder/building-queries/selects.md#reselectraw) respectively.
+
 ## 7.10.0
 
 * Expose nested where functions to enable advanced query manipulation in downstream libraries like Quick.

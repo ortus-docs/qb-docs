@@ -12,7 +12,7 @@ Individual columns can contain fully-qualified names \(`some_table.some_column`\
 | :--- | :--- | :--- | :--- | :--- |
 | columns | string \| array | `false` | ​`"*"` | A single column, list of columns, or array of columns to retrieve. |
 
-When calling `select` any previous columns are discarded.  If you want to incrementally select columns, use the `addSelect` method.
+When calling `select` any previous columns are discarded. If you want to incrementally select columns, use the `addSelect` method.
 
 If you pass no columns to this method, it will default to `"*"`.
 
@@ -24,7 +24,7 @@ query.select( [ "fname AS firstName", "age" ] ).from( "users" );
 
 {% code title="SQL \(MySQL\)" %}
 ```sql
-SELECT `name` AS `firstName`, `age` FROM `users`
+SELECT `fname` AS `firstName`, `age` FROM `users`
 ```
 {% endcode %}
 
@@ -61,22 +61,20 @@ SELECT DISTINCT `username` FROM `users`
 This method adds the columns passed to it to the currently selected columns.
 
 {% hint style="warning" %}
-If the `QueryBuilder` is currently selecting all columns \(`"*"`\)  when this method is called, the incoming columns will becoming the only columns selected.
+If the `QueryBuilder` is currently selecting all columns \(`"*"`\) when this method is called, the incoming columns will becoming the only columns selected.
 {% endhint %}
 
 {% code title="QueryBuilder" %}
 ```javascript
-query.select( [ "fname AS firstName", "age" ] ).from( "users" );
+query.addSelect( [ "fname AS firstName", "age" ] ).from( "users" );
 ```
 {% endcode %}
 
 {% code title="SQL \(MySQL\)" %}
 ```sql
-SELECT `name` AS `firstName`, `age` FROM `users`
+SELECT `fname` AS `firstName`, `age` FROM `users`
 ```
 {% endcode %}
-
-
 
 ## selectRaw <a id="get"></a>
 
@@ -110,7 +108,7 @@ SELECT YEAR(birthdate) AS birth_year FROM `users`
 | alias | string | `true` | ​ | The alias for the subselect expression. |
 | query | Function \| QueryBuilder | `true` |  | The callback or query to use in the subselect. |
 
-The method lets you pass either a callback or a `QueryBuilder` instance to be used as a subselect expression.  If a callback is passed it will be passed a new query instance as the only parameter.
+The method lets you pass either a callback or a `QueryBuilder` instance to be used as a subselect expression. If a callback is passed it will be passed a new query instance as the only parameter.
 
 The subselect is added to the other already selected columns.
 
@@ -132,6 +130,73 @@ SELECT (
     WHERE `users`.`id` = `logins`.`user_id`
 ) AS `last_login_date`
 FROM `users
+```
+{% endcode %}
+
+## clearSelect <a id="clearselect"></a>
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| No arguments |  | \`\` |  |  |
+
+Clears out the selected columns for a query along with any configured select bindings.
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .select( [ "fname AS firstName", "age" ] )
+    .clearSelect();
+```
+{% endcode %}
+
+{% code title="SQL \(MySQL\)" %}
+```sql
+SELECT * FROM `users`
+```
+{% endcode %}
+
+## reselect <a id="reselect"></a>
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| columns | string \| array | `false` | ​`"*"` | A single column, list of columns, or array of columns to retrieve. |
+
+Clears out the selected columns for a query along with any configured select bindings. Then sets a selection of columns to select from the query. Any valid argument to [`select`](selects.md#get) can be passed here.
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .select( [ "fname AS firstName", "age" ] )
+    .reselect( "username" );
+```
+{% endcode %}
+
+{% code title="SQL \(MySQL\)" %}
+```sql
+SELECT `username` FROM `users`
+```
+{% endcode %}
+
+## reselectRaw <a id="reselectraw"></a>
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| expression | any | `true` | ​ | The raw expression for the select statement. |
+| bindings | array | `false` | `[]` | Any bindings needed for the raw expression. |
+
+Clears out the selected columns for a query along with any configured select bindings. Then adds an Expression or array of expressions to the already selected columns.
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .select( [ "fname AS firstName", "age" ] )
+    .reselectRaw( "YEAR(birthdate) AS birth_year" );
+```
+{% endcode %}
+
+{% code title="SQL \(MySQL\)" %}
+```sql
+SELECT YEAR(birthdate) AS birth_year FROM `users`
 ```
 {% endcode %}
 

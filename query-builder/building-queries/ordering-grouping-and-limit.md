@@ -11,7 +11,7 @@ Calling `orderBy` multiple times appends to the order list.
 | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | column | any | `true` |  | The name of the column to order by. An [`Expression`](raw-expressions.md) can be passed as well. |
-| direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`.  |
+| direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`. |
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -67,10 +67,10 @@ ORDER BY DATE(created_at)
 
 ## Order By \(List\)
 
-| Name | Type | Required | Default | Description |
-| :--- | :--- | :--- | :--- | :--- |
-| column | any | `true` |  | The list of the columns to order by.  Each column can optionally declare it's sort direction after a pipe delimiter. \(e.g. `"height|desc"`\). |
-| direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`.  This value will be used as the default value for all entries in the column list that fail to specify a direction for a specific column. |
+| Name | Type | Required | Default | Description |  |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| column | any | `true` |  | The list of the columns to order by.  Each column can optionally declare it's sort direction after a pipe delimiter. \(e.g. \`"height | desc"\`\). |
+| direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`.  This value will be used as the default value for all entries in the column list that fail to specify a direction for a specific column. |  |
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -91,10 +91,10 @@ ORDER BY
 
 ## Order By \(Array of Strings\)
 
-| Name | Type | Required | Default | Description |
-| :--- | :--- | :--- | :--- | :--- |
-| column | any | `true` |  | The array of the columns to order by.  Each column can optionally declare it's sort direction after a pipe delimiter. \(e.g. `"height|desc"`\). |
-| direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`.  This value will be used as the default value for all entries in the column array that fail to specify a direction for a specific column. |
+| Name | Type | Required | Default | Description |  |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| column | any | `true` |  | The array of the columns to order by.  Each column can optionally declare it's sort direction after a pipe delimiter. \(e.g. \`"height | desc"\`\). |
+| direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`.  This value will be used as the default value for all entries in the column array that fail to specify a direction for a specific column. |  |
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -169,6 +169,54 @@ ORDER BY (
     FROM `logins`
     WHERE `users`.`id` = `logins`.`user_id`
 )
+```
+{% endcode %}
+
+## clearOrders
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| No arguments |  | \`\` |  |  |
+
+Clears the currently configured orders for the query.  Usually used by downstream libraries like [Quick](https://quick.ortusbooks.com/).
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .orderBy( "email" )
+    .clearOrders();
+```
+{% endcode %}
+
+{% code title="MySQL" %}
+```sql
+SELECT *
+FROM `users`
+```
+{% endcode %}
+
+## reorder
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| column | any | `true` |  | The name of the column to order by. An [`Expression`](raw-expressions.md) can be passed as well. |
+| direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`. |
+
+Clears the currently configured orders for the query and sets the new orders passed in.  Any valid argument to [`orderBy`](ordering-grouping-and-limit.md) can be passed here.  Usually used by downstream libraries like [Quick](https://quick.ortusbooks.com/).
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .orderBy( "email" )
+    .reorder( "username" );
+```
+{% endcode %}
+
+{% code title="MySQL" %}
+```sql
+SELECT *
+FROM `users`
+ORDER BY `username` ASC
 ```
 {% endcode %}
 

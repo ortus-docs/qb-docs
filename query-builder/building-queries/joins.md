@@ -1,6 +1,6 @@
 # Joins
 
-Join clauses range from simple to complex including joining complete subqueries on multiple conditions.  qb has your back with all of these use cases.
+Join clauses range from simple to complex including joining complete subqueries on multiple conditions. qb has your back with all of these use cases.
 
 | Table of Contents |  |  |  |
 | :--- | :--- | :--- | :--- |
@@ -20,7 +20,7 @@ Join clauses range from simple to complex including joining complete subqueries 
 | type | string | `false` | `"inner"` | The type of the join.  Passing this as an argument is discouraged for readability. Use the dedicated methods like [`leftJoin`](joins.md#leftjoin) and [`rightJoin`](joins.md#get) where possible. |
 | where | boolean | `false` | `false` | Sets if the value of `second` should be interpreted as a column or a value. Passing this as an argument is discouraged. Use the dedicated [`joinWhere`](joins.md#joinwhere) or a join closure where possible. |
 
-Applies a join to the query.  The simplest join is to a table based on two columns:
+Applies a join to the query. The simplest join is to a table based on two columns:
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -150,7 +150,7 @@ JOIN `posts`
 ```
 {% endcode %}
 
-A preconfigured [`JoinClause`](joins.md#joinclause) can also be passed to the join function.  This allows you to extract shared pieces of code out to different functions.
+A preconfigured [`JoinClause`](joins.md#joinclause) can also be passed to the join function. This allows you to extract shared pieces of code out to different functions.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -180,7 +180,7 @@ JOIN `posts`
 | second | string \| [Expression](raw-expressions.md) | `false` |  | The second column or [`Expression`](raw-expressions.md) to join the table on. |
 | type | string | `false` | `"inner"` | The type of the join.  Passing this as an argument is discouraged for readability. Use the dedicated methods like [`leftJoin`](joins.md#leftjoin) and [`rightJoin`](joins.md#get) with a join function where possible. |
 
-Adds a join to another table based on a `WHERE` clause instead of an `ON` clause.  `WHERE` clauses introduce parameters and parameter bindings whereas `on` clauses join between columns and don't need parameter bindings.
+Adds a join to another table based on a `WHERE` clause instead of an `ON` clause. `WHERE` clauses introduce parameters and parameter bindings whereas `on` clauses join between columns and don't need parameter bindings.
 
 For simple joins, this specifies a column on which to join the two tables:
 
@@ -200,7 +200,7 @@ JOIN `contacts`
 ```
 {% endcode %}
 
-For complex joins, a function can be passed to `first`. This allows multiple `on` and `where` conditions to be applied to the join.  See the documentation for [`join`](joins.md#join) for more information.
+For complex joins, a function can be passed to `first`. This allows multiple `on` and `where` conditions to be applied to the join. See the documentation for [`join`](joins.md#join) for more information.
 
 ## joinRaw <a id="joinraw"></a>
 
@@ -213,7 +213,7 @@ For complex joins, a function can be passed to `first`. This allows multiple `on
 | type | string | `false` | `"inner"` | The type of the join.  Passing this as an argument is discouraged for readability. Use the dedicated methods like [`leftJoinRaw`](joins.md#leftjoinraw) and [`rightJoinRaw`](joins.md#rightjoinraw) where possible. |
 | where | boolean | `false` | `false` | Sets if the value of `second` should be interpreted as a column or a value. Passing this as an argument is discouraged. Use a closure to define the where clauses where possible. |
 
-Uses the raw SQL provided to as the table for the join clause.  All the other functionality of `joinRaw` matches the [`join`](joins.md#join) method.  Additionally, there are [`leftJoinRaw`](joins.md#leftjoinraw), [`rightJoinRaw`](joins.md#rightjoinraw), and `crossJoinRaw` methods available.
+Uses the raw SQL provided to as the table for the join clause. All the other functionality of `joinRaw` matches the [`join`](joins.md#join) method. Additionally, there are [`leftJoinRaw`](joins.md#leftjoinraw), [`rightJoinRaw`](joins.md#rightjoinraw), and `crossJoinRaw` methods available.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -247,7 +247,7 @@ Using `joinRaw` will most likely tie your code to a specific database, so think 
 | type | string | `false` | `"inner"` | The type of the join.  Passing this as an argument is discouraged for readability. Use the dedicated methods like [`leftJoinSub`](joins.md#leftjoinsub) and [`rightJoinSub`](joins.md#rightjoinsub) where possible. |
 | where | boolean | `false` | `false` | Sets if the value of `second` should be interpreted as a column or a value. Passing this as an argument is discouraged. Use a closure to define the where clauses where possible. |
 
-Adds a join to a derived table.  All the functionality of the [`join`](joins.md#join) method applies to constrain the query. The derived table can be defined using a `QueryBuilder` instance:   
+Adds a join to a derived table. All the functionality of the [`join`](joins.md#join) method applies to constrain the query. The derived table can be defined using a `QueryBuilder` instance:
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -332,78 +332,47 @@ JOIN (
 
 ## leftJoin <a id="leftjoin"></a>
 
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+
+
 <table>
   <thead>
     <tr>
-      <th style="text-align:left">Name</th>
-      <th style="text-align:left">Type</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Default</th>
-      <th style="text-align:left">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">table</td>
-      <td style="text-align:left">string | <a href="raw-expressions.md">Expression</a> | <a href="joins.md#joinclause">JoinClause</a>
-      </td>
-      <td style="text-align:left"><code>true</code>
-      </td>
-      <td style="text-align:left">&#x200B;</td>
-      <td style="text-align:left">
+      <th style="text-align:left">table</th>
+      <th style="text-align:left">string | <a href="raw-expressions.md">Expression</a> | <a href="joins.md#joinclause">JoinClause</a>
+      </th>
+      <th style="text-align:left"><code>true</code>
+      </th>
+      <th style="text-align:left">&#x200B;</th>
+      <th style="text-align:left">
         <p>The name of the table or a <a href="raw-expressions.md"><code>Expression</code></a> object
           from which the query is based. Alternatively, a configured <a href="joins.md#joinclause"><code>JoinClause</code></a> instance
           can be passed.</p>
-        <p></p>
         <p>(Note: a <a href="joins.md#joinclause"><code>JoinClause</code></a> instance
           may have a different join type than a <code>left</code> join. The <a href="joins.md#joinclause"><code>JoinClause</code></a> instance&apos;s
           join type will be used.)</p>
-      </td>
+      </th>
     </tr>
-    <tr>
-      <td style="text-align:left">first</td>
-      <td style="text-align:left">string | Expression | Function</td>
-      <td style="text-align:left"><code>false</code>
-      </td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left">The first column or <a href="raw-expressions.md"><code>Expression</code></a> to
-        join the table on. Alternatively, a function can be passed to configure
-        complex join statements.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operator</td>
-      <td style="text-align:left">string</td>
-      <td style="text-align:left"><code>false</code>
-      </td>
-      <td style="text-align:left"><code>&quot;=&quot;</code>
-      </td>
-      <td style="text-align:left">The boolean operator for the join clause.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">second</td>
-      <td style="text-align:left">string | <a href="raw-expressions.md">Expression</a>
-      </td>
-      <td style="text-align:left"><code>false</code>
-      </td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left">The second column or <a href="raw-expressions.md"><code>Expression</code></a> to
-        join the table on.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">where</td>
-      <td style="text-align:left">boolean</td>
-      <td style="text-align:left"><code>false</code>
-      </td>
-      <td style="text-align:left"><code>false</code>
-      </td>
-      <td style="text-align:left">Sets if the value of <code>second</code> should be interpreted as a column
-        or a value. Passing this as an argument is discouraged. Use a closure to
-        define the where clauses where possible.</td>
-    </tr>
-  </tbody>
+  </thead>
+  <tbody></tbody>
 </table>
 
-Applies a left join to the query.  All the other functionality of `leftJoin` matches the [`join`](joins.md#join) method.  Additionally, a [`leftJoinRaw`](joins.md#leftjoinraw) method is available.
+| first | string \| Expression \| Function | `false` |  | The first column or [`Expression`](raw-expressions.md) to join the table on. Alternatively, a function can be passed to configure complex join statements. |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| operator | string | `false` | `"="` | The boolean operator for the join clause. |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| second | string \| [Expression](raw-expressions.md) | `false` |  | The second column or [`Expression`](raw-expressions.md) to join the table on. |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| where | boolean | `false` | `false` | Sets if the value of `second` should be interpreted as a column or a value. Passing this as an argument is discouraged. Use a closure to define the where clauses where possible. |
+| :--- | :--- | :--- | :--- | :--- |
+
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -431,7 +400,7 @@ LEFT JOIN `users`
 | second | string \| [Expression](raw-expressions.md) | `false` |  | The second column or [`Expression`](raw-expressions.md) to join the table on. |
 | where | boolean | `false` | `false` | Sets if the value of `second` should be interpreted as a column or a value. Passing this as an argument is discouraged. Use a closure to define the where clauses where possible. |
 
-Uses the raw SQL provided to as the table for the left join clause.  All the other functionality of `leftJoinRaw` matches the [`join`](joins.md#join) method.
+Uses the raw SQL provided to as the table for the left join clause. All the other functionality of `leftJoinRaw` matches the [`join`](joins.md#join) method.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -464,7 +433,7 @@ Using `leftJoinRaw` will most likely tie your code to a specific database, so th
 | second | string \| [Expression](raw-expressions.md) | `false` |  | The second column or [`Expression`](raw-expressions.md) to join the table on. |
 | where | boolean | `false` | `false` | Sets if the value of `second` should be interpreted as a column or a value. Passing this as an argument is discouraged. Use a closure to define the where clauses where possible. |
 
-Adds a left join to a derived table.  All the functionality of the [`joinSub`](joins.md#joinsub) method applies to define and constrain the query.
+Adds a left join to a derived table. All the functionality of the [`joinSub`](joins.md#joinsub) method applies to define and constrain the query.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -493,79 +462,47 @@ LEFT JOIN (
 
 ## rightJoin <a id="get"></a>
 
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+
+
 <table>
   <thead>
     <tr>
-      <th style="text-align:left">Name</th>
-      <th style="text-align:left">Type</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Default</th>
-      <th style="text-align:left">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">table</td>
-      <td style="text-align:left">string | <a href="raw-expressions.md">Expression</a> | <a href="joins.md#joinclause">JoinClause</a>
-      </td>
-      <td style="text-align:left"><code>true</code>
-      </td>
-      <td style="text-align:left">&#x200B;</td>
-      <td style="text-align:left">
+      <th style="text-align:left">table</th>
+      <th style="text-align:left">string | <a href="raw-expressions.md">Expression</a> | <a href="joins.md#joinclause">JoinClause</a>
+      </th>
+      <th style="text-align:left"><code>true</code>
+      </th>
+      <th style="text-align:left">&#x200B;</th>
+      <th style="text-align:left">
         <p>The name of the table or a <a href="raw-expressions.md"><code>Expression</code></a> object
           from which the query is based. Alternatively, a configured <a href="joins.md#joinclause"><code>JoinClause</code></a> instance
           can be passed.</p>
-        <p></p>
         <p>(Note: a <a href="joins.md#joinclause"><code>JoinClause</code></a> instance
           may have a different join type than a <code>right</code> join. The <a href="joins.md#joinclause"><code>JoinClause</code></a> instance&apos;s
           join type will be used.)</p>
-      </td>
+      </th>
     </tr>
-    <tr>
-      <td style="text-align:left">first</td>
-      <td style="text-align:left">string | <a href="raw-expressions.md">Expression</a> | Function</td>
-      <td
-      style="text-align:left"><code>false</code>
-        </td>
-        <td style="text-align:left"></td>
-        <td style="text-align:left">The first column or <a href="raw-expressions.md"><code>Expression</code></a> to
-          join the table on. Alternatively, a function can be passed to configure
-          complex join statements.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operator</td>
-      <td style="text-align:left">string</td>
-      <td style="text-align:left"><code>false</code>
-      </td>
-      <td style="text-align:left"><code>&quot;=&quot;</code>
-      </td>
-      <td style="text-align:left">The boolean operator for the join clause.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">second</td>
-      <td style="text-align:left">string | <a href="raw-expressions.md">Expression</a>
-      </td>
-      <td style="text-align:left"><code>false</code>
-      </td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left">The second column or <a href="raw-expressions.md"><code>Expression</code></a> to
-        join the table on.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">where</td>
-      <td style="text-align:left">boolean</td>
-      <td style="text-align:left"><code>false</code>
-      </td>
-      <td style="text-align:left"><code>false</code>
-      </td>
-      <td style="text-align:left">Sets if the value of <code>second</code> should be interpreted as a column
-        or a value. Passing this as an argument is discouraged. Use a closure to
-        define the where clauses where possible.</td>
-    </tr>
-  </tbody>
+  </thead>
+  <tbody></tbody>
 </table>
 
-Applies a right join to the query.  All the other functionality of `rightJoin` matches the [`join`](joins.md#join) method.  Additionally, a [`rightJoinRaw`](joins.md#rightjoinraw) method is available.
+| first | string \| [Expression](raw-expressions.md) \| Function | `false` |  | The first column or [`Expression`](raw-expressions.md) to join the table on. Alternatively, a function can be passed to configure complex join statements. |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| operator | string | `false` | `"="` | The boolean operator for the join clause. |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| second | string \| [Expression](raw-expressions.md) | `false` |  | The second column or [`Expression`](raw-expressions.md) to join the table on. |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| where | boolean | `false` | `false` | Sets if the value of `second` should be interpreted as a column or a value. Passing this as an argument is discouraged. Use a closure to define the where clauses where possible. |
+| :--- | :--- | :--- | :--- | :--- |
+
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -593,7 +530,7 @@ RIGHT JOIN `posts`
 | second | string \| [Expression](raw-expressions.md) | `false` |  | The second column or [`Expression`](raw-expressions.md) to join the table on. |
 | where | boolean | `false` | `false` | Sets if the value of `second` should be interpreted as a column or a value. Passing this as an argument is discouraged. Use a closure to define the where clauses where possible. |
 
-Uses the raw SQL provided to as the table for the right join clause.  All the other functionality of `rightJoinRaw` matches the [`join`](joins.md#join) method.
+Uses the raw SQL provided to as the table for the right join clause. All the other functionality of `rightJoinRaw` matches the [`join`](joins.md#join) method.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -626,7 +563,7 @@ Using `rightJoinRaw` will most likely tie your code to a specific database, so t
 | second | string \| [Expression](raw-expressions.md) | `false` |  | The second column or [`Expression`](raw-expressions.md) to join the table on. |
 | where | boolean | `false` | `false` | Sets if the value of `second` should be interpreted as a column or a value. Passing this as an argument is discouraged. Use a closure to define the where clauses where possible. |
 
-Adds a right join to a derived table.  All the functionality of the [`joinSub`](joins.md#joinsub) method applies to define and constrain the query.
+Adds a right join to a derived table. All the functionality of the [`joinSub`](joins.md#joinsub) method applies to define and constrain the query.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -655,38 +592,31 @@ RIGHT JOIN (
 
 ## crossJoin <a id="crossjoin"></a>
 
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+
+
 <table>
   <thead>
     <tr>
-      <th style="text-align:left">Name</th>
-      <th style="text-align:left">Type</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Default</th>
-      <th style="text-align:left">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">table</td>
-      <td style="text-align:left">string | <a href="raw-expressions.md">Expression</a> | <a href="joins.md#joinclause">JoinClause</a>
-      </td>
-      <td style="text-align:left"><code>true</code>
-      </td>
-      <td style="text-align:left">&#x200B;</td>
-      <td style="text-align:left">
+      <th style="text-align:left">table</th>
+      <th style="text-align:left">string | <a href="raw-expressions.md">Expression</a> | <a href="joins.md#joinclause">JoinClause</a>
+      </th>
+      <th style="text-align:left"><code>true</code>
+      </th>
+      <th style="text-align:left">&#x200B;</th>
+      <th style="text-align:left">
         <p>The name of the table or a <a href="raw-expressions.md"><code>Expression</code></a> object
           from which the query is based. Alternatively, a configured <a href="joins.md#joinclause"><code>JoinClause</code></a> instance
           can be passed.</p>
-        <p></p>
         <p>(Note: a <a href="joins.md#joinclause"><code>JoinClause</code></a> instance
           may have a different join type than a <code>cross</code> join. The <a href="joins.md#joinclause"><code>JoinClause</code></a> instance&apos;s
           join type will be used.)</p>
-      </td>
+      </th>
     </tr>
-  </tbody>
+  </thead>
+  <tbody></tbody>
 </table>
-
-Applies a cross join or cartesian product to the query.  Cross joins cannot be further constrained with `on` or `where` clauses.  Additionally, a [`crossJoinRaw`](joins.md#crossjoinraw) method is available.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -708,7 +638,7 @@ CROSS JOIN `posts`
 | :--- | :--- | :--- | :--- | :--- |
 | table | string | `true` | ​ | The raw SQL string to use as the table. |
 
-Uses the raw SQL provided to as the table for the cross join clause.  Cross joins cannot be further constrained with `on` or `where` clauses.
+Uses the raw SQL provided to as the table for the cross join clause. Cross joins cannot be further constrained with `on` or `where` clauses.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -735,7 +665,7 @@ Using `crossJoinRaw` will most likely tie your code to a specific database, so t
 | alias | string | `true` |  | The alias for the derived table. |
 | input | Function \| QueryBuilder | `true` | ​ | Either a `QueryBuilder` instance or a function to define the derived query. |
 
-Adds a cross join to a derived table.  The derived table can be defined using a `QueryBuilder` instance or a function just as with [`joinSub`](joins.md#joinsub).  Cross joins cannot be constrained, however.
+Adds a cross join to a derived table. The derived table can be defined using a `QueryBuilder` instance or a function just as with [`joinSub`](joins.md#joinsub). Cross joins cannot be constrained, however.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -767,9 +697,9 @@ CROSS JOIN (
 | table | string \| [Expression](raw-expressions.md) | `true` | ​ | The name of the table or a [`Expression`](raw-expressions.md) object from which the query is based. |
 | type | string | `false` | `"inner"` | The type of the join.  Valid types are `inner`, `left`, `right`, or `cross`. |
 
-Creates a new [`JoinClause`](joins.md#joinclause).  A [`JoinClause`](joins.md#joinclause) is a specialized version of a `QueryBuilder`.  You may call `on` or `orOn` to constrain the [`JoinClause`](joins.md#joinclause).  You may also call any [`where`](wheres.md) methods.
+Creates a new [`JoinClause`](joins.md#joinclause). A [`JoinClause`](joins.md#joinclause) is a specialized version of a `QueryBuilder`. You may call `on` or `orOn` to constrain the [`JoinClause`](joins.md#joinclause). You may also call any [`where`](wheres.md) methods.
 
-Creating a [`JoinClause`](joins.md#joinclause) directly is useful when you need to share a join between different queries.  You can create and configure the [`JoinClause`](joins.md#joinclause) in a function and pass it to queries as needed.
+Creating a [`JoinClause`](joins.md#joinclause) directly is useful when you need to share a join between different queries. You can create and configure the [`JoinClause`](joins.md#joinclause) in a function and pass it to queries as needed.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -790,7 +720,7 @@ JOIN `posts`
 {% endcode %}
 
 {% hint style="warning" %}
-Although a [`JoinClause`](joins.md#joinclause) can be passed to [`join`](joins.md#join), [`leftJoin`](joins.md#leftjoin), [`rightJoin`](joins.md#get), and `crossJoin`, the type of the [`JoinClause`](joins.md#joinclause) will override the type of the function. 
+Although a [`JoinClause`](joins.md#joinclause) can be passed to [`join`](joins.md#join), [`leftJoin`](joins.md#leftjoin), [`rightJoin`](joins.md#get), and `crossJoin`, the type of the [`JoinClause`](joins.md#joinclause) will override the type of the function.
 {% endhint %}
 
 {% code title="QueryBuilder" %}
@@ -817,7 +747,7 @@ JOIN `posts`
 
 ## JoinClause
 
-A `JoinClause` is a specialized version of a `QueryBuilder`.  You may call `on` or `orOn` to constrain the `JoinClause`.  You may also call any [`where`](wheres.md) methods.
+A `JoinClause` is a specialized version of a `QueryBuilder`. You may call `on` or `orOn` to constrain the `JoinClause`. You may also call any [`where`](wheres.md) methods.
 
 ### on
 
@@ -828,7 +758,7 @@ A `JoinClause` is a specialized version of a `QueryBuilder`.  You may call `on` 
 | second | string \| [Expression](raw-expressions.md) | `false` |  | The second column or [`Expression`](raw-expressions.md) of the condition. |
 | combinator | string | `false` | `"and"` | The boolean combinator for the clause \(e.g. "and" or "or"\). |
 
-Applies a join condition to the `JoinClause`.  An alias for `whereColumn`.
+Applies a join condition to the `JoinClause`. An alias for `whereColumn`.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -856,7 +786,7 @@ JOIN `posts`
 | operator | string | `false` | `"="` | The boolean operator for the condition. |
 | second | string \| [Expression](raw-expressions.md) | `false` |  | The second column or [`Expression`](raw-expressions.md) of the condition. |
 
-Applies a join condition to the `JoinClause` using an `or` combinator.  An alias for `orWhereColumn`.
+Applies a join condition to the `JoinClause` using an `or` combinator. An alias for `orWhereColumn`.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -877,4 +807,18 @@ JOIN `posts`
   OR `users`.`id` = `posts`.`reviewer_id`
 ```
 {% endcode %}
+
+## Preventing Duplicate Joins
+
+You can optionally configure qb to ignore duplicate joins.  With this setting turned on each `JoinClause` is inspected and checked if it matches any existing `JoinClause` instances on the query.  This is useful if you have a table shared between optional constraints and want to ensure it is only added once.
+
+You can opt-in to this behavior by setting `preventDuplicateJoins = true` in your `moduleSettings` in `config/ColdBox.cfc`.
+
+```javascript
+moduleSettings = {
+    "qb": {
+         "preventDuplicateJoins": true  
+    }
+};
+```
 
