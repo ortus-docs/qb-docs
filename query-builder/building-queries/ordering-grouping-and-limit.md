@@ -65,6 +65,44 @@ ORDER BY DATE(created_at)
 ```
 {% endcode %}
 
+## Order By Shortcuts
+
+Two order by shortcuts exist that default the order - `orderByAsc` and `orderByDesc`.  They behave like `orderBy` in all other regards, including being able to pass Expressions, closures, or Builder instances.
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| column | any | `true` |  | The name of the column to order by. An [`Expression`](raw-expressions.md) can be passed as well. |
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .orderByAsc( "email" );
+```
+{% endcode %}
+
+{% code title="MySQL" %}
+```sql
+SELECT *
+FROM `users`
+ORDER BY `email` ASC
+```
+{% endcode %}
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .orderByDesc( "email" );
+```
+{% endcode %}
+
+{% code title="MySQL" %}
+```sql
+SELECT *
+FROM `users`
+ORDER BY `email` DESC
+```
+{% endcode %}
+
 ## Order By \(List\)
 
 | Name | Type | Required | Default | Description |
@@ -171,4 +209,20 @@ ORDER BY (
 )
 ```
 {% endcode %}
+
+## Order By Raw
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| sql | string | `true` |  | The SQL to use in a raw [Expression](raw-expressions.md). |
+
+You can order with a subquery using a raw sql string
+
+{% tabs %}
+{% tab title="QueryBuilder" %}
+```javascript
+query.from( "users" ).orderByRaw( "NVL(type, 0)" );
+```
+{% endtab %}
+{% endtabs %}
 
