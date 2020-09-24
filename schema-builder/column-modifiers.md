@@ -24,7 +24,7 @@ schema.create( "users", function( table ) {
 
 ```sql
 CREATE TABLE `users` (
-    `age` INTEGER NOT NULL COMMENT `Do not lie about your age`
+    `age` INTEGER NOT NULL COMMENT 'Do not lie about your age'
 )
 ```
 
