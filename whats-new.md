@@ -1,5 +1,15 @@
 # What's New?
 
+## 8.0.3
+
+* Ignore select bindings for aggregate queries.
+* Allow spaces in table aliases.
+* Split FLOAT and DECIMAL column types in SQL Server.
+
+## 8.0.2
+
+* Clear orderBy bindings when calling `clearOrders`.
+
 ## 8.0.1
 
 * Trim table definitions before searching for aliases.  Makes qb more lenient with extra whitespace.

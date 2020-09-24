@@ -161,7 +161,7 @@ SELECT * FROM `users`
 | :--- | :--- | :--- | :--- | :--- |
 | columns | string \| array | `false` | ​`"*"` | A single column, list of columns, or array of columns to retrieve. |
 
-Clears out the selected columns for a query along with any configured select bindings.  Then sets a selection of columns to select from the query.  Any valid argument to [`select`](selects.md#get) can be passed here.
+Clears out the selected columns for a query along with any configured select bindings. Then sets a selection of columns to select from the query. Any valid argument to [`select`](selects.md#get) can be passed here.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -184,7 +184,7 @@ SELECT `username` FROM `users`
 | expression | any | `true` | ​ | The raw expression for the select statement. |
 | bindings | array | `false` | `[]` | Any bindings needed for the raw expression. |
 
-Clears out the selected columns for a query along with any configured select bindings.  Then adds an Expression or array of expressions to the already selected columns.
+Clears out the selected columns for a query along with any configured select bindings. Then adds an Expression or array of expressions to the already selected columns.
 
 {% code title="QueryBuilder" %}
 ```javascript
