@@ -172,6 +172,30 @@ ORDER BY (
 ```
 {% endcode %}
 
+
+
+## Order By Raw
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| expression | string | `true` |  | The raw SQL expression to use. |
+| bindings | array | `false` | `[]` | Any bindings \(`?`\) used in the expression. |
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .orderByRaw( "CASE WHEN status = ? THEN 1 ELSE 0 END DESC", [ 1 ] );
+```
+{% endcode %}
+
+{% code title="MySQL" %}
+```sql
+SELECT *
+FROM `users`
+ORDER BY CASE WHEN status = ? THEN 1 ELSE 0 END DESC
+```
+{% endcode %}
+
 ## clearOrders
 
 | Name | Type | Required | Default | Description |

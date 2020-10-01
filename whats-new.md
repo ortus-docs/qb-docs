@@ -2,7 +2,7 @@
 
 ## 8.1.0
 
-* `orderByRaw` now can accept bindings.
+* \`\`[`orderByRaw`](query-builder/building-queries/ordering-grouping-and-limit.md#order-by-raw) now can accept bindings.
 * A new, optional [`strictDateDetection`](query-builder/building-queries/parameters-and-bindings.md#strict-date-detection) setting is available to check the underlying Java class of a date object instead of using `isDate`.
 
 ## 8.0.3
