@@ -20,6 +20,7 @@ This works, but breaks chainability. To keep chainability you can use the `when`
 | condition | boolean | true |  | The condition to switch on. |
 | onTrue | Function | true |  | The callback to execute if the condition is true.  It is passed the `builder` object as the only parameter. |
 | onFalse | Function | false | function\( q \) { return q; } | The callback to execute if the conditions is false.  It is passed the `builder` object as the only parameter. |
+| withoutScoping | boolean | false | `false` | Flag to turn off the automatic scoping of where clauses during the callback. |
 
 The `when` helper is used to allow conditional statements when defining queries without using if statements and having to store temporary variables.
 
@@ -49,4 +50,25 @@ query.from( "posts" )
     );
 ```
 {% endcode %}
+
+`when` callbacks are automatically scoped and grouped.  That means that if a where clause is added inside the callback with an `OR` combinator the clauses will automatically be grouped \(have parenthesis put around them.\)  You can disable this feature by passing `withoutScoping = true` to the `when` callback.
+
+```javascript
+qb.from( "users" )
+    .where( "active", 1 )
+    .when( len( url.q ), function( q ) {
+        q.where( "username", "LIKE", q & "%" )
+            .orWhere( "email", "LIKE", q & "%" );   
+    } );
+```
+
+```sql
+SELECT *
+FROM "users"
+WHERE "active" = ?
+    AND (
+        "username" = ?
+        OR "email" = ?
+    )
+```
 

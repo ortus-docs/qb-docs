@@ -45,6 +45,20 @@ VALUES
 ```
 {% endcode %}
 
+### Strict Date Detection
+
+By default, qb will try to determine if a variable is a date using the built-in `isDate` function.  This can have some interesting effects with different formatted strings.  You can opt in to stricter date detection which will check the underlying Java class of the value to determine if the value is a date.  This is more accurate, but does require you to specifically pass date instances instead of strings.  For this reason, it is currently opt-in to not break existing applications.  It is likely to become the default in the next major version of qb.
+
+You can opt in to stricter date detection by setting `strictDateDetection = true` in your `moduleSettings` in `config/ColdBox.cfc`.
+
+```javascript
+moduleSettings = {
+    "qb": {
+        "strictDateDetection": true
+    }
+};
+```
+
 ## Bindings
 
 Bindings are the values that will be sent as parameters to a prepared SQL statement.  This protects you from [SQL injection.](https://en.wikipedia.org/wiki/SQL_injection)  In CFML, this uses [`cfqueryparam`](https://cfdocs.org/cfqueryparam) to parameterize the values.
