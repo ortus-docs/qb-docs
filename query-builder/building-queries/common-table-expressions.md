@@ -143,7 +143,8 @@ Here is an example of building a recursive CTE using SQL Server which would retu
 
 {% code title="QueryBuilder" %}
 ```javascript
-query.withRecursive( "Hierarchy", function ( q ) {
+query
+.withRecursive( "Hierarchy", function ( q ) {
     q.select( [ "Id", "ParentId", "Name", q.raw( "0 AS [Generation]" ) ] )
         .from( "Sample" )
         .whereNull( "ParentId" )
@@ -166,7 +167,7 @@ query.withRecursive( "Hierarchy", function ( q ) {
 
 {% code title="SqlServer" %}
 ```sql
-WITH [Hierarchy] ([Id], ParentId], [Name], [Generation]) AS (
+WITH [Hierarchy] ([Id], [ParentId], [Name], [Generation]) AS (
     SELECT
         [Id],
         [ParentId],
@@ -179,7 +180,8 @@ WITH [Hierarchy] ([Id], ParentId], [Name], [Generation]) AS (
         [child].[Id],
         [child].[ParentId],
         [child].[Name],
-        [parent].[Generation] + 1
+        
+[parent].[Generation] + 1
     FROM [Sample] AS [child]
     INNER JOIN [Hierarchy] AS [parent]
         ON [child].[ParentId] = [parent].[Id]
