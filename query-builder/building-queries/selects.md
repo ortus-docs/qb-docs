@@ -118,7 +118,7 @@ query.subSelect( "last_login_date", function( q ) {
     q.selectRaw( "MAX(created_date)" )
         .from( "logins" )
         .whereColumn( "users.id", "logins.user_id" );
-} ) ).from( "users" );
+} ).from( "users" );
 ```
 {% endcode %}
 
