@@ -172,3 +172,75 @@ ORDER BY (
 ```
 {% endcode %}
 
+
+
+## Order By Raw
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| expression | string | `true` |  | The raw SQL expression to use. |
+| bindings | array | `false` | `[]` | Any bindings \(`?`\) used in the expression. |
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .orderByRaw( "CASE WHEN status = ? THEN 1 ELSE 0 END DESC", [ 1 ] );
+```
+{% endcode %}
+
+{% code title="MySQL" %}
+```sql
+SELECT *
+FROM `users`
+ORDER BY CASE WHEN status = ? THEN 1 ELSE 0 END DESC
+```
+{% endcode %}
+
+## clearOrders
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| No arguments |  | \`\` |  |  |
+
+Clears the currently configured orders for the query.  Usually used by downstream libraries like [Quick](https://quick.ortusbooks.com/).
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .orderBy( "email" )
+    .clearOrders();
+```
+{% endcode %}
+
+{% code title="MySQL" %}
+```sql
+SELECT *
+FROM `users`
+```
+{% endcode %}
+
+## reorder
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| column | any | `true` |  | The name of the column to order by. An [`Expression`](raw-expressions.md) can be passed as well. |
+| direction | string | `false` | `"asc"` | The direction by which to order the query. Accepts `"asc"`or `"desc"`. |
+
+Clears the currently configured orders for the query and sets the new orders passed in.  Any valid argument to [`orderBy`](ordering-grouping-and-limit.md) can be passed here.  Usually used by downstream libraries like [Quick](https://quick.ortusbooks.com/).
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .orderBy( "email" )
+    .reorder( "username" );
+```
+{% endcode %}
+
+{% code title="MySQL" %}
+```sql
+SELECT *
+FROM `users`
+ORDER BY `username` ASC
+```
+{% endcode %}
+
