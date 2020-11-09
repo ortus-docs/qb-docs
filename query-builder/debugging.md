@@ -74,6 +74,32 @@ SELECT * FROM "users" WHERE "active" = ?
 ```
 {% endcode %}
 
+### dump
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| showBindings | boolean | `false` | `false` | If true, the bindings for the query will be substituted back in where the question marks \(`?`\) appear. |
+|  |  |  |  | All other `writeDump` arguments are supported. |
+
+A shortcut for the most common use case of `tap`.  This forwards on the SQL for the current query to `writeDump`.  You can pass along any `writeDump` argument to `dump` and it will be forward on.  Additionally, the `showBindings` argument will be forwarded on to the `toSQL` call.
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .dump()
+    .where( "active", "=", 1 )
+    .dump( label = "after where", showBindings = true, abort = true )
+    .get();
+```
+{% endcode %}
+
+{% code title="Result" %}
+```sql
+SELECT * FROM "users"
+SELECT * FROM "users" WHERE "active" = ?
+```
+{% endcode %}
+
 ## Debugging All Queries
 
 ### cbDebugger

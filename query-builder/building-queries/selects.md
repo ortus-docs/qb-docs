@@ -24,7 +24,7 @@ query.select( [ "fname AS firstName", "age" ] ).from( "users" );
 
 {% code title="SQL \(MySQL\)" %}
 ```sql
-SELECT `name` AS `firstName`, `age` FROM `users`
+SELECT `fname` AS `firstName`, `age` FROM `users`
 ```
 {% endcode %}
 
@@ -66,13 +66,13 @@ If the `QueryBuilder` is currently selecting all columns \(`"*"`\) when this met
 
 {% code title="QueryBuilder" %}
 ```javascript
-query.select( [ "fname AS firstName", "age" ] ).from( "users" );
+query.addSelect( [ "fname AS firstName", "age" ] ).from( "users" );
 ```
 {% endcode %}
 
 {% code title="SQL \(MySQL\)" %}
 ```sql
-SELECT `name` AS `firstName`, `age` FROM `users`
+SELECT `fname` AS `firstName`, `age` FROM `users`
 ```
 {% endcode %}
 
@@ -130,6 +130,73 @@ SELECT (
     WHERE `users`.`id` = `logins`.`user_id`
 ) AS `last_login_date`
 FROM `users
+```
+{% endcode %}
+
+## clearSelect <a id="clearselect"></a>
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| No arguments |  | \`\` |  |  |
+
+Clears out the selected columns for a query along with any configured select bindings.
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .select( [ "fname AS firstName", "age" ] )
+    .clearSelect();
+```
+{% endcode %}
+
+{% code title="SQL \(MySQL\)" %}
+```sql
+SELECT * FROM `users`
+```
+{% endcode %}
+
+## reselect <a id="reselect"></a>
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| columns | string \| array | `false` | ​`"*"` | A single column, list of columns, or array of columns to retrieve. |
+
+Clears out the selected columns for a query along with any configured select bindings. Then sets a selection of columns to select from the query. Any valid argument to [`select`](selects.md#get) can be passed here.
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .select( [ "fname AS firstName", "age" ] )
+    .reselect( "username" );
+```
+{% endcode %}
+
+{% code title="SQL \(MySQL\)" %}
+```sql
+SELECT `username` FROM `users`
+```
+{% endcode %}
+
+## reselectRaw <a id="reselectraw"></a>
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| expression | any | `true` | ​ | The raw expression for the select statement. |
+| bindings | array | `false` | `[]` | Any bindings needed for the raw expression. |
+
+Clears out the selected columns for a query along with any configured select bindings. Then adds an Expression or array of expressions to the already selected columns.
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .select( [ "fname AS firstName", "age" ] )
+    .reselectRaw( "YEAR(birthdate) AS birth_year" );
+```
+{% endcode %}
+
+{% code title="SQL \(MySQL\)" %}
+```sql
+SELECT YEAR(birthdate) AS birth_year FROM `users`
 ```
 {% endcode %}
 
