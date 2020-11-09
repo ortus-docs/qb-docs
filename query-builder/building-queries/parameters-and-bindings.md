@@ -59,6 +59,18 @@ moduleSettings = {
 };
 ```
 
+### Numeric SQL Type
+
+By default, qb will use the `CF_SQL_NUMERIC` SQL type when it detects a numeric binding.  You can specify your own default SQL type to use with numeric values using the `numericSQLType` setting in your `moduleSettings` in `config/ColdBox.cfc`.
+
+```javascript
+moduleSettings = {
+    "qb": {
+        "numericSQLType": "CF_SQL_INTEGER"
+    }
+};
+```
+
 ## Bindings
 
 Bindings are the values that will be sent as parameters to a prepared SQL statement.  This protects you from [SQL injection.](https://en.wikipedia.org/wiki/SQL_injection)  In CFML, this uses [`cfqueryparam`](https://cfdocs.org/cfqueryparam) to parameterize the values.

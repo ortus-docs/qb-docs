@@ -1,5 +1,9 @@
 # What's New?
 
+## 8.3.0
+
+* Introduce a [`numericSQLType`](query-builder/building-queries/parameters-and-bindings.md#numeric-sql-type) setting to specify the default numeric SQL type.
+
 ## 8.2.2
 
 * Default to `html` for the `dump` format argument to `writeDump`.

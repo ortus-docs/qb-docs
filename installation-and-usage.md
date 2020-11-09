@@ -34,7 +34,7 @@ var builder = new qb.models.Query.QueryBuilder( grammar );
 
 ## SQL Type Inferral
 
-QB binds all parameters by default and guesses the SQL type based on passed values.  The default SQL type for numeric values is `CF_SQL_NUMERIC`, which is a floating point number, for the widest compatibility.  This can cause performance problems with large recordsets in some database engines.  You can provide a different default in coldbox.cfc if you wish to override this setting:
+QB binds all parameters by default and guesses the SQL type based on passed values. The default SQL type for numeric values is `CF_SQL_NUMERIC`, which is a floating point number, for the widest compatibility. This can cause performance problems with large recordsets in some database engines. You can provide a different default in coldbox.cfc if you wish to override this setting:
 
 ```text
 moduleSettings = {
