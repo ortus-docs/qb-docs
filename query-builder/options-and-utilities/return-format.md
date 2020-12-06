@@ -30,6 +30,19 @@ moduleSettings = {
 ```
 {% endcode %}
 
+This setting can be overridden on a per-instance basis by calling `setReturnFormat()`:
+
+{% code title="setReturnFormat" %}
+```javascript
+var qb = wirebox.getInstance( "QueryBuilder@qb" );
+
+qb
+   .setReturnFormat( 'query' )
+   .from( 'users' )
+   .get()
+```
+{% endcode %}
+
 If you want complete control over your return result, you can provide a function as a `returnFormat`. The results of the function will be returned as the results of the builder.
 
 {% code title="config/ColdBox.cfc" %}
