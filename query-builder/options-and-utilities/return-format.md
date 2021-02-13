@@ -1,6 +1,6 @@
 # Return Format
 
-`returnFormat` refers to the transformation your executed query makes \(if any\) before being returned to you.  You can choose one of three return formats:
+`returnFormat` refers to the transformation your executed query makes \(if any\) before being returned to you. You can choose one of three return formats:
 
 * `"array"`
 * `"query"`
