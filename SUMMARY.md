@@ -48,7 +48,7 @@
 
 ## External Links
 
-* [API Docs](https://s3.amazonaws.com/apidocs.ortussolutions.com/coldbox-modules/qb/)
+* [API Docs](https://s3.amazonaws.com/apidocs.ortussolutions.com/coldbox-modules/qb/index.html)
 * [Source Code](https://github.com/coldbox-modules/qb)
 * [Issue Tracker](https://github.com/coldbox-modules/qb/issues)
 
