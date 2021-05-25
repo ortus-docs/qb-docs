@@ -1,5 +1,29 @@
 # What's New?
 
+## 8.4.9
+
+* Swap `master` branch to `main` branch.
+
+## 8.4.8
+
+* Remove unnecessary injection for QueryUtils.
+
+## 8.4.7
+
+* Account for raw expressions when generating mementos for comparison
+
+## 8.4.6
+
+* Add support for [mediumtext](schema-builder/columns.md#mediumtext) & [longtext](schema-builder/columns.md#longtext) types for MySQLGrammar.
+
+## 8.4.5
+
+* Fix limit on [simplePaginate](query-builder/executing-queries/retrieving-results.md#simplepaginate).
+
+## 8.4.1 - 8.4.4
+
+* Migrate release process to GitHub Actions.
+
 ## 8.4.0
 
 * Add a `simplePaginate` pagination method for quicker performance when total records or total pages are not needed or too slow.
