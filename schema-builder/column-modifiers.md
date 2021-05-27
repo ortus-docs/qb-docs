@@ -46,7 +46,7 @@ Sets a default value for the column.
 schema.create( "users", function( table ) {
     table.boolean( "is_active" ).default( 1 );
     table.timestamp( "created_date" ).default( "NOW()" );
-    table.string( "country" ).default( "'USA'" );
+    tablVIRTUAL NOT NULLe.string( "country" ).default( "'USA'" );
 } );
 ```
 
@@ -223,4 +223,126 @@ CREATE TABLE "posts" (
     "posted_date" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 ```
+
+## storedAs
+
+Creates a stored computed column.  Computed columns are defined as expressions between other columns and/or constant values.  Stored computed columns are saved in the database to avoid computing on every query.
+
+{% hint style="info" %}
+Your database grammar may not differentiate between stored computed columns and virtual computed columns.  Research your grammar's implementation for more details.
+{% endhint %}
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| expression | string | `true` |  | The SQL used to define the computed column. |
+
+{% tabs %}
+{% tab title="SchemaBuilder" %}
+```javascript
+schema.create( "products", function( table ) {
+    table.integer( "price" );
+    table.integer( "tax" ).storedAs( "price * 0.0675" );
+} );
+```
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title="MySQL" %}
+```sql
+CREATE TABLE `products` (
+    `price` INTEGER NOT NULL,
+    `tax` INTEGER GENERATED ALWAYS AS (price * 0.0675) STORED NOT NULL
+)
+```
+{% endtab %}
+
+{% tab title="SQL Server" %}
+```sql
+CREATE TABLE [products] (
+    [price] INTEGER NOT NULL,
+    [tax] AS (price * 0.0675) PERSISTED
+)
+```
+{% endtab %}
+
+{% tab title="Postgres" %}
+```sql
+CREATE TABLE "products" (
+    "price" INTEGER NOT NULL,
+    "tax" INTEGER NOT NULL GENERATED ALWAYS AS (price * 0.0675) STORED
+)
+```
+{% endtab %}
+
+{% tab title="Oracle" %}
+```sql
+CREATE TABLE "PRODUCTS" (
+    "PRICE" NUMBER(10, 0) NOT NULL,
+    "TAX" NUMBER(10, 0) GENERATED ALWAYS AS (price * 0.0675)
+)
+```
+{% endtab %}
+{% endtabs %}
+
+## virtualAs
+
+Creates a virtual computed column.  Computed columns are defined as expressions between other columns and/or constant values.  Virtual computed columns are computed on every query.
+
+{% hint style="info" %}
+Your database grammar may not differentiate between stored computed columns and virtual computed columns.  Research your grammar's implementation for more details.
+{% endhint %}
+
+| Argument | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| expression | string | `true` |  | The SQL used to define the computed column. |
+
+{% tabs %}
+{% tab title="SchemaBuilder" %}
+```javascript
+schema.create( "products", function( table ) {
+    table.integer( "price" );
+    table.integer( "tax" ).virtualAs( "price * 0.0675" );
+} );
+```
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title="MySQL" %}
+```sql
+CREATE TABLE `products` (
+    `price` INTEGER NOT NULL,
+    `tax` INTEGER GENERATED ALWAYS AS (price * 0.0675) VIRTUAL NOT NULL
+)
+```
+{% endtab %}
+
+{% tab title="SQL Server" %}
+```sql
+CREATE TABLE [products] (
+    [price] INTEGER NOT NULL,
+    [tax] AS (price * 0.0675)
+)
+```
+{% endtab %}
+
+{% tab title="Postgres" %}
+```sql
+CREATE TABLE "products" (
+    "price" INTEGER NOT NULL,
+    "tax" INTEGER GENERATED ALWAYS AS (price * 0.0675) STORED
+)
+```
+{% endtab %}
+
+{% tab title="Oracle" %}
+```sql
+CREATE TABLE "PRODUCTS" (
+    "PRICE" NUMBER(10, 0) NOT NULL,
+    "TAX" NUMBER(10, 0) GENERATED ALWAYS AS (price * 0.0675) VIRTUAL
+)
+```
+{% endtab %}
+{% endtabs %}
 

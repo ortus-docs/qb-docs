@@ -1,5 +1,108 @@
 # What's New?
 
+## 8.5.0
+
+### QueryBuilder
+
+* Add a [`reset`](query-builder/options-and-utilities/clone-and-reset.md#reset) method to QueryBuilder.
+* Add [locking](query-builder/building-queries/locks.md) helpers such as [`lock`](query-builder/building-queries/locks.md#lock), [`noLock`](query-builder/building-queries/locks.md#nolock), [`lockForUpdate`](query-builder/building-queries/locks.md#lockforupdate), and [`sharedLock`](query-builder/building-queries/locks.md#sharedlock).
+* Correct return aggregate values for date values from `max` and `min` executors.
+* [Automatically add a `scale`](query-builder/building-queries/parameters-and-bindings.md#automatic-scale-detection) to an incoming query param when needed.
+* Add a [`whereNotLike`](query-builder/building-queries/wheres.md#wherenotlike) shortcut method.
+* Correctly format a `COUNT(DISTINCT column)` query.
+* Only use bulk insert syntax when needed in OracleGrammar due to interactions between the `result` parameter to `cfquery`, Lucee, and the Oracle JDBC driver.
+
+### SchemaBuilder
+
+* Add support for [stored computed columns](schema-builder/column-modifiers.md#storedas) and [virtual computed columns](schema-builder/column-modifiers.md#virtualas).
+
+## 8.4.9
+
+* Swap `master` branch to `main` branch.
+
+## 8.4.8
+
+* Remove unnecessary injection for QueryUtils.
+
+## 8.4.7
+
+* Account for raw expressions when generating mementos for comparison
+
+## 8.4.6
+
+* Add support for [mediumtext](schema-builder/columns.md#mediumtext) & [longtext](schema-builder/columns.md#longtext) types for MySQLGrammar.
+
+## 8.4.5
+
+* Fix limit on [simplePaginate](query-builder/executing-queries/retrieving-results.md#simplepaginate).
+
+## 8.4.1 - 8.4.4
+
+* Migrate release process to GitHub Actions.
+
+## 8.4.0
+
+* Add a `simplePaginate` pagination method for quicker performance when total records or total pages are not needed or too slow.
+
+## 8.3.0
+
+* Introduce a [`numericSQLType`](query-builder/building-queries/parameters-and-bindings.md#numeric-sql-type) setting to specify the default numeric SQL type.
+
+## 8.2.2
+
+* Default to `html` for the `dump` format argument to `writeDump`.
+
+## 8.2.1
+
+* Correctly use the passed in `strictDateDetection` to the `QueryUtils.cfc`.
+
+## 8.2.0
+
+{% hint style="success" %}
+📹  [Watch a walkthrough of this change on CFCasts.](https://cfcasts.com/series/whats-new-in-qb-8)
+{% endhint %}
+
+* Added a [`dump`](query-builder/debugging.md#dump) command to aid in debugging a query while chaining.
+
+## 8.1.0
+
+{% hint style="success" %}
+📹  [Watch a walkthrough of these changes on CFCasts.](https://cfcasts.com/series/whats-new-in-qb-8)
+{% endhint %}
+
+* \`\`[`orderByRaw`](query-builder/building-queries/ordering-grouping-and-limit.md#order-by-raw) now can accept bindings.
+* A new, optional [`strictDateDetection`](query-builder/building-queries/parameters-and-bindings.md#strict-date-detection) setting is available to check the underlying Java class of a date object instead of using `isDate`.
+
+## 8.0.3
+
+* Ignore select bindings for aggregate queries.
+* Allow spaces in table aliases.
+* Split FLOAT and DECIMAL column types in SQL Server.
+
+## 8.0.2
+
+* Clear orderBy bindings when calling `clearOrders`.
+
+## 8.0.1
+
+* Trim table definitions before searching for aliases.  Makes qb more lenient with extra whitespace.
+
+## 8.0.0
+
+{% hint style="success" %}
+📹  [Watch a walkthrough of these changes on CFCasts.](https://cfcasts.com/series/whats-new-in-qb-8)
+{% endhint %}
+
+#### BREAKING CHANGES
+
+* \`\`[`when`](query-builder/building-queries/when.md#when) callbacks now automatically scope and group where clauses when an `OR` combinator is used.
+
+#### Other Changes
+
+* Combine [`clearOrders`](query-builder/building-queries/ordering-grouping-and-limit.md#clearorders) and `orderBy` with a new [`reorder`](query-builder/building-queries/ordering-grouping-and-limit.md#reorder)method.
+* Clear current selected columns with [`clearSelect`](query-builder/building-queries/selects.md#clearselect).
+* Combine [`clearSelect`](query-builder/building-queries/selects.md#clearselect) and either [`select`](query-builder/building-queries/selects.md#get) or [`selectRaw`](query-builder/building-queries/selects.md#get-3) with [`reselect`](query-builder/building-queries/selects.md#reselect) and [`reselectRaw`](query-builder/building-queries/selects.md#reselectraw) respectively.
+
 ## 7.10.0
 
 * Expose nested where functions to enable advanced query manipulation in downstream libraries like Quick.

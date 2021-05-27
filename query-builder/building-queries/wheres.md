@@ -397,6 +397,31 @@ WHERE `username` LIKE ?
 ```
 {% endcode %}
 
+### whereNotLike
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| column | string \| [Expression](raw-expressions.md) | `true` |  | The name of the column or [`Expression`](raw-expressions.md) with which to constrain the query. |
+| value | any | `false` |  | The value with which to constrain the column.  An [`Expression`](raw-expressions.md) can be passed as well.  If a QueryBuilder or Function is passed, it will be used as a subselect expression. |
+| combinator | string | `false` | `"and"` | The boolean combinator for the clause.  Valid options are `"and"` or `"or"`.  Avoid passing this parameter explicitly.  Where possible use the `andWhere` and `orWhere` [dynamic methods ](wheres.md#andwhere-and-orwhere)instead. |
+
+A shortcut for calling [`where`](wheres.md#where) with `"not like"` set as the operator.
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .whereNotLike( "username", "J%" );
+```
+{% endcode %}
+
+{% code title="MySQL" %}
+```sql
+SELECT *
+FROM `users`
+WHERE `username` NOT LIKE ?
+```
+{% endcode %}
+
 ### whereIn
 
 | Name | Type | Required | Default | Description |
