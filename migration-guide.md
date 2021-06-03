@@ -1,5 +1,148 @@
 # Migration Guide
 
+## v8.0.0
+
+### Where clauses with an OR combinator are now automatically wrapped inside [`when`](query-builder/building-queries/when.md#when) callbacks
+
+This isn't a breaking change that will affect most people.  In fact, it will most likely improve your code.
+
+Previously, when using the [`when`](query-builder/building-queries/when.md#when) control flow function, you were fully responsible for the wrapping of your where statements.  For example, the following query:
+
+```javascript
+qb.from( "users" )
+    .where( "active", 1 )
+    .when( len( url.q ), function( q ) {
+        q.where( "username", "LIKE", q & "%" )
+            .orWhere( "email", "LIKE", q & "%" );   
+    } );
+```
+
+Would generate the following SQL:
+
+```sql
+SELECT *
+FROM "users"
+WHERE "active" = ?
+    AND "username" = ?
+    OR "email" = ?
+```
+
+The problem with this statement is that the `OR` can short circuit the `active` check.
+
+The fix is to wrap the `LIKE` statements in parenthesis.  This is done in qb using a function callback to `where`.
+
+```javascript
+qb.from( "users" )
+    .where( "active", 1 )
+    .where( function( q ) {
+        q.where( "username", "LIKE", q & "%" )
+            .orWhere( "email", "LIKE", q & "%" );
+    } );
+```
+
+```sql
+SELECT *
+FROM "users"
+WHERE "active" = ?
+    AND (
+        "username" = ?
+        OR "email" = ?
+    )
+```
+
+When using the `when` control flow function, it was easy to miss this.  This is because you are already in a closure - it looks the same as when using `where` to group the clauses.
+
+In qb 8.0.0, `when` will automatically group added where clauses when needed.  That means our original example now produces the SQL we probably expected.
+
+```javascript
+// qb 8.0.0
+qb.from( "users" )
+    .where( "active", 1 )
+    .when( len( url.q ), function( q ) {
+        q.where( "username", "LIKE", q & "%" )
+            .orWhere( "email", "LIKE", q & "%" );   
+    } );
+```
+
+```sql
+SELECT *
+FROM "users"
+WHERE "active" = ?
+    AND (
+        "username" = ?
+        OR "email" = ?
+    )
+```
+
+Grouping is not needed if there is no `OR` combinator.  In these cases no grouping is added.
+
+```javascript
+// qb 8.0.0
+qb.from( "users" )
+    .where( "active", 1 )
+    .when( url.keyExists( "admin" ), function( q ) {
+        q.where( "admin", 1 )
+            .whereNotNull( "hireDate" );
+    } );
+```
+
+```sql
+SELECT *
+FROM "users"
+WHERE "active" = ?
+    AND "admin" = ?
+    AND "hireDate IS NOT NULL
+```
+
+If you had already wrapped your expression in a group inside the `when` callback, nothing changes.  Your code works as before.  The `OR` combinator check only works on the top most level of added where clauses.
+
+```javascript
+qb.from( "users" )
+    .where( "active", 1 )
+    .when( len( url.q ), function( q ) {
+        q.where( function( q2 ) {
+            q2.where( "username", "LIKE", q & "%" )
+                .orWhere( "email", "LIKE", q & "%" );
+        } );
+    } );
+```
+
+```sql
+SELECT *
+FROM "users"
+WHERE "active" = ?
+    AND (
+        "username" = ?
+        OR "email" = ?
+    )
+```
+
+Additionally, if you do not add any where clauses inside a `when` callback, nothing changes from qb 7.
+
+The breaking change part is if you were relying on these statements residing at the same level without grouping.  In those cases, you may pass the `withoutScoping` flag to the `when` callback.
+
+```javascript
+// qb 8.0.0
+qb.from( "users" )
+    .where( "active", 1 )
+    .when(
+        condition = len( url.q ),
+        onTrue = function( q ) {
+            q.where( "username", "LIKE", q & "%" )
+                .orWhere( "email", "LIKE", q & "%" );   
+        },
+        withoutScoping = true
+    );
+```
+
+```sql
+SELECT *
+FROM "users"
+WHERE "active" = ?
+    AND "username" = ?
+    OR "email" = ?
+```
+
 ## v7.0.0
 
 ### Lucee 4.5 and Adobe ColdFusion 11 EOL

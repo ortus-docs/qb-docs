@@ -32,6 +32,19 @@ var grammar = new qb.models.Grammars.MySQLGrammar();
 var builder = new qb.models.Query.QueryBuilder( grammar );
 ```
 
+## SQL Type Inferral
+
+QB binds all parameters by default and guesses the SQL type based on passed values. The default SQL type for numeric values is `CF_SQL_NUMERIC`, which is a floating point number, for the widest compatibility. This can cause performance problems with large recordsets in some database engines. You can provide a different default in coldbox.cfc if you wish to override this setting:
+
+```text
+moduleSettings = {
+    qb = {
+        defaultGrammar = "MySQLGrammar@qb",
+        numericSQLType = "CF_SQL_BIGINT"
+    }
+};
+```
+
 ## Integrating With FW/1
 
 > Note: These instructions assume a basic knowledge of FW/1, a working FW/1 application structure with qb installed in the `/subsystems` directory \(manually or via CommandBox\), and a database configured to run with your application.

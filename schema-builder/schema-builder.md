@@ -5,12 +5,13 @@ QB ships with a schema builder to help you build your database objects. This pro
 * The syntax is expressive and fluent, making it easy to understand what is being executed
 * The syntax is database-agnostic. Specific quirks are isolated in a Grammar file, making it easy to migrate between engines.
 
-You start with a `SchemaBuilder` object. The `SchemaBuilder` takes the same Grammar that a `QueryBuilder` takes.
+You start with a `SchemaBuilder` object. The `SchemaBuilder` takes the same Grammar that a `QueryBuilder` takes.  It can additionally take a struct of default query options forwarded on to `queryExecute`.
 
-```text
+```javascript
 // manually
 var schema = new qb.models.schema.SchemaBuilder(
-    new qb.models.grammars.MySQLGrammar()
+    grammar = new qb.models.grammars.MySQLGrammar(),
+    defaultOptions = { datasource: "my_datasource" }
 );
 
 // WireBox

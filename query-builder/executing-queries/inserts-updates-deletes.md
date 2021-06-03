@@ -1,5 +1,18 @@
 # Inserts, Updates, and Deletes
 
+The following methods all have the same return value:
+
+```javascript
+{
+    "result": "Value of the `result` parameter to `queryExecute`",
+    "query": "Return value of running `queryExecute` - a CFML query object"
+}
+```
+
+{% hint style="info" %}
+`insert`, `update`, and `delete` actions always return a query object for `query`, regardless of your configured `returnFormat`.
+{% endhint %}
+
 ## insert
 
 | Name | Type | Required | Default | Description |
