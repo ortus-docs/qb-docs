@@ -1,6 +1,6 @@
 # From
 
-## from <a id="get"></a>
+## from <a id="from"></a>
 
 | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
@@ -34,7 +34,7 @@ SELECT * FROM `users` AS `u`
 ```
 {% endcode %}
 
-## table <a id="get"></a>
+## table <a id="table"></a>
 
 | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
@@ -54,7 +54,7 @@ INSERT INTO `users` (`name`) VALUES (?)
 ```
 {% endcode %}
 
-## fromRaw <a id="get"></a>
+## fromRaw <a id="fromraw"></a>
 
 | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
@@ -100,7 +100,7 @@ SELECT * FROM dbo.generateDateTable(?, ?, ?) as dt
 ```
 {% endcode %}
 
-## fromSub <a id="get"></a>
+## fromSub <a id="fromsub"></a>
 
 | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
