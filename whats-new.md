@@ -1,5 +1,9 @@
 # What's New?
 
+## 8.6.1
+
+* Correctly wrap CTE expressions with parenthesis when required in certain grammars.
+
 ## 8.6.0
 
 * `SchemaBuilder` can now be configured with [default query options](schema-builder/schema-builder.md).  \(Default options will still be overridden by options passed to each `SchemaBuilder` method.\)
