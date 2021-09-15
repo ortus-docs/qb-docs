@@ -1,6 +1,6 @@
 # Return Format
 
-`returnFormat` refers to the transformation your executed query makes \(if any\) before being returned to you.  You can choose one of three return formats:
+`returnFormat` refers to the transformation your executed query makes \(if any\) before being returned to you. You can choose one of three return formats:
 
 * `"array"`
 * `"query"`
@@ -27,6 +27,19 @@ moduleSettings = {
         "returnFormat": "query"
     }
 };
+```
+{% endcode %}
+
+This setting can be overridden on a per-instance basis by calling `setReturnFormat()`:
+
+{% code title="setReturnFormat" %}
+```javascript
+var qb = wirebox.getInstance( "QueryBuilder@qb" );
+
+qb
+   .setReturnFormat( 'query' )
+   .from( 'users' )
+   .get()
 ```
 {% endcode %}
 

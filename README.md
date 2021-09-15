@@ -26,6 +26,12 @@ qb supports four major database grammars:
 * Postgres \(`PostgresGrammar`\)
 * Microsoft SQL Server \(`SqlServerGrammar`\)
 
+### Discussion & Help
+
+The Box modules discussion group and community can be found here:
+
+[https://community.ortussolutions.com/c/box-modules/qb/27](https://community.ortussolutions.com/c/box-modules/qb/27)
+
 ## Installation
 
 Installation is easy through [CommandBox](https://www.ortussolutions.com/products/commandbox) and [ForgeBox](https://www.coldbox.org/forgebox). Simply type `box install qb` to get started.

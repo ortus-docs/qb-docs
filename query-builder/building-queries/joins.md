@@ -808,3 +808,17 @@ JOIN `posts`
 ```
 {% endcode %}
 
+## Preventing Duplicate Joins
+
+You can optionally configure qb to ignore duplicate joins.  With this setting turned on each `JoinClause` is inspected and checked if it matches any existing `JoinClause` instances on the query.  This is useful if you have a table shared between optional constraints and want to ensure it is only added once.
+
+You can opt-in to this behavior by setting `preventDuplicateJoins = true` in your `moduleSettings` in `config/ColdBox.cfc`.
+
+```javascript
+moduleSettings = {
+    "qb": {
+         "preventDuplicateJoins": true  
+    }
+};
+```
+

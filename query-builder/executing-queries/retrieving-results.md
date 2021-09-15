@@ -60,7 +60,7 @@ SELECT * FROM `users`
 
 | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| column | string | `true` |  | The name of the column to retrieve. |
+| column | any | `true` |  | The name of the column to retrieve or an [Expression](../building-queries/raw-expressions.md) to retrieve. |
 | options | struct | `false` | `{}` | Any additional `queryExecute` options. |
 
 If you don't even need an entire row, you may extract a single value from each record using the `values` method. The `values` method will return the column of your choosing as a simple array.
@@ -73,16 +73,38 @@ query.from( "users" ).values( "firstName" );
 
 {% code title="Result" %}
 ```text
-[ "jon", "jane", "jill", ... 
-]
+[ "jon", "jane", "jill", ... ]
 ```
 {% endcode %}
+
+An expression can also be passed to `values`:
+
+```javascript
+qb.from( "users" ).values( qb.raw( "CONCAT(fname, ' ', lname) AS fullName" ) );
+```
+
+{% hint style="info" %}
+The [`valuesRaw`](retrieving-results.md#valuesraw) function can make this pattern more ergonomic.
+{% endhint %}
+
+## valuesRaw
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| column | string | `true` |  | The sql to use as an [Expression](../building-queries/raw-expressions.md). |
+| options | struct | `false` | `{}` | Any additional `queryExecute` options. |
+
+The `values` method will return the expression given for each row as a simple array.
+
+```javascript
+query.from( "users" ).valuesRaw( "CONCAT(fname, ' ', lname) AS fullName" );
+```
 
 ## value
 
 | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| column | string | `true` |  | The name of the column to retrieve. |
+| column | any | `true` |  | The name of the column to retrieve or an [Expression](../building-queries/raw-expressions.md) to retrieve. |
 | defaultValue | string | `false` | \(empty string\) | The default value returned if there are no records returned for the query. |
 | throwWhenNotFound | boolean | `false` | `false` | If `true`, it throws a `RecordCountException` if no records are returned from the query. |
 | options | struct | `false` | `{}` | Any additional `queryExecute` options. |
@@ -102,6 +124,31 @@ query.from( "users" ).value( "firstName" );
 {% endcode %}
 
 If no records are returned from the query, one of two things will happen. If the `throwWhenNotFound` boolean is set to `true`, a `RecordCountException` will be thrown. Otherwise the `defaultValue` provided to the method will be returned.
+
+An expression can also be passed to `value`:
+
+```javascript
+qb.from( "users" ).value( qb.raw( "CONCAT(fname, ' ', lname) AS fullName" ) );
+```
+
+{% hint style="info" %}
+The [`valueRaw`](retrieving-results.md#valueraw) function can make this pattern more ergonomic.
+{% endhint %}
+
+## valueRaw
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| column | string | `true` |  | The sql to use as an [Expression](../building-queries/raw-expressions.md). |
+| defaultValue | string | `false` | \(empty string\) | The default value returned if there are no records returned for the query. |
+| throwWhenNotFound | boolean | `false` | `false` | If `true`, it throws a `RecordCountException` if no records are returned from the query. |
+| options | struct | `false` | `{}` | Any additional `queryExecute` options. |
+
+The `value` method will return the expression given for the first row found.
+
+```javascript
+query.from( "users" ).valueRaw( "CONCAT(fname, ' ', lname) AS fullName" );
+```
 
 ## chunk
 
@@ -156,6 +203,37 @@ query.from( "users" )
 ```
 {% endcode %}
 
+## simplePaginate
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| page | numeric | `false` | `1` | The page number to retrieve. |
+| maxRows | numeric | `false` | `25` | The number of records per page.  If a number less than 0 is passed, 0 is used instead. |
+| options | struct | `false` | `{}` | Any additional `queryExecute` options. |
+
+Generates a simple pagination struct along with the results of the executed query. It does so without getting a `count` of the number of records the query would return.  This can be desirable for performance reasons if your query count is rather large.  It instead determines if there are more records by asking for one more row that your specified `maxRows`.  If the number of rows returned exceeds your specified `maxRows` then the pagination returns `hasMore: true`.  The `results` will always contain your specified `maxRows` \(or less, if there aren't enough records\).
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" )
+    .simplePaginate();
+```
+{% endcode %}
+
+{% code title="Results" %}
+```javascript
+{
+    "pagination": {
+        "maxRows": 25,
+        "offset": 0,
+        "page": 1,
+        "hasMore": true
+    },
+    "results": [ { /* ... */ }, ]
+}
+```
+{% endcode %}
+
 ### Custom Pagination Collectors
 
 A pagination collector is the name given to the struct returned from calling the [`paginate`](retrieving-results.md#paginate) method. It can be a struct or a component. It needs one function defined and will be passed the following parameters.
@@ -172,4 +250,18 @@ A pagination collector is the name given to the struct returned from calling the
 You can set your custom pagination collector either in the constructor using the `paginationCollector` argument or by calling `setPaginationCollector` on a query builder instance.
 
 By default, qb ships with [`cbpaginator`](https://forgebox.io/view/cbpaginator) as its pagination collector. The return format of `cbpaginator` is the example shown above.
+
+In qb 8.4.0 the `simplePaginate` method was added.  This uses a new method on the `paginationCollector`.
+
+#### generateSimpleWithResults
+
+| Name | Type | Description |
+| :--- | :--- | :--- |
+| results | any | The results of the query execution.  It will be passed as whatever return format the user has defined. |
+| page | numeric | The current page number. |
+| maxRows | numeric | The maximum number of rows retrieved per page. |
+
+{% hint style="info" %}
+If you use a custom `paginationCollector`, ensure it has been updated with this new `generateSimpleWithResults` method before calling `simplePaginate`.
+{% endhint %}
 

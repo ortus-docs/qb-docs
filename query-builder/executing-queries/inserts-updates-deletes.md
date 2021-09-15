@@ -1,5 +1,18 @@
 # Inserts, Updates, and Deletes
 
+The following methods all have the same return value:
+
+```javascript
+{
+    "result": "Value of the `result` parameter to `queryExecute`",
+    "query": "Return value of running `queryExecute` - a CFML query object"
+}
+```
+
+{% hint style="info" %}
+`insert`, `update`, and `delete` actions always return a query object for `query`, regardless of your configured `returnFormat`.
+{% endhint %}
+
 ## insert
 
 | Name | Type | Required | Default | Description |
@@ -254,7 +267,7 @@ query.from("user")
 		} )
 ```
 
-if you are using Lucee with full null support the following \(easier\) syntax is also allowed:
+if you are using full null support the following \(easier\) syntax is also allowed:
 
 ```sql
 query.from("user")
@@ -263,6 +276,93 @@ query.from("user")
 			manager_FK = { value = null },
 		} )
 ```
+
+### Updating with Subselects
+
+Subselects can be used to update values by passing a closure as the value
+
+```sql
+qb.table( "employees" )
+    .update( {
+		    "departmentName" = function( q ) {
+		        q.from( "departments" )
+		            .select( "name" )
+		            .whereColumn( "employees.departmentId", "departments.id" );
+		    } )
+		} );
+```
+
+{% tabs %}
+{% tab title="MySQL" %}
+```sql
+UPDATE `employees`
+SET `departmentName` = (
+    SELECT `name`
+    FROM `departments`
+    WHERE `employees`.`departmentId` = `departments`.`id`
+)
+```
+{% endtab %}
+{% endtabs %}
+
+You can also pass a builder instance in place of the closure.
+
+```sql
+qb.table( "employees" )
+    .update( {
+		    "departmentName" = qb.newQuery()
+		        .from( "departments" )
+		        .select( "name" )
+		        .whereColumn( "employees.departmentId", "departments.id" )
+		    } )
+		} );
+```
+
+### Updating with Joins
+
+qb will correctly format `JOIN` clauses in your `UPDATE` statements for your database grammar.
+
+{% hint style="danger" %}
+`OracleGrammar` **does not support** `JOIN` clauses in`UPDATE` statements.  Consider using [subselects](inserts-updates-deletes.md#updating-with-subselects) in your `UPDATE` statement instead.
+{% endhint %}
+
+```sql
+qb.table( "employees" )
+    .join( "departments", "departments.id", "employees.departmentId" )
+    .update( {
+        "employees.departmentName": qb.raw( "departments.name" )
+    } );
+```
+
+{% tabs %}
+{% tab title="MySQL" %}
+```sql
+UPDATE `employees`
+INNER JOIN `departments`
+    ON `departments`.`id` = `employees`.`departmentId`
+SET `employees`.`departmentName` = departments.name
+```
+{% endtab %}
+
+{% tab title="SQL Server" %}
+```sql
+UPDATE [employees]
+SET [employees].[departmentName] = departments.name
+FROM [employees]
+INNER JOIN [departments]
+    ON [departments].[id] = [employees].[departmentId]
+```
+{% endtab %}
+
+{% tab title="Postgres" %}
+```sql
+UPDATE "employees"
+SET "employees"."departmentName" = departments.name
+FROM "departments"
+WHERE "departments"."id" = "employees"."departmentId"
+```
+{% endtab %}
+{% endtabs %}
 
 ## addUpdate
 
@@ -356,6 +456,182 @@ INSERT INTO `users` (`email`, `name`)
 VALUES (?, ?)
 ```
 {% endcode %}
+
+## upsert
+
+| Name | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| values | struct \| array&lt;struct&gt; | `true` |  | A struct or array of structs to insert into or update on the table. |
+| target | string \| array&lt;string&gt; | `true` |  | A column name or array of column names to match the values to the table. If a match is found, the record will be updated. Otherwise, a new record will be inserted.  Most database grammars required these columns to have either a primary key or a unique index. |
+| update | array \| struct | `false` | `null` | Either an array of columns to update using the current `value` matched or a struct containing the column names as keys and the corresponding to update.  If blank, it will update all the columns in the passed in `value`. |
+| options | boolean | `false` | `{}` | Any additional `queryExecute` options. |
+| toSql | boolean | `false` | `false` | If `true`, returns the raw SQL string instead of running the query. Useful for debugging. |
+
+An upsert is a batch operation that either inserts or updates a row depending on if a target match is found.  If a row is matched with the target column\(s\), then the matched row is updated.  Otherwise a new row is inserted. 
+
+{% hint style="warning" %}
+In most database grammars, the target columns are required to be primary key or unique indexes.
+{% endhint %}
+
+```sql
+qb.table( "users" )
+    .upsert(
+        values = [
+            {
+                "username": "johndoe",
+                "active": 1,
+                "createdDate": "2021-09-08 12:00:00",
+                "modifiedDate": "2021-09-08 12:00:00"
+            },
+            {
+                "username": "janedoe",
+                "active": 1,
+                "createdDate": "2021-09-10 10:42:13",
+                "modifiedDate": "2021-09-10 10:42:13"
+            },
+        ],
+        target = [ "username" ],
+        update = [ "active", "modifiedDate" ],
+    );
+```
+
+{% tabs %}
+{% tab title="MySQL" %}
+```sql
+INSERT INTO `users`
+    (`active`, `createdDate`, `modifiedDate`, `username`)
+VALUES
+    (?, ?, ?, ?),
+    (?, ?, ?, ?)
+ON DUPLICATE KEY UPDATE
+    `active` = VALUES(`active`),
+    `modifiedDate` = VALUES(`modifiedDate`)
+```
+{% endtab %}
+
+{% tab title="SQL Server" %}
+```sql
+MERGE [users] AS [qb_target]
+USING (VALUES (?, ?, ?, ?), (?, ?, ?, ?)) AS [qb_src]
+    ([active], [createdDate], [modifiedDate], [username])
+ON [qb_target].[username] = [qb_src].[username]
+WHEN MATCHED THEN UPDATE
+    SET [active] = [qb_src].[active],
+        [modifiedDate] = [qb_src].[modifiedDate]
+WHEN NOT MATCHED BY TARGET THEN INSERT
+    ([active], [createdDate], [modifiedDate], [username])
+    VALUES
+    ([active], [createdDate], [modifiedDate], [username])
+```
+{% endtab %}
+
+{% tab title="Postgres" %}
+```sql
+INSERT INTO "users"
+    ("active", "createdDate", "modifiedDate", "username")
+VALUES
+    (?, ?, ?, ?),
+    (? ,? ,? ,?)
+ON CONFLICT ("username") DO UPDATE
+    "active" = EXCLUDED."active",
+    "modifiedDate" = EXCLUDED."modifiedDate"
+```
+{% endtab %}
+
+{% tab title="Oracle" %}
+```sql
+MERGE INTO "USERS" "QB_TARGET"
+USING (
+    SELECT ?, ?, ?, ? FROM dual
+    UNION ALL
+    SELECT ?, ?, ?, ? FROM dual
+) "QB_SRC"
+ON "QB_TARGET"."USERNAME" = "QB_SRC"."USERNAME"
+WHEN MATCHED THEN UPDATE
+    SET "ACTIVE" = "QB_SRC"."ACTIVE",
+        "MODIFIEDDATE" = "QB_SRC"."MODIFIEDDATE"
+WHEN NOT MATCHED THEN INSERT
+    ("ACTIVE", "CREATEDDATE", "MODIFIEDDATE", "USERNAME")
+    VALUES
+    ("QB_SRC"."ACTIVE", "QB_SRC"."CREATEDDATE", "QB_SRC"."MODIFIEDDATE", "QB_SRC"."USERNAME")
+```
+{% endtab %}
+{% endtabs %}
+
+The update clause in a upsert can also accept raw values, making it very useful for tracking data like statistics.
+
+```sql
+qb.table( "stats" )
+    .upsert(
+        values = [
+            { "postId": 1, "viewedDate": "2021-09-08", "views": 1 },
+            { "postId": 2, "viewedDate": "2021-09-08", "views": 1 }
+        ],
+        target = [ "postId", "viewedDate" ],
+        update = { "views": qb.raw( "stats.views + 1" ) }
+    );
+```
+
+{% tabs %}
+{% tab title="MySQL" %}
+```sql
+INSERT INTO `stats`
+    (`postId`, `viewedDate`, `views`)
+VALUES
+    (?, ?, ?),
+    (?, ?, ?)
+ON DUPLICATE KEY UPDATE
+    `views` = stats.views + 1
+```
+{% endtab %}
+
+{% tab title="SQL Server" %}
+```sql
+MERGE [stats] AS [qb_target]
+USING (VALUES (?, ?, ?), (?, ?, ?)) AS [qb_src]
+    ([postId], [viewedDate], [views])
+ON [qb_target].[postId] = [qb_src].[postId]
+    AND [qb_target].[viewedDate] = [qb_src].[viewedDate]
+WHEN MATCHED THEN UPDATE
+    SET [views] = stats.views + 1
+WHEN NOT MATCHED BY TARGET THEN INSERT
+    ([postId], [viewedDate], [views])
+    VALUES
+    ([postId], [viewedDate], [views])
+```
+{% endtab %}
+
+{% tab title="Postgres" %}
+```sql
+INSERT INTO "stats"
+    ("postId", "viewedDate", "views")
+VALUES
+    (?, ?, ?),
+    (?, ?, ?)
+ON CONFLICT ("postId", "viewedDate") DO UPDATE
+    "views" = stats.views + 1
+```
+{% endtab %}
+
+{% tab title="Oracle" %}
+```sql
+MERGE INTO "STATS" "QB_TARGET"
+USING (
+    SELECT ?, ?, ? FROM dual
+    UNION ALL
+    SELECT ?, ?, ? FROM dual
+) "QB_SRC"
+ON "QB_TARGET"."POSTID" = "QB_SRC"."POSTID"
+    AND "QB_TARGET"."VIEWEDDATE" = "QB_SRC"."VIEWEDDATE"
+WHEN MATCHED THEN UPDATE
+    SET "VIEWS" = stats.views + 1
+WHEN NOT MATCHED THEN INSERT
+    ("POSTID", "VIEWEDDATE", "VIEWS")
+    VALUES
+    ("QB_SRC"."POSTID", "QB_SRC"."VIEWEDDATE", "QB_SRC"."VIEWS")
+```
+{% endtab %}
+{% endtabs %}
 
 ## delete
 
