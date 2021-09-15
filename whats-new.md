@@ -4,7 +4,7 @@
 
 ### New Features and Improvements
 
-* Add an [upsert](query-builder/executing-queries/inserts-updates-deletes.md#upsert) method.  `upsert` can update or delete multiple records at once depending on if a column is matched.
+* Add an [upsert](query-builder/executing-queries/inserts-updates-deletes.md#upsert) method.  `upsert` can update or insert multiple records at once depending on if a column is matched.
 * Allow expressions in [`value`](query-builder/executing-queries/retrieving-results.md#value) and [`values`](query-builder/executing-queries/retrieving-results.md#values).  Also add a [`valueRaw`](query-builder/executing-queries/retrieving-results.md#valueraw) and [`valuesRaw`](query-builder/executing-queries/retrieving-results.md#valuesraw) helper method to make that pattern more ergonomic.
 * Allow [`JOIN` statements in `UPDATE` statements](query-builder/executing-queries/inserts-updates-deletes.md#updating-with-joins).  \(This is **not** supported on Oracle.\)
 * Allow [updates with subselects](query-builder/executing-queries/inserts-updates-deletes.md#updating-with-subselects) using closures or builder instances.
