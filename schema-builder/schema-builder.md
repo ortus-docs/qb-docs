@@ -18,7 +18,7 @@ var schema = new qb.models.schema.SchemaBuilder(
 var schema = wirebox.getInstance( "SchemaBuilder@qb" );
 ```
 
-> Note: the `SchemaBuilder` is a transient, and a new one should be created for each operation.
+> Note: the `SchemaBuilder` is a singleton.
 
 The `SchemaBuilder` has four main methods to start your database object creation:
 
