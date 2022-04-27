@@ -34,7 +34,7 @@ The Box modules discussion group and community can be found here:
 
 ## Installation
 
-Installation is easy through [CommandBox](https://www.ortussolutions.com/products/commandbox) and [ForgeBox](https://www.coldbox.org/forgebox). Simply type `box install qb` to get started.
+Installation is easy through [CommandBox](https://www.ortussolutions.com/products/commandbox) and [ForgeBox](https://forgebox.io/). Simply type `box install qb` to get started.
 
 ## Code Samples
 
