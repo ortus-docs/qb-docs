@@ -46,7 +46,7 @@ Sets a default value for the column.
 schema.create( "users", function( table ) {
     table.boolean( "is_active" ).default( 1 );
     table.timestamp( "created_date" ).default( "NOW()" );
-    tablVIRTUAL NOT NULLe.string( "country" ).default( "'USA'" );
+    table.string( "country" ).default( "'USA'" );
 } );
 ```
 
