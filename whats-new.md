@@ -1,12 +1,36 @@
 # What's New?
 
+## 8.7.8
+
+* Fix for Oracle returning custom column types when renaming a column.
+
+## 8.7.7
+
+* Explicit arguments scoping.
+
+## 8.7.6
+
+* `arrayEach` is slow compared to merging arrays.
+
+## 8.7.5
+
+* Fix wheres with joins in update statements.
+
+## 8.7.2
+
+* Add better null handling to `inferSqlType`.
+
+## 8.7.1
+
+* Correctly format columns being updated.
+
 ## 8.7.0
 
 ### New Features and Improvements
 
 * Add an [upsert](query-builder/executing-queries/inserts-updates-deletes.md#upsert) method.  `upsert` can update or insert multiple records at once depending on if a column is matched.
 * Allow expressions in [`value`](query-builder/executing-queries/retrieving-results.md#value) and [`values`](query-builder/executing-queries/retrieving-results.md#values).  Also add a [`valueRaw`](query-builder/executing-queries/retrieving-results.md#valueraw) and [`valuesRaw`](query-builder/executing-queries/retrieving-results.md#valuesraw) helper method to make that pattern more ergonomic.
-* Allow [`JOIN` statements in `UPDATE` statements](query-builder/executing-queries/inserts-updates-deletes.md#updating-with-joins).  \(This is **not** supported on Oracle.\)
+* Allow [`JOIN` statements in `UPDATE` statements](query-builder/executing-queries/inserts-updates-deletes.md#updating-with-joins).  (This is **not** supported on Oracle.)
 * Allow [updates with subselects](query-builder/executing-queries/inserts-updates-deletes.md#updating-with-subselects) using closures or builder instances.
 
 ### Bug Fixes
@@ -22,7 +46,7 @@
 
 ## 8.6.0
 
-* `SchemaBuilder` can now be configured with [default query options](schema-builder/schema-builder.md).  \(Default options will still be overridden by options passed to each `SchemaBuilder` method.\)
+* `SchemaBuilder` can now be configured with [default query options](schema-builder/schema-builder.md).  (Default options will still be overridden by options passed to each `SchemaBuilder` method.)
 
 ## 8.5.0
 
@@ -83,7 +107,7 @@
 ## 8.2.0
 
 {% hint style="success" %}
-📹  [Watch a walkthrough of this change on CFCasts.](https://cfcasts.com/series/whats-new-in-qb-8)
+📹 [Watch a walkthrough of this change on CFCasts.](https://cfcasts.com/series/whats-new-in-qb-8)
 {% endhint %}
 
 * Added a [`dump`](query-builder/debugging.md#dump) command to aid in debugging a query while chaining.
@@ -91,7 +115,7 @@
 ## 8.1.0
 
 {% hint style="success" %}
-📹  [Watch a walkthrough of these changes on CFCasts.](https://cfcasts.com/series/whats-new-in-qb-8)
+📹 [Watch a walkthrough of these changes on CFCasts.](https://cfcasts.com/series/whats-new-in-qb-8)
 {% endhint %}
 
 * \`\`[`orderByRaw`](query-builder/building-queries/ordering-grouping-and-limit.md#order-by-raw) now can accept bindings.
@@ -114,7 +138,7 @@
 ## 8.0.0
 
 {% hint style="success" %}
-📹  [Watch a walkthrough of these changes on CFCasts.](https://cfcasts.com/series/whats-new-in-qb-8)
+📹 [Watch a walkthrough of these changes on CFCasts.](https://cfcasts.com/series/whats-new-in-qb-8)
 {% endhint %}
 
 #### BREAKING CHANGES
@@ -220,26 +244,26 @@ Using a new `preventDuplicateJoins` setting in the module settings, qb can detec
 
 ## 7.4.0
 
-Enhance order by's with more direction options \([c767ac8](https://github.com/coldbox-modules/qb/commit/c767ac8764fab70d70dc77baa7bb9fb27c1d4eeb)\)
+Enhance order by's with more direction options ([c767ac8](https://github.com/coldbox-modules/qb/commit/c767ac8764fab70d70dc77baa7bb9fb27c1d4eeb))
 
 You can now use two shortcut methods: `orderByAsc` and `orderByDesc`. Additionally, `orderBySub` or using `orderBy` with a closure or builder instance will respect the direction argument.
 
 ## 7.3.15
 
-* Fix using `whereBetween` with query param structs \([07c9b72](https://github.com/coldbox-modules/qb/commit/07c9b728bdbad6bf02ccd9d21dbdf6968062c02e)\)
+* Fix using `whereBetween` with query param structs ([07c9b72](https://github.com/coldbox-modules/qb/commit/07c9b728bdbad6bf02ccd9d21dbdf6968062c02e))
 
 ## 7.3.14
 
-* Ignore orders in aggregate queries \([39e1338](https://github.com/coldbox-modules/qb/commit/39e1338a147838165e05225bd91ef7e6cde2319a)\)
+* Ignore orders in aggregate queries ([39e1338](https://github.com/coldbox-modules/qb/commit/39e1338a147838165e05225bd91ef7e6cde2319a))
 
 ## 7.3.13
 
-* Format with cfformat \([dc2a9b6](https://github.com/coldbox-modules/qb/commit/dc2a9b61503690d753a71c3b7bce002ebdf4ccda)\)
+* Format with cfformat ([dc2a9b6](https://github.com/coldbox-modules/qb/commit/dc2a9b61503690d753a71c3b7bce002ebdf4ccda))
 
 ## 7.3.12
 
-* Improve column wrapping with trimming \([d98a5cb](https://github.com/coldbox-modules/qb/commit/d98a5cb65851c154b6755e90254d1a2c1df82833)\)
-* Prefer the parent query over magic methods when the parent query has the exact method. \([f9fd8d1](https://github.com/coldbox-modules/qb/commit/f9fd8d157cdc0d7480811c4659c130ee1d58888f)\)
+* Improve column wrapping with trimming ([d98a5cb](https://github.com/coldbox-modules/qb/commit/d98a5cb65851c154b6755e90254d1a2c1df82833))
+* Prefer the parent query over magic methods when the parent query has the exact method. ([f9fd8d1](https://github.com/coldbox-modules/qb/commit/f9fd8d157cdc0d7480811c4659c130ee1d58888f))
 
 ## 7.3.9, 7.3.10, 7.3.11
 
@@ -247,16 +271,16 @@ You can now use two shortcut methods: `orderByAsc` and `orderByDesc`. Additional
 
 ## 7.3.8
 
-* Allow passing query options in to paginate \([cdecfb3](https://github.com/coldbox-modules/qb/commit/cdecfb36f5acab87edd3a478c570f77d285df554)\)
+* Allow passing query options in to paginate ([cdecfb3](https://github.com/coldbox-modules/qb/commit/cdecfb36f5acab87edd3a478c570f77d285df554))
 
 ## 7.3.7
 
-* Fix for inserting null values directly \([1de27a6](https://github.com/coldbox-modules/qb/commit/1de27a697f65bfdeed63442ad66be47cd0d30344)\)
+* Fix for inserting null values directly ([1de27a6](https://github.com/coldbox-modules/qb/commit/1de27a697f65bfdeed63442ad66be47cd0d30344))
 
 ## 7.3.5, 7.3.6
 
-* Use cfformat for automatic formatting \([119e434](https://github.com/coldbox-modules/qb/commit/119e434b307a2cc2323b857a214c20842cafbbd4)\)
-* Add a type to the onMissingMethod exception \([90d1093](https://github.com/coldbox-modules/qb/commit/90d109312b2ea86c00db34020b12b5ab22bb377b)\)
+* Use cfformat for automatic formatting ([119e434](https://github.com/coldbox-modules/qb/commit/119e434b307a2cc2323b857a214c20842cafbbd4))
+* Add a type to the onMissingMethod exception ([90d1093](https://github.com/coldbox-modules/qb/commit/90d109312b2ea86c00db34020b12b5ab22bb377b))
 
 ## 7.3.4
 
@@ -280,9 +304,9 @@ You can now use two shortcut methods: `orderByAsc` and `orderByDesc`. Additional
 
 ## 7.1.0
 
-* Lambdas \(arrow functions\) are now allowed wherever closures are allowed.
+* Lambdas (arrow functions) are now allowed wherever closures are allowed.
 * Add an [`orderByRaw`](query-builder/building-queries/ordering-grouping-and-limit.md#order-by-raw) method.
-* Allow for fully-qualified column names \(`table_name.column.name`\) in the [`value`](query-builder/executing-queries/retrieving-results.md#value) and [`values`](query-builder/executing-queries/retrieving-results.md#values) methods.
+* Allow for fully-qualified column names (`table_name.column.name`) in the [`value`](query-builder/executing-queries/retrieving-results.md#value) and [`values`](query-builder/executing-queries/retrieving-results.md#values) methods.
 
 ## 7.0.0
 
@@ -297,13 +321,13 @@ _Please see the_ [_Migration Guide_](migration-guide.md#v-7-0-0) _for more infor
   * For instance, `MSSQLGrammar` would become `MSSQLGrammar@qb`.
   * This will allow for other grammars to be more easily contributed via third party modules.
 * The argument names of `forPage` changed to match the new `paginate` method.
-* Add `defaultValue` and optional exception throwing to `value`. \(This changed the argument order.\)
-* All methods that could conceivably take a subquery as well as a value now accept a closure or another builder instance to use as a subquery. \(This changed the argument names in some instances.\)
+* Add `defaultValue` and optional exception throwing to `value`. (This changed the argument order.)
+* All methods that could conceivably take a subquery as well as a value now accept a closure or another builder instance to use as a subquery. (This changed the argument names in some instances.)
 
 #### **Other Changes**
 
-* Completely revamped documentation! \(You're looking at it right now.\)
-* Add new flag to [`toSQL( showBindings = true )`](query-builder/debugging.md#tosql) to replace question marks \(`?`\) with `cfqueryparam`-compatible structs for debugging.
+* Completely revamped documentation! (You're looking at it right now.)
+* Add new flag to [`toSQL( showBindings = true )`](query-builder/debugging.md#tosql) to replace question marks (`?`) with `cfqueryparam`-compatible structs for debugging.
 * Preserve column case and order when converting a query to an array using the default `"array"` return format.
 * Add a new [paginate](query-builder/executing-queries/retrieving-results.md#paginate) method to generate a pagination struct alongside the results.  This can be customized using a custom [PaginationCollector](query-builder/executing-queries/retrieving-results.md#custom-pagination-collectors).
 * Allow raw values in [`insert`](query-builder/executing-queries/inserts-updates-deletes.md#insert) calls.
@@ -334,5 +358,4 @@ _Please see the_ [_Migration Guide_](migration-guide.md#v-7-0-0) _for more infor
 
 ## 6.4.0
 
-* [Allow Expressions \(`query.raw`\) in update statements.]()
-
+* [Allow Expressions (`query.raw`) in update statements.](whats-new.md)
