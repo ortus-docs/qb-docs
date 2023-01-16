@@ -1,5 +1,9 @@
 # What's New?
 
+## 8.9.1
+
+* `HOLDLOCK` and `READPAST` are mutually exclusive table locks in SQL Server but were mistakenly being applied together.
+
 ## 8.9.0
 
 * Specify `defaultOptions` [inside of your ColdBox config.](query-builder/options-and-utilities/query-options.md)
