@@ -57,6 +57,6 @@ If you also want to use a non-default SQL Grammar you have to specify this when 
 {% code title="QueryBuilder" %}
 ```javascript
 var query = wirebox.getInstance( "QueryBuilder@qb" )
-    .setGrammar( wirebox.getInstance( "MSSQLGrammar@qb" ) );
+    .setGrammar( wirebox.getInstance( "SqlServerGrammar@qb" ) );
 ```
 {% endcode %}
