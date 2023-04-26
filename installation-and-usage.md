@@ -26,16 +26,50 @@ The grammars provided by qb are:
 * SqlServerGrammar
 * SQLiteGrammar
 
-If you are not using WireBox, just make sure to wire up the `Builder` object with the correct grammar:
+If you are not using WireBox, make sure to wire up the `Builder` object with the correct grammar:
 
 ```cfscript
 var grammar = new qb.models.Grammars.MySQLGrammar();
 var builder = new qb.models.Query.QueryBuilder( grammar );
 ```
 
+## Configuration Settings
+
+Here are the full configuration settings you can use in the module settings:
+
+```javascript
+moduleSettings = {
+
+    qb : {
+        "defaultGrammar": "AutoDiscover@qb",
+        "defaultReturnFormat": "array",
+        "preventDuplicateJoins": false,
+        "strictDateDetection": true,
+        "numericSQLType": "CF_SQL_NUMERIC",
+        "integerSQLType": "CF_SQL_INTEGER",
+        "decimalSQLType": "CF_SQL_DECIMAL",
+        "autoAddScale": true,
+        "autoDeriveNumericType": true,
+        "defaultOptions": {},
+        "sqlCommenter": {
+            "enabled": false,
+            "commenters": [
+                { "class": "FrameworkCommenter@qb", "properties": {} },
+                { "class": "RouteInfoCommenter@qb", "properties": {} },
+                { "class": "DBInfoCommenter@qb", "properties": {} }
+            ]
+        },
+        "shouldMaxRowsOverrideToAll": function( maxRows ) {
+            return maxRows <= 0;
+        }
+    }
+
+}
+```
+
 ## SQL Type Inferral
 
-QB binds all parameters by default and guesses the SQL type based on passed values. The default SQL type for numeric values is `CF_SQL_NUMERIC`, which is a floating point number, for the widest compatibility. This can cause performance problems with large recordsets in some database engines. You can provide a different default in coldbox.cfc if you wish to override this setting:
+QB binds all parameters by default and guesses the SQL type based on passed values. The default SQL type for numeric values is `CF_SQL_NUMERIC`, which is a floating point number, for the widest compatibility. This can cause performance problems with large recordsets in some database engines. You can provide a different default in `coldbox.cfc` if you wish to override this setting:
 
 ```cfscript
 moduleSettings = {
