@@ -24,6 +24,7 @@ component {
     property name="query" inject="QueryBuilder@qb";
 
     function create( event, rc, prc ) {
+        // This will cause you pain and grief...
         query.table( "posts" )
             .where( "id", rc.id )
             .update( event.getOnly( [ "body" ] ) );
