@@ -259,47 +259,6 @@ FROM `activeDirectoryUsers`
 WHERE `active` = ?
 ```
 
-## returning
-
-| Name    | Type            | Required | Default | Description                                                                                   |
-| ------- | --------------- | -------- | ------- | --------------------------------------------------------------------------------------------- |
-| columns | string \| array | `true`   |         | A single column, a list or columns, or an array of columns to return from the inserted query. |
-
-{% hint style="danger" %}
-`returning` is only supported in `PostgresGrammar` and `SqlServerGrammar`.  Using this method on unsupported grammars will result in an `UnsupportedOperation` exception.  Be aware that using this method constrains your grammar choices.
-{% endhint %}
-
-Specifies columns to be returned from the insert query.
-
-{% code title="QueryBuilder" %}
-```javascript
-query.from( "users" )
-    .returning( "id" )
-    .insert( {
-        "email" = "foo",
-        "name" = "bar"
-    } );
-```
-{% endcode %}
-
-{% tabs %}
-{% tab title="SQL Server" %}
-```sql
-INSERT INTO [users] ([email], [name])
-OUTPUT INSERTED.[id]
-VALUES (?, ?)
-```
-{% endtab %}
-
-{% tab title="Postgres" %}
-```sql
-INSERT INTO "users" ("email", "name")
-VALUES (?, ?)
-RETURNING "id"
-```
-{% endtab %}
-{% endtabs %}
-
 ## update
 
 | Name    | Type    | Required | Default | Description                                                                                                                                                                      |
@@ -905,3 +864,146 @@ DELETE FROM `users`
 WHERE `id` = ?
 ```
 {% endcode %}
+
+## returning
+
+| Name    | Type            | Required | Default | Description                                                                                   |
+| ------- | --------------- | -------- | ------- | --------------------------------------------------------------------------------------------- |
+| columns | string \| array | `true`   |         | A single column, a list or columns, or an array of columns to return from the inserted query. |
+
+{% hint style="danger" %}
+`returning` is only supported in `PostgresGrammar,` `SqlServerGrammar, and SQLiteGrammar.` Using this method on unsupported grammars will result in an `UnsupportedOperation` exception.  Be aware that using this method constrains your grammar choices.
+{% endhint %}
+
+Specifies columns to be returned from the insert query.
+
+<pre class="language-javascript" data-title="QueryBuilder"><code class="lang-javascript">query.from( "users" )
+    .returning( "id" )
+    .insert( {
+        "email" = "foo",
+        "name" = "bar"
+<strong>    } );
+</strong></code></pre>
+
+{% tabs %}
+{% tab title="SQL Server" %}
+```sql
+INSERT INTO [users] ([email], [name])
+OUTPUT INSERTED.[id]
+VALUES (?, ?)
+```
+{% endtab %}
+
+{% tab title="Postgres" %}
+```sql
+INSERT INTO "users" ("email", "name")
+VALUES (?, ?)
+RETURNING "id"
+```
+{% endtab %}
+
+{% tab title="SQLite" %}
+```sql
+INSERT INTO "users" ("email", "name")
+VALUES (?, ?)
+RETURNING "id"
+```
+{% endtab %}
+{% endtabs %}
+
+The `returning` function also applies to `update` and `delete` calls.
+
+{% code title="QueryBuilder" %}
+```javascript
+query.table( "users" )
+    .returning( [ "id", "modifiedDate" ] )
+    .where( "id", 1 )
+    .update( { "email": "john@example.com" } );
+```
+{% endcode %}
+
+{% tabs %}
+{% tab title="SQL Server" %}
+```sql
+UPDATE [users]
+SET [email] = ?
+OUTPUT INSERTED.[id], INSERTED.[modifiedDate]
+WHERE [id] = ?
+```
+{% endtab %}
+
+{% tab title="Postgres" %}
+```sql
+UPDATE "users"
+SET "email" = ?
+WHERE "id" = ?
+RETURNING "id", "modifiedDate"
+```
+{% endtab %}
+
+{% tab title="SQLite" %}
+```sql
+UPDATE "users"
+SET "email" = ?
+WHERE "id" = ?
+RETURNING "id", "modifiedDate"
+```
+{% endtab %}
+{% endtabs %}
+
+<pre class="language-javascript" data-title="QueryBuilder"><code class="lang-javascript"><strong>query.table( "users" )
+</strong>    .returning( "id" )
+    .where( "active", 0 )
+    .delete();
+</code></pre>
+
+{% tabs %}
+{% tab title="SQL Server" %}
+```sql
+DELETE FROM [users]
+OUTPUT DELETED.[id]
+WHERE [active] = ?
+```
+{% endtab %}
+
+{% tab title="Postgres" %}
+```sql
+DELETE FROM "users" WHERE "active" = ?
+RETURNING "id"
+```
+{% endtab %}
+
+{% tab title="SQLite" %}
+```sql
+DELETE FROM "users" WHERE "active" = ?
+RETURNING "id"
+```
+{% endtab %}
+{% endtabs %}
+
+You can also use `raw` Expressions in a `returning` call.  This is especially useful for SQL Server returning both the old and new values from an `update` call.
+
+{% code title="QueryBuilder" %}
+```javascript
+qb.from( "users" )
+    .where( "id", 1 )
+    .returningRaw( [
+        "DELETED.modifiedDate AS oldModifiedDate",
+        "INSERTED.modifiedDate AS newModifiedDate"
+    ] )
+    .update( { "email": "john@example.com" } );
+```
+{% endcode %}
+
+{% tabs %}
+{% tab title="SQL Server" %}
+```sql
+UPDATE [users]
+SET [email] = ?
+OUTPUT
+    DELETED.modifiedDate AS oldModifiedDate,
+    INSERTED.modifiedDate AS newModifiedDate
+WHERE [id] = ?
+```
+{% endtab %}
+{% endtabs %}
