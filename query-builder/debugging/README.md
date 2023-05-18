@@ -4,9 +4,9 @@
 
 ### toSQL
 
-| Name         | Type    | Required | Default  | Description                                                                                            |
-| ------------ | ------- | -------- | -------- | ------------------------------------------------------------------------------------------------------ |
-| showBindings | boolean | `false`  | ​`false` | If true, the bindings for the query will be substituted back in where the question marks (`?`) appear. |
+| Name         | Type              | Required | Default  | Description                                                                                                                                                                                                                                                      |
+| ------------ | ----------------- | -------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| showBindings | boolean \| string | `false`  | ​`false` | If `true`, the bindings for the query will be substituted back in where the question marks (`?`) appear as `cfqueryparam` structs.  If `inline`, the binding value will be substituted back creating a query that can be copy and pasted to run in a SQL client. |
 
 Returns the SQL that would be executed for the current query.
 
@@ -44,6 +44,23 @@ SELECT * FROM "users" WHERE "active" = {"value":1,"cfsqltype":"CF_SQL_NUMERIC","
 
 If you want to show the SQL that would be executed for the `update`, `insert`, `updateOrInsert`, or `delete` methods, you can pass a `toSQL = true` flag to those methods.  Please see those individual methods for more information.
 
+To get back a SQL string that can be copied and pasted into a SQL client to run can be retrieved by passing `showBindings = "inline"`.
+
+{% code title="QueryBuilder" %}
+```cfscript
+var q = query.from( "users" )
+    .where( "active", "=", 1 );
+
+writeOutput( q.toSQL( showBindings = "inline" ) );
+```
+{% endcode %}
+
+{% code title="Result" %}
+```sql
+SELECT * FROM "users" WHERE "active" = 1
+```
+{% endcode %}
+
 ### tap
 
 | Name     | Type     | Required | Default | Description                                              |
@@ -76,10 +93,9 @@ SELECT * FROM "users" WHERE "active" = ?
 
 ### dump
 
-| Name         | Type    | Required | Default | Description                                                                                            |
-| ------------ | ------- | -------- | ------- | ------------------------------------------------------------------------------------------------------ |
-| showBindings | boolean | `false`  | `false` | If true, the bindings for the query will be substituted back in where the question marks (`?`) appear. |
-|              |         |          |         | All other `writeDump` arguments are supported.                                                         |
+| Name         | Type              | Required | Default | Description                                                                                                                                                                                                                                                      |
+| ------------ | ----------------- | -------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| showBindings | boolean \| string | `false`  | `false` | If `true`, the bindings for the query will be substituted back in where the question marks (`?`) appear as `cfqueryparam` structs.  If `inline`, the binding value will be substituted back creating a query that can be copy and pasted to run in a SQL client. |
 
 A shortcut for the most common use case of `tap`.  This forwards on the SQL for the current query to `writeDump`.  You can pass along any `writeDump` argument to `dump` and it will be forward on.  Additionally, the `showBindings` argument will be forwarded on to the `toSQL` call.
 
