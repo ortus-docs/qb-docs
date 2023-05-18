@@ -1,5 +1,9 @@
 # What's New?
 
+## 9.1.5
+
+Switch from `table_catalog` to `table_schema` when referencing schema for `PostgresGrammar`.
+
 ## 9.1.4
 
 CommandBox-friendly injections for SQL Commenter.
