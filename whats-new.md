@@ -1,5 +1,32 @@
 # What's New?
 
+## 9.2.5
+
+Use named parameters when passing to `BaseGrammar`. This avoids problems where custom Grammars have extra arguments and we add arguments to the official grammar.
+
+## 9.2.4
+
+{% hint style="info" %}
+We apologize for the new features in a patch release.
+{% endhint %}
+
+#### New Features
+
+* Add the ability to pretend to run queries, both in [QueryBuilder](query-builder/debugging/#pretend) and [SchemaBuilder](schema-builder/debugging.md#pretend).
+* Add query logging to [QueryBuilder](query-builder/debugging/#querylog) and [SchemaBuilder](schema-builder/debugging.md#querylog) instances.
+
+#### Bug Fixes
+
+* Use varchar for clob when converting to a CFML query. This is used when removing a column like in Oracle pagination.
+
+## 9.2.3
+
+Handle more numeric SQL types like `AtomicInteger` and `Long`.
+
+## 9.2.2
+
+Add millisecond accuracy to inline bindings.
+
 ## 9.2.1
 
 Separate `having` bindings from `where` bindings.

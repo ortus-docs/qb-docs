@@ -46,6 +46,7 @@
 * [Creating Table Constraints](schema-builder/creating-table-constraints.md)
 * [Alter](schema-builder/alter.md)
 * [Drop](schema-builder/drop.md)
+* [Debugging](schema-builder/debugging.md)
 
 ## External Links
 
