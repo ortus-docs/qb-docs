@@ -1,4 +1,4 @@
-# Query Options
+# Query Options and Utilities
 
 Each query execution method allows for the passing of an options struct. This is the same struct you would pass to [`queryExecute`](https://cfdocs.org/queryexecute).
 
@@ -60,3 +60,17 @@ var query = wirebox.getInstance( "QueryBuilder@qb" )
     .setGrammar( wirebox.getInstance( "SqlServerGrammar@qb" ) );
 ```
 {% endcode %}
+
+## Replacing or Inlining Bindings
+
+qb can inline the query bindings into the SQL string that it has built up.  This is used by other tools like [`toSQL`](../debugging/#tosql) or [`dump`](../debugging/#dump) to provide a richer debugging experience.  It is also publicly available for other libraries to use, such as [CommandBox Migrations](https://forgebox.io/view/commandbox-mgirations).
+
+### replaceBindings
+
+Replace the question marks (?) in a sql string with the bindings provided.
+
+| Name     | Type            | Required | Default Value | Description                                                                                                                                      |
+| -------- | --------------- | -------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| sql      | `String`        | true     |               | The SQL with question marks (`?`) to replace with bindings.                                                                                      |
+| bindings | `Array<Struct>` | true     |               | The bindings to use when replacing the question marks (`?`) in the provided SQL string.                                                          |
+| inline   | `boolean`       | false    | `false`       | Flag to inline the bindings value or not.  If `true`, a SQL-executable value will be replaced.  If `false`, the binding struct will be replaced. |

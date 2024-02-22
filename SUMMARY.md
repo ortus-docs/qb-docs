@@ -28,7 +28,7 @@
   * [Aggregates](query-builder/executing-queries/aggregates.md)
   * [Inserts, Updates, and Deletes](query-builder/executing-queries/inserts-updates-deletes.md)
 * [Options and Utilities](query-builder/options-and-utilities/README.md)
-  * [Query Options](query-builder/options-and-utilities/query-options.md)
+  * [Query Options and Utilities](query-builder/options-and-utilities/query-options.md)
   * [Clone and Reset](query-builder/options-and-utilities/clone-and-reset.md)
   * [Return Format](query-builder/options-and-utilities/return-format.md)
   * [Column Formatter](query-builder/options-and-utilities/column-formatter.md)

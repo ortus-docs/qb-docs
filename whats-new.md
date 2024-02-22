@@ -1,5 +1,16 @@
 # What's New?
 
+## 9.3.1
+
+* Use `CHAR` for `GUID` and `UUID` types in MySQL.
+* Don't call `getUtils` from inside `QueryUtils`.
+
+## 9.3.0
+
+Make [`replaceBindings`](query-builder/options-and-utilities/query-options.md#replacing-or-inlining-bindings) publicly available in `QueryUtils`.
+
+This is used by qb to inline query bindings in `toSQL` or `dump` calls and can be used to inline the bindings in other tools like[ CommandBox Migrations](https://forgebox.io/view/commandbox-migrations).
+
 ## 9.2.5
 
 Use named parameters when passing to `BaseGrammar`. This avoids problems where custom Grammars have extra arguments and we add arguments to the official grammar.
