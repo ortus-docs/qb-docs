@@ -1,5 +1,13 @@
 # What's New?
 
+## 9.6.1
+
+Expand type annotation for `from`. This can be a string or an Expression.
+
+## 9.6.0
+
+Make [`addBindings`](query-builder/building-queries/parameters-and-bindings.md#addbindings) and [`addBindingsFromBuilder`](query-builder/building-queries/parameters-and-bindings.md#addbindingsfrombuilder) publicly accessible.
+
 ## 9.5.1
 
 Add MariaDB support to `AutoDiscover@qb` grammar. (It will choose the `MySQLGrammar@qb`.)

@@ -168,3 +168,21 @@ query.from( "users" )
 };
 ```
 {% endcode %}
+
+### addBindings
+
+Adds a single binding or an array of bindings to a query for a given type.
+
+| Name        | Type                        | Required | Default   | Description                                                       |
+| ----------- | --------------------------- | -------- | --------- | ----------------------------------------------------------------- |
+| newBindings | `Struct` \| `Array<Struct>` | true     |           | A single binding or an array of bindings to add for a given type. |
+| type        | `String`                    | false    | `"where"` | The type of binding to add.                                       |
+
+### addBindingsFromBuilder
+
+Adds all of the bindings from another builder instance.
+
+| Name | Type           | Required | Default | Description                                                |
+| ---- | -------------- | -------- | ------- | ---------------------------------------------------------- |
+| qb   | `QueryBuilder` | true     |         | Another builder instance to copy all of the bindings from. |
+
