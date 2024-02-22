@@ -64,10 +64,10 @@ SELECT * FROM `users`
 | options      | struct | `false`  | `{}`    | Any additional `queryExecute` options.                                                                                                                              |
 
 {% hint style="danger" %}
-**throws:** `EntityNotFound`
+**throws:** `RecordNotFound`
 {% endhint %}
 
-Returns the first matching row for the configured query, just like [`first`](retrieving-results.md#first). If no records are found, it throws an `EntityNotFound` exception.
+Returns the first matching row for the configured query, just like [`first`](retrieving-results.md#first). If no records are found, it throws an `RecordNotFound` exception.
 
 {% code title="QueryBuilder" %}
 ```javascript
@@ -79,6 +79,58 @@ query.from( "users" ).firstOrFail();
 ```sql
 SELECT * FROM `users`
  LIMIT(1)
+```
+{% endcode %}
+
+## find
+
+| Name     | Type     | Required | Default | Description                             |
+| -------- | -------- | -------- | ------- | --------------------------------------- |
+| id       | `any`    | true     |         | The id value to look up.                |
+| idColumn | `string` | false    | `"id"`  | The name of the id column to constrain. |
+| options  | `struct` | false    | `{}`    | Any additional `queryExecute` options.  |
+
+Adds an id constraint to the query and returns the first record from the query.
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" ).find( 1 );
+```
+{% endcode %}
+
+{% code title="SQL (MySQL)" %}
+```sql
+SELECT * FROM `users`
+WHERE `id` = ?
+LIMIT(1)
+```
+{% endcode %}
+
+## findOrFail
+
+| Name     | Type     | Required | Default | Description                             |
+| -------- | -------- | -------- | ------- | --------------------------------------- |
+| id       | `any`    | true     |         | The id value to look up.                |
+| idColumn | `string` | false    | `"id"`  | The name of the id column to constrain. |
+| options  | `struct` | false    | `{}`    | Any additional `queryExecute` options.  |
+
+{% hint style="danger" %}
+**Throws:** `RecordNotFound`
+{% endhint %}
+
+Adds an id constraint to the query and returns the first record from the query. If no record is found, it throws an `RecordNotFound` exception.
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" ).find( 415015 );
+```
+{% endcode %}
+
+{% code title="SQL (MySQL)" %}
+```sql
+SELECT * FROM `users`
+WHERE `id` = ?
+LIMIT(1)
 ```
 {% endcode %}
 

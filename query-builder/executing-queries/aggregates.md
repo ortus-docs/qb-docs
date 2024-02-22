@@ -26,6 +26,27 @@ SELECT COUNT(*) AS aggregate FROM `users` WHERE `username` LIKE 'jon%'
 ```
 {% endcode %}
 
+## existsOrFail
+
+| Name         | Type     | Required | Default | Description                            |
+| ------------ | -------- | -------- | ------- | -------------------------------------- |
+| options      | `struct` | false    | `{}`    | Any additional `queryExecute` options. |
+| errorMessage | `string` | false    |         | An optional string error message.      |
+
+Returns `true` if the query returns any rows.  Throws a `RecordNotFound` exception otherwise.
+
+{% code title="QueryBuilder" %}
+```javascript
+query.from( "users" ).where( "username", "like", "jon%" ).existsOrFail();
+```
+{% endcode %}
+
+{% code title="SQL (MySQL)" %}
+```sql
+SELECT COUNT(*) AS aggregate FROM `users` WHERE `username` LIKE 'jon%'
+```
+{% endcode %}
+
 ## count
 
 | Name    | Type   | Required | Default | Description                            |

@@ -1,5 +1,13 @@
 # What's New?
 
+## 9.5.1
+
+Add MariaDB support to `AutoDiscover@qb` grammar. (It will choose the `MySQLGrammar@qb`.)
+
+## 9.5.0
+
+Add [`findOrFail`](query-builder/executing-queries/retrieving-results.md#findorfail) and [`existsOrFail`](query-builder/executing-queries/aggregates.md#existsorfail) methods, inspired by [Quick](https://quick.ortusbooks.com).
+
 ## 9.4.1
 
 Better Support for OracleGrammar in SchemaBuilder
