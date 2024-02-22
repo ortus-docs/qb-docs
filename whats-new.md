@@ -1,5 +1,19 @@
 # What's New?
 
+## 9.4.1
+
+Better Support for OracleGrammar in SchemaBuilder
+
+* Fix trigger creation by escaping colons (`:`).
+* Try to drop associated sequences and triggers when dropping a table.
+* Better support for creating a table in a different schema by only checking for the last identifier as the table name in [`hasTable`](schema-builder/schema-builder.md#hastable) and [`hasColumn`](schema-builder/schema-builder.md#hascolumn).
+
+## 9.4.0
+
+Allow for setting a [`defaultSchema`](schema-builder/schema-builder.md) property on a `SchemaBuilder` instance.
+
+The `defaultSchema` will be used for methods like [`hasTable`](schema-builder/schema-builder.md#hastable) and [`hasColumn`](schema-builder/schema-builder.md#hascolumn). A passed in `schema` will still take precedence.
+
 ## 9.3.1
 
 * Use `CHAR` for `GUID` and `UUID` types in MySQL.
