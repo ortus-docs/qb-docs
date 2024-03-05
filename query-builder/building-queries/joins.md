@@ -2,12 +2,13 @@
 
 Join clauses range from simple to complex including joining complete subqueries on multiple conditions. qb has your back with all of these use cases.
 
-| Table of Contents               |                                       |                                       |                                   |
-| ------------------------------- | ------------------------------------- | ------------------------------------- | --------------------------------- |
-| [join](joins.md#join)           | [joinRaw](joins.md#joinraw)           | [joinSub](joins.md#joinsub)           | [joinWhere](joins.md#joinwhere)   |
-| [leftJoin](joins.md#leftjoin)   | [leftJoinRaw](joins.md#leftjoinraw)   | [leftJoinSub](joins.md#leftjoinsub)   | [newJoin](joins.md#newjoin)       |
-| [rightJoin](joins.md#get)       | [rightJoinRaw](joins.md#rightjoinraw) | [rightJoinSub](joins.md#rightjoinsub) | [JoinClause](joins.md#joinclause) |
-| [crossJoin](joins.md#crossjoin) | [crossJoinRaw](joins.md#crossjoinraw) | [crossJoinSub](joins.md#crossjoinsub) |                                   |
+| Table of Contents                 |                                       |                                       |                                   |
+| --------------------------------- | ------------------------------------- | ------------------------------------- | --------------------------------- |
+| [join](joins.md#join)             | [joinRaw](joins.md#joinraw)           | [joinSub](joins.md#joinsub)           | [joinWhere](joins.md#joinwhere)   |
+| [leftJoin](joins.md#leftjoin)     | [leftJoinRaw](joins.md#leftjoinraw)   | [leftJoinSub](joins.md#leftjoinsub)   | [newJoin](joins.md#newjoin)       |
+| [rightJoin](joins.md#get)         | [rightJoinRaw](joins.md#rightjoinraw) | [rightJoinSub](joins.md#rightjoinsub) | [JoinClause](joins.md#joinclause) |
+| [crossJoin](joins.md#crossjoin)   | [crossJoinRaw](joins.md#crossjoinraw) | [crossJoinSub](joins.md#crossjoinsub) | [crossApply](joins.md#crossApply) |
+| [outerApply](joins.md#outerApply) |                                       |                                       |                                   |
 
 ## join <a href="#join" id="join"></a>
 
@@ -621,6 +622,74 @@ CROSS JOIN (
 )
 ```
 {% endcode %}
+
+## crossApply <a id="crossApply"></a>
+| Name     | Type                     | Required | Default | Description                                                                 |
+| -------- | ------------------------ | -------- | ------- | --------------------------------------------------------------------------- |
+| name     | string                   | `true`   |         | The alias for the derived table.                                            |
+| tableDef | Function \| QueryBuilder | `true`   | ​        | Either a `QueryBuilder` instance or a function to define the derived query. |
+
+Adds a cross apply to a table expression. This is currently only supported for SqlServer grammar.
+
+{% code title="QueryBuilder" %}
+```javascript
+query
+  .from("foo")
+  .crossApply("bar", (qb) => {
+    qb
+      .from("baz")
+      .where("foo.v", "=", "baz.v")
+      .select("x")
+      .limit(2)
+  })
+```
+{% endcode  %}
+
+{% code title="SQLServer" %}
+```
+SELECT *
+FROM [foo]
+CROSS APPLY (
+  SELECT TOP 2 [x]
+  FROM [baz]
+  WHERE [foo].[v] = [baz].[v]
+) AS [bar]
+```
+{% endcode  %}
+
+## outerApply <a id="outerApply"></a>
+| Name     | Type                     | Required | Default | Description                                                                 |
+| -------- | ------------------------ | -------- | ------- | --------------------------------------------------------------------------- |
+| name     | string                   | `true`   |         | The alias for the derived table.                                            |
+| tableDef | Function \| QueryBuilder | `true`   | ​        | Either a `QueryBuilder` instance or a function to define the derived query. |
+
+Adds an outer apply to a table expression. This is currently only supported for SqlServer grammar.
+
+{% code title="QueryBuilder" %}
+```javascript
+query
+  .from("foo")
+  .outerApply("bar", (qb) => {
+    qb
+      .from("baz")
+      .where("foo.v", "=", "baz.v")
+      .select("x")
+      .limit(2)
+  })
+```
+{% endcode  %}
+
+{% code title="SQLServer" %}
+```
+SELECT *
+FROM [foo]
+OUTER APPLY (
+  SELECT TOP 2 [x]
+  FROM [baz]
+  WHERE [foo].[v] = [baz].[v]
+) AS [bar]
+```
+{% endcode  %}
 
 ## newJoin <a href="#newjoin" id="newjoin"></a>
 
