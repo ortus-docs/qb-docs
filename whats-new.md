@@ -1,5 +1,9 @@
 # What's New?
 
+## 9.7.0
+
+Remap aliases from the current alias to a new alias when using the [`withAlias`](query-builder/building-queries/from.md#withalias) function.
+
 ## 9.6.1
 
 Expand type annotation for `from`. This can be a string or an Expression.

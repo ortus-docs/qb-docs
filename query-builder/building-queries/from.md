@@ -162,3 +162,16 @@ FROM (
 ORDER BY `lastName`
 ```
 {% endcode %}
+
+## withAlias
+
+<table><thead><tr><th>Name</th><th>Type</th><th data-type="checkbox">Required</th><th>Default Value</th><th>Description</th></tr></thead><tbody><tr><td>alias</td><td><code>string</code></td><td>true</td><td></td><td>The new alias to use for the table.</td></tr></tbody></table>
+
+Adds an alias to the specified `from` table or renames a current alias.  Any existing aliased values in `columns`, `wheres`, `joins`, `groupBys`, or `orders` that match the previous alias will be remapped to the new alias.  This includes the full table name when used as an alias.
+
+```cfscript
+qb.from( "users" ).select( [ "users.name", "birthdate" ] );
+// SELECT "users"."name", "birthdate" FROM "users"
+qb.withAlias( "u1" );
+// SELECT "u1"."name", "birthdate" FROM "users" AS "u1"
+```
