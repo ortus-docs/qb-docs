@@ -622,6 +622,84 @@ CROSS JOIN (
 ```
 {% endcode %}
 
+## crossApply <a href="#crossapply" id="crossapply"></a>
+
+| Name     | Type                         | Required | Default | Description                                                                                   |
+| -------- | ---------------------------- | -------- | ------- | --------------------------------------------------------------------------------------------- |
+| name     | string                       | `true`   |         | The name for the cross apply table                                                            |
+| tableDef | `function` \| `QueryBuilder` | `true`   |         | A QueryBuilder instance or a function that accepts a new query builder instance to configure. |
+
+Adds a cross apply join using a derived table. The derived table can be defined using a `QueryBuilder` instance or a function just as with [`joinSub`](joins.md#joinsub).
+
+{% code title="QueryBuilder" %}
+```javascript
+qb.from( "users as u" )
+    .select( [ "u.ID", "childCount.c" ] )
+    .crossApply( "childCount", function( qb ) {
+        qb.selectRaw( "count(*) c" )
+            .from( "children" )
+            .whereColumn( "children.parentID", "=", "users.ID" )
+            .where( "children.someCol", "=", 0 );
+    } )
+    .where( "childCount.c", ">", 1 )
+```
+{% endcode %}
+
+{% code title="SQL Server" %}
+```sql
+SELECT
+    [u].[ID],
+    [childCount].[c]
+FROM [users] AS [u]
+CROSS APPLY (
+    SELECT count(*) c
+    FROM [children]
+    WHERE [children].[parentID] = [users].[ID]
+    AND [children].[someCol] = ?
+) AS [childCount]
+WHERE [childCount].[c] > ?
+```
+{% endcode %}
+
+## outerApply <a href="#outerapply" id="outerapply"></a>
+
+| Name     | Type                         | Required | Default | Description                                                                                   |
+| -------- | ---------------------------- | -------- | ------- | --------------------------------------------------------------------------------------------- |
+| name     | string                       | `true`   |         | The name for the cross apply table                                                            |
+| tableDef | `function` \| `QueryBuilder` | `true`   |         | A QueryBuilder instance or a function that accepts a new query builder instance to configure. |
+
+Adds a outer apply join using a derived table. The derived table can be defined using a `QueryBuilder` instance or a function just as with [`joinSub`](joins.md#joinsub).
+
+{% code title="QueryBuilder" %}
+```javascript
+qb.from( "users as u" )
+    .select( [ "u.ID", "childCount.c" ] )
+    .outerApply( "childCount", function( qb ) {
+        qb.selectRaw( "count(*) c" )
+            .from( "children" )
+            .whereColumn( "children.parentID", "=", "users.ID" )
+            .where( "children.someCol", "=", 0 );
+    } )
+    .where( "childCount.c", ">", 1 )
+```
+{% endcode %}
+
+{% code title="SQL Server" %}
+```sql
+SELECT
+    [u].[ID],
+    [childCount].[c]
+FROM [users] AS [u]
+OUTER APPLY (
+    SELECT count(*) c
+    FROM [children]
+    WHERE [children].[parentID] = [users].[ID]
+    AND [children].[someCol] = ?
+) AS [childCount]
+WHERE [childCount].[c] > ?
+```
+{% endcode %}
+
 ## newJoin <a href="#newjoin" id="newjoin"></a>
 
 | Name  | Type                                       | Required | Default   | Description                                                                                         |

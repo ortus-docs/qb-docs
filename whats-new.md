@@ -1,8 +1,12 @@
 # What's New?
 
+## 9.7.1
+
+Add in missing join compilations.
+
 ## 9.7.0
 
-Remap aliases from the current alias to a new alias when using the [`withAlias`](query-builder/building-queries/from.md#withalias) function.
+Implement crossApply and outerApply for supported Grammars
 
 ## 9.6.1
 
