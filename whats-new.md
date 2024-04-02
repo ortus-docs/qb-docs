@@ -6,7 +6,7 @@ Add in missing join compilations.
 
 ## 9.7.0
 
-Implement crossApply and outerApply for supported Grammars
+Implement [crossApply](query-builder/building-queries/joins.md#crossapply) and [outerApply](query-builder/building-queries/joins.md#outerapply) for supported Grammars
 
 ## 9.6.1
 
