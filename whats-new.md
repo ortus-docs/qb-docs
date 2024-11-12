@@ -1,4 +1,16 @@
+---
+icon: star-christmas
+---
+
 # What's New?
+
+## 10.0.2
+
+**QueryUtils:** Fix timestamp formatting losing timezone information
+
+## 10.0.1
+
+**QueryUtils:** Manually construct ISO 8601 timestamps due to lack of Adobe support
 
 ## 10.0.0
 
