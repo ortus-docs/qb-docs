@@ -1,3 +1,7 @@
+---
+icon: trash-check
+---
+
 # Drop
 
 Dropping tables straightforward in `qb`.

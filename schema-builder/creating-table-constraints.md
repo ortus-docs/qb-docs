@@ -1,3 +1,7 @@
+---
+icon: table-cells-row-lock
+---
+
 # Creating Table Constraints
 
 Sometimes you want to add constraints on a table level, rather than a column level. The following methods will let you accomplish that.

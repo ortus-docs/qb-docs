@@ -1,3 +1,7 @@
+---
+icon: circle-info
+---
+
 # Overview
 
 QB ships with a schema builder to help you build your database objects. This provides a few benefits:

@@ -1,3 +1,7 @@
+---
+icon: bug
+---
+
 # Debugging
 
 ## Debugging a Single Query

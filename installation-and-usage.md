@@ -1,3 +1,7 @@
+---
+icon: square-down
+---
+
 # Installation & Usage
 
 ## Installation

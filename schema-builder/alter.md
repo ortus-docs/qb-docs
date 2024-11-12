@@ -1,3 +1,7 @@
+---
+icon: table-pivot
+---
+
 # Alter
 
 The alter method loads up an existing table in order to make modifications. These modifications may include adding, renaming, or dropping columns and constraints.

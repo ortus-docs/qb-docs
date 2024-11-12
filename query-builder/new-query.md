@@ -1,3 +1,7 @@
+---
+icon: file-plus
+---
+
 # Getting a New Query
 
 A query builder is a stateful, transient object. That means that if you want to execute two different queries, you need two separate instances of `QueryBuilder`.

@@ -1,3 +1,7 @@
+---
+icon: columns-3
+---
+
 # Columns
 
 The `Blueprint` object has many column types available to construct your table schema. Additionally, you can modify the columns created [with an additional set of methods](column-modifiers.md) and [indexes](column-modifiers.md).

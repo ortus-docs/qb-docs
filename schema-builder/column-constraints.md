@@ -1,3 +1,7 @@
+---
+icon: table-cells-column-lock
+---
+
 # Column Constraints
 
 A `TableIndex` can be created directly from a [`Blueprint`](creating-table-constraints.md) or from a existing [`Column`](column-modifiers.md). The `TableIndex` includes methods for further configuring the index which is required when defining foreign keys.

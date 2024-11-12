@@ -1,3 +1,7 @@
+---
+icon: chart-simple
+---
+
 # Column Modifiers
 
 When [creating a column](columns.md) from the `Blueprint` object, a `Column` object is returned. This `column` gives you access to a few modifier commands to further configure the column.

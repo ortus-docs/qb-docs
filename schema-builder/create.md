@@ -1,3 +1,7 @@
+---
+icon: table-list
+---
+
 # Create
 
 This method allows you to create a table object.

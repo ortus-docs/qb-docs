@@ -1,2 +1,6 @@
+---
+icon: hammer
+---
+
 # Building Queries
 

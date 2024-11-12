@@ -1,3 +1,7 @@
+---
+icon: file-circle-exclamation
+---
+
 # Contributing & Filing Issues
 
 We welcome all types of contributions!

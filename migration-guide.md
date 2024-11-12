@@ -1,3 +1,7 @@
+---
+icon: up
+---
+
 # Migration Guide
 
 ## v10.0.0
