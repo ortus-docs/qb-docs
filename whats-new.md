@@ -12,7 +12,7 @@ icon: star-christmas
 
 ### Allow for disabling of wrapping values
 
-Either a Grammar setting (`setShouldWrapValues( true|false )`) or for a one-off Query Builder (`withoutWrappingValues()` / `withWrappingValues()`) can control whether identifiers like table names, columns, etc. are wrapped.
+Either a Grammar setting (`setShouldWrapValues( true|false )`) or for a one-off Query Builder ([`withoutWrappingValues()`](query-builder/options-and-utilities/query-options.md#withoutwrappingvalues) / [`withWrappingValues()`](query-builder/options-and-utilities/query-options.md#withwrappingvalues)) can control whether identifiers like table names, columns, etc. are wrapped.
 
 ### BoxLang Compatibility
 
