@@ -4,6 +4,34 @@ icon: star-christmas
 
 # What's New?
 
+## 11.0.2
+
+**QueryBuilder:** Have aliases work with full server qualifications, like `ServerName.schemaName.tableName`.
+
+## 11.0.1
+
+### Allow for disabling of wrapping values
+
+Either a Grammar setting (`setShouldWrapValues( true|false )`) or for a one-off Query Builder (`withoutWrappingValues()` / `withWrappingValues()`) can control whether identifiers like table names, columns, etc. are wrapped.
+
+### BoxLang Compatibility
+
+This release includes updates to be compatible with the latest releases of BoxLang.
+
+## 11.0.0
+
+### Auto Boolean Casting
+
+Grammars will be able to influence the `cfsqltype` and value when passing in a literal boolean value as a binding. Postgres and SQLite have boolean support, so they will keep the literal boolean value and use a `cfsqltype` of `CF_SQL_OTHER`. SQL Server uses `CF_SQL_BIT`, Oracle users `CF_SQL_NUMERIC`, and MySQL uses `CF_SQL_TINYINT` — all of these will convert literal boolean values to either 1 or 0. This behavior is skipped when providing a custom `cfsqltype`.
+
+{% hint style="info" %}
+Custom grammars can implement the `getBooleanSqlType` and `convertBooleanValue` methods to customize this behavior.
+{% endhint %}
+
+{% hint style="danger" %}
+Additionally, attempting to change the grammar with any bindings currently configured will throw an exception. This is because the bindings are converted via the grammar when added to the builder and cannot be changed retroactively when setting a new grammar. Set the grammar first before configuring the query to avoid this exception.
+{% endhint %}
+
 ## 10.0.2
 
 **QueryUtils:** Fix timestamp formatting losing timezone information

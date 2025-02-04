@@ -74,3 +74,34 @@ Replace the question marks (?) in a sql string with the bindings provided.
 | sql      | `String`        | true     |               | The SQL with question marks (`?`) to replace with bindings.                                                                                      |
 | bindings | `Array<Struct>` | true     |               | The bindings to use when replacing the question marks (`?`) in the provided SQL string.                                                          |
 | inline   | `boolean`       | false    | `false`       | Flag to inline the bindings value or not.  If `true`, a SQL-executable value will be replaced.  If `false`, the binding struct will be replaced. |
+
+## withoutWrappingValues
+
+Helper method to disable wrapping identifiers only for the given query.
+
+```cfscript
+qb.from( "users" ).select( [ "id", "email" ] ).withoutWrappingValues().get();
+```
+
+```sql
+SELECT id, email FROM users
+```
+
+## withWrappingValues
+
+Helper method to enable wrapping identifiers only for the given query.
+
+```cfscript
+qb.from( "users" ).select( [ "id", "email" ] ).withWrappingValues().get();
+```
+
+```sql
+-- MySQL
+SELECT `id`, `email` FROM `users`
+
+-- SQL Server
+SELECT [id], [email] FROM [users]
+
+-- Postgres, SQLite, Oracle
+SELECT "id", "email" FROM "users"
+```
