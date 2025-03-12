@@ -4,6 +4,14 @@ icon: star-christmas
 
 # What's New?
 
+## 11.1.0
+
+**QueryBuilder:** Support JOINS in DELETE statements for supported grammars, like MySQL and SQL Server.
+
+## 11.0.3
+
+**QueryBuilder:** Don't overly specify that grammars must extend `BaseGrammar`. It's just an implicit interface, after all.
+
 ## 11.0.2
 
 **QueryBuilder:** Have aliases work with full server qualifications, like `ServerName.schemaName.tableName`.
