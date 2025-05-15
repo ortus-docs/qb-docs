@@ -16,7 +16,7 @@ Using qb, you can:
 * Adobe ColdFusion 2021+
 * Lucee 5+
 
-qb supports five database grammars:
+qb supports the following database grammars:
 
 * MySQL (`MySQLGrammar@qb`)
 * Oracle (`OracleGrammar@qb`)

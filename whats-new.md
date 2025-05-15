@@ -4,6 +4,12 @@ icon: star-christmas
 
 # What's New?
 
+## 12.1.0
+
+qb now checks the shape of query param structs passed as bindings and will throw a `QBInvalidQueryParam` if there are any invalid keys.
+
+This is to help developers who may have passed a struct as a param that they meant to first serialize to JSON.
+
 ## 12.0.0
 
 ### Breaking Changes
