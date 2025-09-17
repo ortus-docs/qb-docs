@@ -4,6 +4,10 @@ icon: star-christmas
 
 # What's New?
 
+## 13.0.8
+
+Fix retrieving count for pagination when the query has both a `GROUP BY` and an `ORDER BY` clause.
+
 ## 13.0.7
 
 **BoxLang:** Minor fix for `isBuilder` checks on BoxLang
