@@ -4,6 +4,22 @@ icon: up
 
 # Migration Guide
 
+## v13.0.0
+
+### Columns are now stored in a different format internally
+
+Before v13.0.0, internally `columns` were stored as string values or raw `Expression` instances.  Now, they are stored as `struct`s representing the column.  This was to allow aliasing and renaming of subselect columns more easily.
+
+This change shouldn't break anything for end users.  The only people who need to check their code are Grammar authors, as the Grammars will now be passed an array of column structs instead of simple values.
+
+Column types follow the format: `{ "type": "string", "value": "any" }`.  For simple columns this shows as `{ "type": "simple", "value": "name" }`.  For expressions this shows as `{ "type": "raw", "value": Expression Instance }` , etc.
+
+### Query Param structs are now validated when adding to a query
+
+Previously, when passing a query param struct as a binding, qb would use the keys it cared about and would ignore the rest.  Now, qb will validate the incoming param to make sure it is a valid query param struct.  A valid query param struct contains **NO** keys that are not found on `cfqueryparam`.  The main reason for this is to catch bugs where the value of a column should be JSON and instead of passing the result of `serializeJSON` the struct itself is passed.
+
+This change may cause some of your existing queries to begin throwing `QBInvalidQueryParam` exceptions. Remove the non-standard keys to fix the error.
+
 ## v12.0.0
 
 ### Remove `autoAddScale` setting
