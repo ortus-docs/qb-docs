@@ -4,6 +4,63 @@ icon: star-christmas
 
 # What's New?
 
+## 13.0.7
+
+**BoxLang:** Minor fix for `isBuilder` checks on BoxLang
+
+## 13.0.6
+
+Remove `duplicate` calls for performance improvements.
+
+## 13.0.5
+
+**SqlServerGrammar:** Move [`FOR`](query-builder/building-queries/for.md) clause to last position
+
+## 13.0.4
+
+Fix for using operators in [dynamic where statements.](query-builder/building-queries/wheres.md#dynamic-where-methods)
+
+```
+qb.from( "users" ).whereAge( ">=", 18 );
+```
+
+## 13.0.3
+
+* Reset `tableName` in [`exists`](query-builder/executing-queries/aggregates.md#exists) aggregate queries
+
+### IMPORTANT:
+
+* Persist [`convertEmptyStringsToNull`](installation-and-usage.md#configuration-settings) constructor argument in `QueryUtils`.
+
+This was added in 12.0.0, but because it was not persisted until now, this may appear as a breaking change in your application.  A reminder that if you rely on empty strings being inserted into your application as empty strings to turn this setting off.
+
+## 13.0.2
+
+Apply a `.limit( 1 )` to the [`exists`](query-builder/executing-queries/aggregates.md#exists) aggregate.
+
+## 13.0.1
+
+Allow `null` values in the update clause of [`upsert`](query-builder/executing-queries/inserts-updates-deletes.md#upsert) queries.
+
+## 13.0.0
+
+* Aliases in subselects are now renamed correctly when using [`withAlias`](query-builder/building-queries/from.md#withalias).
+* **TestBox Helpers**:&#x20;
+  * `expectToHaveCount`
+  * `expectNotToHaveCount`
+  * `expectToExist`
+  * `expectNotToExist`
+
+### Breaking Changes
+
+#### Query Param structs are now validated when adding to a query <a href="#query-param-structs-are-now-validated-when-adding-to-a-query" id="query-param-structs-are-now-validated-when-adding-to-a-query"></a>
+
+Previously, when passing a query param struct as a binding, qb would use the keys it cared about and would ignore the rest. Now, qb will validate the incoming param to make sure it is a valid query param struct. A valid query param struct contains **NO** keys that are not found on `cfqueryparam`. The main reason for this is to catch bugs where the value of a column should be JSON and instead of passing the result of `serializeJSON` the struct itself is passed.
+
+This change may cause some of your existing queries to begin throwing `QBInvalidQueryParam` exceptions. Remove the non-standard keys to fix the error.
+
+
+
 ## 12.1.1
 
 **QueryUtils**: Add `name` as a valid query param key.
@@ -18,7 +75,11 @@ This is to help developers who may have passed a struct as a param that they mea
 
 ### Breaking Changes
 
-#### Remove `autoAddScale` setting.
+#### Add new [`convertEmptyStringsToNull`](installation-and-usage.md#configuration-settings) setting and default to true.
+
+qb now automatically converts an empty string value to `null` when inserting into a query.  If your application relies on inserting or updating values to an empty string, set this setting to `false`.
+
+#### &#x20;Remove `autoAddScale` setting.
 
 qb now always automatically adds a `scale` to `decimal` and `float` query params. This has been the default since [v8.5.0](whats-new.md#id-8.5.0). This can still be overridden by providing a full struct query param when adding bindings.
 
@@ -729,3 +790,4 @@ _Please see the_ [_Migration Guide_](migration-guide.md#v-7-0-0) _for more infor
 ## 6.4.0
 
 * [Allow Expressions (`query.raw`) in update statements.](whats-new.md)
+*
