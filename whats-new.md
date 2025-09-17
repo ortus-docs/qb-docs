@@ -4,6 +4,10 @@ icon: star-christmas
 
 # What's New?
 
+## 12.1.1
+
+**QueryUtils**: Add `name` as a valid query param key.
+
 ## 12.1.0
 
 qb now checks the shape of query param structs passed as bindings and will throw a `QBInvalidQueryParam` if there are any invalid keys.
