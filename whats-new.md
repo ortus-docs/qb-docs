@@ -18,6 +18,10 @@ This is to help developers who may have passed a struct as a param that they mea
 
 ### Breaking Changes
 
+#### Add new [`convertEmptyStringsToNull`](installation-and-usage.md#configuration-settings) setting and default to true.
+
+qb now automatically converts an empty string value to `null` when inserting into a query.  If your application relies on inserting or updating values to an empty string, set this setting to `false`.
+
 #### Remove `autoAddScale` setting.
 
 qb now always automatically adds a `scale` to `decimal` and `float` query params. This has been the default since [v8.5.0](whats-new.md#id-8.5.0). This can still be overridden by providing a full struct query param when adding bindings.

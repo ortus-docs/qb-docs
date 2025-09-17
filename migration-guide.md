@@ -6,6 +6,10 @@ icon: up
 
 ## v12.0.0
 
+### Add new [`convertEmptyStringsToNull`](installation-and-usage.md#configuration-settings) setting and default to true.
+
+qb now automatically converts an empty string value to `null` when inserting into a query.  If your application relies on inserting or updating values to an empty string, set this setting to `false`.
+
 ### Remove `autoAddScale` setting
 
 It is no longer possible to disable auto scale being added.  You can still override any scale by providing it in your query param struct.
