@@ -4,6 +4,10 @@ icon: star-christmas
 
 # What's New?
 
+## 13.0.9
+
+Process subqueries when a closure or Builder instance is passed as the second column to [`whereColumn`](query-builder/building-queries/wheres.md#wherecolumn).
+
 ## 13.0.8
 
 Fix retrieving count for pagination when the query has both a `GROUP BY` and an `ORDER BY` clause.
