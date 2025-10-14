@@ -4,6 +4,10 @@ icon: star-christmas
 
 # What's New?
 
+## 13.0.12
+
+Fixed another instance of updating the `interceptorService` to correctly use `announce` or `processState`.
+
 ## 13.0.11
 
 Fix for mechanism used to determine if the interceptor service should use `announce` or `processState`.
