@@ -4,6 +4,10 @@ icon: star-christmas
 
 # What's New?
 
+## 13.0.10
+
+Use `announce` as the default method for announcing interception points.  (Falls back to `processState` on ColdBox versions before 6.0.0.)
+
 ## 13.0.9
 
 Process subqueries when a closure or Builder instance is passed as the second column to [`whereColumn`](query-builder/building-queries/wheres.md#wherecolumn).
