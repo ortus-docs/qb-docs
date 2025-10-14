@@ -4,6 +4,10 @@ icon: star-christmas
 
 # What's New?
 
+## 13.0.11
+
+Fix for mechanism used to determine if the interceptor service should use `announce` or `processState`.
+
 ## 13.0.10
 
 Use `announce` as the default method for announcing interception points.  (Falls back to `processState` on ColdBox versions before 6.0.0.)
