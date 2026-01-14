@@ -4,6 +4,28 @@ icon: star-christmas
 
 # What's New?
 
+## 13.0.17
+
+Fix test for BoxLang type strictness on `DerbyGrammar`.
+
+Handle raw statements in `whereBetween`.
+
+## 13.0.16
+
+Handle more cases for `isInvalidOperator`.
+
+## 13.0.15
+
+Handle `null` inside `isExpression` check.
+
+## 13.0.14
+
+More datetime formatting fixes for BoxLang Prime
+
+## 13.0.13
+
+Fix incorrect `JoinClause` query generation
+
 ## 13.0.12
 
 Fixed another instance of updating the `interceptorService` to correctly use `announce` or `processState`.
@@ -751,7 +773,7 @@ You can now use two shortcut methods: `orderByAsc` and `orderByDesc`. Additional
 
 ## 7.2.0
 
-* Allow a [parent query](broken-reference) to be set.  A parent query will receive any method calls that are not found on the Query Builder instance.  This is especially useful for instances like [Quick](https://quick.ortusbooks.com/) to allow Quick features like scopes to be available inside any closures.
+* Allow a [parent query](/broken/pages/-LxZv7a5KIrwcD1HJyVa) to be set.  A parent query will receive any method calls that are not found on the Query Builder instance.  This is especially useful for instances like [Quick](https://quick.ortusbooks.com/) to allow Quick features like scopes to be available inside any closures.
 
 ## 7.1.0
 
