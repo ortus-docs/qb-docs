@@ -1274,6 +1274,8 @@ CREATE TABLE `users` (
 
 Creates the `createdDate` and `modifiedDate` `TIMESTAMP` columns.
 
+`timestamps` can be used while creating or altering a table. Inside an `alter` callback, both columns are added to the existing table.
+
 If you want different names for your timestamp columns, feel free to call other schema builder methods individually.
 
 | Argument     | Type | Required | Default | Description |
@@ -1297,6 +1299,22 @@ CREATE TABLE `posts` (
     `createdDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `modifiedDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
+```
+
+**Altering a table:**
+
+```javascript
+schema.alter( "posts", function( table ) {
+    table.timestamps();
+} );
+```
+
+```sql
+ALTER TABLE `posts`
+ADD `createdDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+ALTER TABLE `posts`
+ADD `modifiedDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 ```
 
 ## timestampTz

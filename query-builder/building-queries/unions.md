@@ -10,8 +10,39 @@ Union statements are added in the order in which the `union` methods are invoked
 * `unionAll()` — This builds a SQL statement using the `UNION ALL` clause. This is the same as `union` but includes duplicate rows.&#x20;
 
 {% hint style="danger" %}
-**IMPORTANT:** The QueryBuilder instances passed to a `union` statement _cannot_ contain a defined order. Any use of the `orderBy()` method on the unioned QueryBuilder instances will result in an `OrderByNotAllowed`exception. To order the results, add an `orderBy()` call to the parent source Query Builder instance.
+**IMPORTANT:** In most grammars, QueryBuilder instances passed to a `union` statement _cannot_ contain a defined order. Any use of `orderBy()` on a unioned QueryBuilder instance results in an `OrderByNotAllowed` exception. To order the complete result, add `orderBy()` to the parent QueryBuilder instance.
 {% endhint %}
+
+The SQL Server grammar supports independently ordered union branches when the ordering determines a limited result using `TOP`, `OFFSET`, or `FETCH`. qb compiles those branches as derived tables so SQL Server applies the order and limit before performing the union.
+
+```javascript
+query.select( [ "id", "name", "modifiedDate" ] )
+    .from( "pages" )
+    .orderByDesc( "modifiedDate" )
+    .limit( 5 )
+    .unionAll( function( q ) {
+        q.select( [ "id", "name", "modifiedDate" ] )
+            .from( "documents" )
+            .orderByDesc( "modifiedDate" )
+            .limit( 5 );
+    } );
+```
+
+```sql
+SELECT * FROM (
+    SELECT TOP (5) [id], [name], [modifiedDate]
+    FROM [pages]
+    ORDER BY [modifiedDate] DESC
+) AS [qb_union_0]
+UNION ALL
+SELECT * FROM (
+    SELECT TOP (5) [id], [name], [modifiedDate]
+    FROM [documents]
+    ORDER BY [modifiedDate] DESC
+) AS [qb_union_1]
+```
+
+An ordered SQL Server union branch without a limit still throws `OrderByNotAllowed`.
 
 ## union
 
@@ -227,4 +258,3 @@ FROM `users`
 WHERE `id` = ?
 ```
 {% endcode %}
-

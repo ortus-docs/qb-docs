@@ -118,6 +118,67 @@ SELECT 1 FROM dual
 {% endtab %}
 {% endtabs %}
 
+## insertBulk
+
+| Name      | Type                 | Required | Default | Description                                                                                                              |
+| --------- | -------------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| values    | array&lt;struct&gt; | `true`   |         | The rows to insert.                                                                                                      |
+| sqlTypes  | struct               | `false`  | `{}`    | SQL Server types keyed by column name. Types are inferred for columns not provided.                                      |
+| chunkSize | numeric              | `false`  | `0`     | Preferred rows per batch. A non-positive value uses all rows, subject to the grammar's parameter limit.                  |
+| options   | struct               | `false`  | `{}`    | Any additional `queryExecute` options.                                                                                   |
+| toSQL     | boolean              | `false`  | `false` | If `true`, returns the raw SQL strings instead of running the queries. Useful for debugging.                             |
+
+`insertBulk` is intended for data sets that may be too large for one regular [`insert`](inserts-updates-deletes.md#insert). It returns an array containing one result for each executed batch, or an array of SQL strings when `toSQL` is true. An empty `values` array returns an empty array.
+
+```javascript
+results = query.from( "users" ).insertBulk( [
+    { id = 1, name = "John" },
+    { id = 2, name = "Jane" }
+] );
+```
+
+SQL Server uses a native strategy that serializes each batch as one JSON parameter and expands it with `OPENJSON`:
+
+```sql
+INSERT INTO [users] ([id], [name])
+SELECT [id], [name]
+FROM OPENJSON(?)
+WITH (
+    [id] INTEGER '$."id"',
+    [name] NVARCHAR(MAX) '$."name"'
+)
+```
+
+Other bundled grammars fall back to regular multi-row inserts. Grammars that declare a parameter limit automatically reduce the number of rows in each batch so that the generated statement stays within that limit. You can request a smaller batch with `chunkSize`:
+
+```javascript
+results = query.from( "users" ).insertBulk(
+    values = users,
+    chunkSize = 500
+);
+```
+
+Pass `sqlTypes` when an inferred SQL Server type is not specific enough:
+
+```javascript
+results = query.from( "measurements" ).insertBulk(
+    values = readings,
+    sqlTypes = { reading = "DECIMAL(10, 2)" }
+);
+```
+
+SQL Server bulk inserts also support [`returning`](inserts-updates-deletes.md#returning):
+
+```javascript
+results = query.from( "users" )
+    .returning( "id" )
+    .insertBulk( users );
+```
+
+{% hint style="warning" %}
+Bulk insert values cannot contain SQL expressions. Use `insert` when a row needs a raw or computed value.
+{% endhint %}
+
 ## insertIgnore
 
 | Name    | Type                     | Required | Default | Description                                                                               |
@@ -568,12 +629,29 @@ VALUES (?, ?)
 | deleteUnmatched | any                                        | `false`  | `false` | <p>Boolean flag or callback to delete any unmatched source records as part the upsert. (SQL Server only.)<br><br>If a callback is passed, it will be called with a <code>QueryBuilder</code> instance that can be restricted for the <code>DELETE UNMATCHED</code> clause.</p> |
 | options         | boolean                                    | `false`  | `{}`    | Any additional `queryExecute` options.                                                                                                                                                                                                                                         |
 | toSql           | boolean                                    | `false`  | `false` | If `true`, returns the raw SQL string instead of running the query. Useful for debugging.                                                                                                                                                                                      |
+| matchNulls      | boolean                                    | `false`  | `false` | Treat a target column as matching when both the target and source values are `NULL`. Supported by MERGE grammars.                                                                                                                                                              |
 
 An upsert is a batch operation that either inserts or updates a row depending on if a target match is found. If a row is matched with the target column(s), then the matched row is updated. Otherwise a new row is inserted.
 
 {% hint style="warning" %}
 In most database grammars, the target columns are required to be primary key or unique indexes.
 {% endhint %}
+
+By default, SQL follows its normal `NULL` comparison rules, so two `NULL` target values do not match. Set `matchNulls` to `true` to make MERGE grammars treat them as a match:
+
+```javascript
+query.table( "records" ).upsert(
+    values = [
+        { a = 1, b = javacast( "null", "" ), value = "first" },
+        { a = 2, b = "key", value = "second" }
+    ],
+    target = [ "a", "b" ],
+    update = [ "value" ],
+    matchNulls = true
+);
+```
+
+The SQL Server, Oracle, and Derby grammars support `matchNulls`. The MySQL, Postgres, and SQLite grammars throw an `UnsupportedOperation` exception when it is enabled.
 
 ```sql
 qb.table( "users" )

@@ -50,8 +50,11 @@ moduleSettings = {
         "defaultReturnFormat": "array",
         "preventDuplicateJoins": false,
         "validateOperatorsAndCombinators": true,
+        "validateDuplicateSelectColumns": false,
+        "validateQueryExecuteReturnType": false,
         "collectQueryLog": true,
         "convertEmptyStringsToNull": true,
+        "shouldWrapValues": true,
         "validateQueryParamStructKeys": true,
         "numericSQLType": "NUMERIC",
         "integerSQLType": "INTEGER",
@@ -67,7 +70,8 @@ moduleSettings = {
         },
         "shouldMaxRowsOverrideToAll": function( maxRows ) {
             return maxRows <= 0;
-        }
+        },
+        "returnFormatters": {}
     }
 
 }
@@ -78,6 +82,14 @@ moduleSettings = {
 `collectQueryLog` controls whether a QueryBuilder appends execution details to its [query log](query-builder/debugging/#querylog). It defaults to `true`. Set it to `false` when query-log collection is not needed.
 
 `validateQueryParamStructKeys` validates custom query parameter structs against the supported `cfqueryparam` keys. It defaults to `true`. Disabling it restores the earlier behavior of ignoring unknown keys.
+
+`validateDuplicateSelectColumns` detects statically identifiable duplicate output names when a query is compiled. It is useful in development and is disabled by default to avoid production overhead. See [Duplicate Select Column Validation](query-builder/building-queries/selects.md#duplicate-select-column-validation).
+
+`validateQueryExecuteReturnType` throws when native `queryExecute` return-type options are passed to qb. It is useful while migrating an application to [named return formatters](query-builder/options-and-utilities/return-format.md#native-queryexecute-return-types).
+
+`shouldWrapValues` controls identifier wrapping for the configured grammar. It defaults to `true`. Set it to `false` to generate unwrapped identifiers by default; individual queries can override it with [`withWrappingValues`](query-builder/options-and-utilities/query-options.md#withwrappingvalues) and [`withoutWrappingValues`](query-builder/options-and-utilities/query-options.md#withoutwrappingvalues).
+
+`returnFormatters` registers reusable named formatter factories. See [Custom Return Formatters](query-builder/options-and-utilities/return-format.md#custom-return-formatters).
 
 ## SQL Type Inference
 

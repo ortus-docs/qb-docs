@@ -4,6 +4,62 @@ icon: up
 
 # Migration Guide
 
+## v14.0.0
+
+### Native queryExecute return-type options are no longer honored
+
+qb now executes queries as CFML query objects and applies its own [return formatter](query-builder/options-and-utilities/return-format.md). Native `queryExecute` `returntype`, `columnkey`, and `columnKey` options no longer control the returned value.
+
+Replace native options such as:
+
+```javascript
+users = query.from( "users" ).get( options = {
+    returntype = "struct",
+    columnkey = "username"
+} );
+```
+
+with qb's `struct` formatter:
+
+```javascript
+users = query
+    .setReturnFormat( "struct", { columnKey = "username" } )
+    .from( "users" )
+    .get();
+```
+
+By default, qb removes the native options. Enable `validateQueryExecuteReturnType` in development to throw an `InvalidQueryExecuteOption` exception and find remaining call sites:
+
+```javascript
+moduleSettings = {
+    qb = {
+        validateQueryExecuteReturnType = true
+    }
+};
+```
+
+### Custom compileUpsert methods require a matchNulls argument
+
+The `QueryBuilder.upsert` method now has an opt-in `matchNulls` argument. Custom grammars that override `compileUpsert` must add a trailing boolean argument with a default of `false`:
+
+```javascript
+public string function compileUpsert(
+    required QueryBuilder qb,
+    required array insertColumns,
+    required array values,
+    required array updateColumns,
+    required any updates,
+    required array target,
+    QueryBuilder source,
+    any deleteUnmatched = false,
+    boolean matchNulls = false
+) {
+    // custom grammar implementation
+}
+```
+
+Grammars that use MERGE-style target comparisons can call `compileUpsertTargetConstraint( target, matchNulls )`. Grammars that cannot support null-safe target matching should throw `UnsupportedOperation` when `matchNulls` is true.
+
 ## v13.0.0
 
 ### Columns are now stored in a different format internally

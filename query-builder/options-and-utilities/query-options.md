@@ -79,6 +79,8 @@ Replace the question marks (?) in a sql string with the bindings provided.
 
 Helper method to disable wrapping identifiers only for the given query.
 
+The application-wide default is controlled by the `shouldWrapValues` [module setting](../../installation-and-usage.md#configuration-settings).
+
 ```cfscript
 qb.from( "users" ).select( [ "id", "email" ] ).withoutWrappingValues().get();
 ```
@@ -90,6 +92,8 @@ SELECT id, email FROM users
 ## withWrappingValues
 
 Helper method to enable wrapping identifiers only for the given query.
+
+The application-wide default is controlled by the `shouldWrapValues` [module setting](../../installation-and-usage.md#configuration-settings).
 
 ```cfscript
 qb.from( "users" ).select( [ "id", "email" ] ).withWrappingValues().get();

@@ -9,14 +9,14 @@ QB ships with a schema builder to help you build your database objects. This pro
 * The syntax is expressive and fluent, making it easy to understand what is being executed
 * The syntax is database-agnostic. Specific quirks are isolated in a Grammar file, making it easy to migrate between engines.
 
-You start with a `SchemaBuilder` object. The `SchemaBuilder` takes the same Grammar that a `QueryBuilder` takes.  It can additionally take a struct of default query options forwarded on to `queryExecute` and a `defaultSchema` to use when calling `hasTable` and `hasColumn`. (A `schema` argument passed to those methods still takes precendence.)
+You start with a `SchemaBuilder` object. The `SchemaBuilder` takes the same Grammar that a `QueryBuilder` takes. It can additionally take a struct of default query options forwarded on to `queryExecute` and a `defaultSchema`.
 
 ```javascript
 // manually
 var schema = new qb.models.schema.SchemaBuilder(
     grammar = new qb.models.grammars.MySQLGrammar(),
-    defaultOptions = { datasource: "my_datasource" }
-    defaultSchema = ""
+    defaultOptions = { datasource: "my_datasource" },
+    defaultSchema = "app"
 );
 
 // WireBox
@@ -24,6 +24,29 @@ var schema = wirebox.getInstance( "SchemaBuilder@qb" );
 ```
 
 > Note: the `SchemaBuilder` is a transient, and a new one should be created for each operation.
+
+When `defaultSchema` is configured, qb qualifies unqualified table and view names for schema operations such as `create`, `alter`, `drop`, `truncate`, and `rename`:
+
+```javascript
+schema.create( "users", function( table ) {
+    table.increments( "id" );
+} );
+```
+
+```sql
+CREATE TABLE `app`.`users` (
+    `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+    CONSTRAINT `pk_users_id` PRIMARY KEY (`id`)
+)
+```
+
+Explicitly qualified names are left unchanged:
+
+```javascript
+schema.drop( "audit.events" );
+```
+
+The generated names for indexes and constraints continue to use the unqualified table name, such as `pk_users_id`. For `hasTable` and `hasColumn`, an explicit `schema` argument still takes precedence over `defaultSchema`.
 
 The `SchemaBuilder` has four main methods to start your database object creation:
 
@@ -204,4 +227,3 @@ WHERE `table_name` = 'users'
 ```
 
 ### pretend
-

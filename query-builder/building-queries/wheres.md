@@ -544,6 +544,122 @@ You may find a `whereExists` method performs better for you than a `whereIn` wit
 
 Adds a where not in clause to the query.  This behaves identically to the `whereIn` method with the `negate`flag set to `true`.  See the documentation for [`whereIn`](wheres.md#wherein) for usage and examples.
 
+### whereInBulk
+
+| Name       | Type            | Required | Default | Description                                                                                                             |
+| ---------- | --------------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------- |
+| column     | string          | `true`   |         | The column to constrain.                                                                                                |
+| values     | any \| array    | `true`   |         | A value, list, or array of values to serialize into one bound parameter.                                                |
+| sqlType    | string          | `false`  | inferred | The database SQL type used when expanding each value.                                                                  |
+| combinator | string          | `false`  | `"and"` | The boolean combinator for the clause.                                                                                  |
+| negate     | boolean         | `false`  | `false` | False for `IN`, true for `NOT IN`. Prefer the convenience methods instead of passing this argument directly.            |
+
+`whereInBulk` is an opt-in alternative to [`whereIn`](wheres.md#wherein) for large collections. It serializes the values as JSON in one bound parameter, and the active grammar expands that parameter into rows. Regular `whereIn` behavior and performance are unchanged.
+
+```javascript
+query.from( "users" )
+    .whereInBulk( "id", userIds )
+    .get();
+```
+
+qb infers a common SQL type from the values. Matching `cfsqltype` values in custom parameter structs are preserved, and mixed values fall back to the grammar's string type. Pass `sqlType` when the database column requires a more specific type:
+
+```javascript
+query.from( "users" )
+    .whereInBulk( "id", userIds, "BIGINT" )
+    .get();
+```
+
+{% hint style="warning" %}
+The explicit SQL type should match the constrained column so the database can avoid implicit conversions. SQL expressions are not supported as bulk values.
+{% endhint %}
+
+The following methods are also available:
+
+* `whereNotInBulk`
+* `andWhereInBulk`
+* `orWhereInBulk`
+* `andWhereNotInBulk`
+* `orWhereNotInBulk`
+
+Empty collections have the same behavior as `whereIn` and `whereNotIn`: an empty bulk `IN` never matches, while an empty bulk `NOT IN` always matches.
+
+Bulk expansion support depends on database JSON features:
+
+* SQL Server 2016+ using `OPENJSON`; database compatibility level 130+ is required.
+* PostgreSQL 9.4+ using `JSONB_ARRAY_ELEMENTS_TEXT`.
+* MySQL 8.0.4+ and MariaDB 10.6+ using `JSON_TABLE`.
+* Oracle Database 12c Release 1 (12.1.0.2)+ using `JSON_TABLE`.
+* SQLite with JSON functions enabled. They are built in by default as of SQLite 3.38.0.
+
+Derby throws an `UnsupportedOperation` exception for non-empty bulk collections.
+
+### JSON Where Methods
+
+qb provides grammar-aware predicates for JSON containment, path existence, and array length. Each method accepts separate `column` and `path` arguments as its explicit form and the [`->` path syntax](selects.md#json-scalar-paths) as a shortcut.
+
+#### whereJsonContains
+
+Check whether a JSON value contains a scalar or compound value.
+
+```javascript
+// explicit
+query.whereJsonContains(
+    column = "profile",
+    path = [ "languages" ],
+    value = "en"
+);
+
+// shortcut
+query.whereJsonContains( "profile->languages", "en" );
+```
+
+Available variants are `orWhereJsonContains`, `whereJsonDoesntContain`, and `orWhereJsonDoesntContain`.
+
+{% hint style="info" %}
+Scalar containment is supported by MySQL, Postgres, SQL Server, Oracle, and SQLite. Compound array or struct containment values are supported by MySQL and Postgres; other grammars throw an `UnsupportedOperation` exception for compound values.
+{% endhint %}
+
+#### whereJsonExists
+
+Check whether a JSON path exists.
+
+```javascript
+// explicit
+query.whereJsonExists( column = "profile", path = [ "name" ] );
+
+// shortcut
+query.whereJsonExists( "profile->name" );
+```
+
+Available variants are `orWhereJsonExists`, `whereJsonDoesntExist`, and `orWhereJsonDoesntExist`.
+
+#### whereJsonLength
+
+Compare the length of a JSON array.
+
+```javascript
+// explicit
+query.whereJsonLength(
+    column = "profile",
+    path = [ "languages" ],
+    operator = ">",
+    value = 1
+);
+
+// shortcut
+query.whereJsonLength( "profile->languages", ">", 1 );
+```
+
+When the operator is omitted, qb uses equality:
+
+```javascript
+query.whereJsonLength( column = "profile", path = [ "languages" ], value = 2 );
+query.whereJsonLength( "profile->languages", 2 );
+```
+
+Use `orWhereJsonLength` for an `OR` combinator.
+
 ### whereRaw
 
 | Name          | Type   | Required | Default | Description                                                                                                                                                                                                                        |

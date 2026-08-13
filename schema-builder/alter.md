@@ -124,6 +124,20 @@ schema.alter( "users", function( table ) {
 ALTER TABLE `users` CHANGE `name` `username` VARCHAR(255) NOT NULL
 ```
 
+{% hint style="info" %}
+When SQL Server modifies a column with a default value, qb removes any existing default constraint before altering the column and then adds the new default constraint. This avoids leaving the old default attached to the modified column.
+{% endhint %}
+
+### timestamps
+
+Add `createdDate` and `modifiedDate` timestamp columns to an existing table. This uses the same [`timestamps`](columns.md#timestamps) helper available while creating a table.
+
+```javascript
+schema.alter( "users", function( table ) {
+    table.timestamps();
+} );
+```
+
 ### renameColumn
 
 Rename a column on a table. A full `Column` instance is required as the second argument for Grammars that need to redeclare the column definition when renaming.
@@ -313,4 +327,3 @@ Shortcut method frop `dropView` and `createView` together.
 | callback | function | `true`   |         | A callback function used to define the table body. It is passed a `QueryBuilder` as the only argument. |
 | options  | struct   | `false`  | `{}`    | Options to pass to `queryExecute`.                                                                     |
 | execute  | boolean  | `false`  | `true`  | Run the query immediately after building it.                                                           |
-

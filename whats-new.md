@@ -4,6 +4,38 @@ icon: star-christmas
 
 # What's New?
 
+## 14.0.0
+
+### New Features
+
+* Add [named return formatters](query-builder/options-and-utilities/return-format.md), including the new `struct` format, temporary `withReturnFormat` overrides, and reusable custom formatter factories.
+* Add cross-grammar [JSON scalar paths](query-builder/building-queries/selects.md#json-scalar-paths) and [JSON where methods](query-builder/building-queries/wheres.md#json-where-methods). The explicit column-and-path API and the `column->path->0->value` shortcut compile to the active database grammar.
+* Add opt-in [duplicate select column validation](query-builder/building-queries/selects.md#duplicate-select-column-validation) for development environments.
+* Add [`whereInBulk`](query-builder/building-queries/wheres.md#whereinbulk) to expand large value collections from a single JSON binding on supported databases.
+* Add parameter-aware [`insertBulk`](query-builder/executing-queries/inserts-updates-deletes.md#insertbulk). SQL Server uses `OPENJSON`; other grammars fall back to regular multi-row inserts and honor declared parameter limits.
+* Add the opt-in [`matchNulls`](query-builder/executing-queries/inserts-updates-deletes.md#upsert) argument for upserts compiled by SQL Server, Oracle, and Derby MERGE grammars.
+* Add the [`shouldWrapValues`](installation-and-usage.md#configuration-settings) module setting to control identifier wrapping application-wide.
+
+### SchemaBuilder
+
+* [`timestamps()`](schema-builder/columns.md#timestamps) can now add `createdDate` and `modifiedDate` columns inside an `alter` callback.
+* A configured [`defaultSchema`](schema-builder/schema-builder.md) now qualifies unqualified table and view names across SchemaBuilder operations. Explicitly qualified names are preserved.
+* **SQL Server:** Modifying a column with a default value now replaces its existing default constraint before applying the new default.
+
+### Query Fixes
+
+* **SQL Server:** Independently [ordered and limited UNION branches](query-builder/building-queries/unions.md) are compiled as derived tables so each branch's order determines its own limited rows.
+
+### Breaking Changes
+
+#### Native queryExecute return types are replaced by qb return formatters
+
+The native `queryExecute` `returntype`, `columnkey`, and `columnKey` options are no longer honored by qb. Use [`setReturnFormat`](query-builder/options-and-utilities/return-format.md#setreturnformat), [`withReturnFormat`](query-builder/options-and-utilities/return-format.md#withreturnformat), or a registered return formatter instead. See the [v14 migration guide](migration-guide.md#native-queryexecute-return-type-options-are-no-longer-honored).
+
+#### Custom compileUpsert methods require matchNulls
+
+Custom grammars that override `compileUpsert` must accept the new trailing `matchNulls` boolean argument. See the [v14 migration guide](migration-guide.md#custom-compileupsert-methods-require-a-matchnulls-argument).
+
 ## 13.1.0
 
 ### New Configuration Settings

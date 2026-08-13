@@ -101,6 +101,75 @@ SELECT YEAR(birthdate) AS birth_year FROM `users`
 ```
 {% endcode %}
 
+## JSON Scalar Paths
+
+Use `jsonPath` to select a scalar value from a JSON column without writing database-specific JSON syntax. Pass the JSON column, an array of object keys or array indexes, and an optional alias.
+
+| Name   | Type   | Required | Default | Description                                                |
+| ------ | ------ | -------- | ------- | ---------------------------------------------------------- |
+| column | string | `true`   |         | The JSON column to traverse.                               |
+| path   | array  | `false`  | `[]`    | Object keys and numeric array indexes to traverse.         |
+| alias  | string | `false`  |         | An optional output alias when selecting the JSON value.    |
+
+{% code title="Explicit Syntax" %}
+```javascript
+query
+    .select( query.jsonPath(
+        column = "profile",
+        path = [ "contacts", 0, "email" ],
+        alias = "email"
+    ) )
+    .from( "users" );
+```
+{% endcode %}
+
+The arrow syntax is a shortcut for the same expression. The first segment is the relational column; following segments are the JSON path. Numeric segments address JSON array indexes.
+
+{% code title="Arrow Shortcut" %}
+```javascript
+query
+    .select( "profile->contacts->0->email AS email" )
+    .from( "users" );
+```
+{% endcode %}
+
+Both examples compile to the active grammar's scalar JSON expression. For example:
+
+{% tabs %}
+{% tab title="MySQL" %}
+```sql
+SELECT JSON_UNQUOTE(JSON_EXTRACT(`profile`, '$."contacts"[0]."email"')) AS `email`
+FROM `users`
+```
+{% endtab %}
+
+{% tab title="Postgres" %}
+```sql
+SELECT "profile"->'contacts'->0->>'email' AS "email"
+FROM "users"
+```
+{% endtab %}
+
+{% tab title="SQL Server" %}
+```sql
+SELECT JSON_VALUE([profile], '$."contacts"[0]."email"') AS [email]
+FROM [users]
+```
+{% endtab %}
+{% endtabs %}
+
+JSON paths can also be used anywhere qb accepts a typed column, including `where`, `orderBy`, and related methods:
+
+```javascript
+query.from( "users" )
+    .where( query.jsonPath( "profile", [ "age" ] ), ">=", 21 )
+    .orderBy( "profile->name" );
+```
+
+{% hint style="info" %}
+JSON query support is implemented by the MySQL, Postgres, SQL Server, Oracle, and SQLite grammars. Derby throws an `UnsupportedOperation` exception.
+{% endhint %}
+
 ## subSelect <a href="#get" id="get"></a>
 
 | Name  | Type                     | Required | Default | Description                                    |
@@ -199,3 +268,38 @@ query.from( "users" )
 SELECT YEAR(birthdate) AS birth_year FROM `users`
 ```
 {% endcode %}
+
+## Duplicate Select Column Validation
+
+CFML query column names are case-insensitive. Selecting the same output name more than once can silently collapse columns in the returned query. qb can detect output names that are known when the query is compiled.
+
+Enable the check during development with the `validateDuplicateSelectColumns` [module setting](../../installation-and-usage.md#configuration-settings):
+
+```javascript
+moduleSettings = {
+    qb = {
+        validateDuplicateSelectColumns = true
+    }
+};
+```
+
+```javascript
+query
+    .select( [ "users.id", "orders.id" ] )
+    .from( "users" )
+    .join( "orders", "orders.userId", "users.id" )
+    .get();
+// throws DuplicateSelectColumn
+```
+
+Alias duplicate output names when both columns are needed:
+
+```javascript
+query.select( [ "users.id AS userId", "orders.id AS orderId" ] );
+```
+
+The validation runs against the final select list when the query is compiled. It can identify simple columns, explicit aliases, subselect aliases, and explicitly aliased typed columns such as `jsonPath`. Wildcards and raw expressions without aliases are skipped because their output names are not known until the database executes the query.
+
+{% hint style="info" %}
+This validation is opt in and disabled by default. Enable it in development to catch mistakes early and leave it disabled in production to avoid the additional validation work.
+{% endhint %}
