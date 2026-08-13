@@ -4,6 +4,14 @@ icon: star-christmas
 
 # What's New?
 
+## 13.0.19
+
+**SQL Server:** Fix using [`returning`](query-builder/executing-queries/inserts-updates-deletes.md#returning) in an [`upsert`](query-builder/executing-queries/inserts-updates-deletes.md#upsert) statement.
+
+## 13.0.18
+
+Fix a `JoinClause` parent-query naming conflict.
+
 ## 13.0.17
 
 Fix test for BoxLang type strictness on `DerbyGrammar`.
