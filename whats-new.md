@@ -4,6 +4,20 @@ icon: star-christmas
 
 # What's New?
 
+## 13.1.0
+
+### New Configuration Settings
+
+* `collectQueryLog` controls whether QueryBuilder instances collect [query execution details](query-builder/debugging/#querylog). It defaults to `true`.
+* `validateOperatorsAndCombinators` controls validation of SQL operators and boolean combinators. It defaults to `true`.
+* `validateQueryParamStructKeys` controls validation of custom query parameter struct keys. It defaults to `true`.
+
+See the complete [configuration settings](installation-and-usage.md#configuration-settings) for details.
+
+### Bug Fixes
+
+* **Postgres:** Normalize cast shorthand in schema default expressions. A default such as `'{}'::JSONB` is compiled as `CAST('{}' AS JSONB)` so CFML runtimes do not interpret the colons as named parameters.
+
 ## 13.0.19
 
 **SQL Server:** Fix using [`returning`](query-builder/executing-queries/inserts-updates-deletes.md#returning) in an [`upsert`](query-builder/executing-queries/inserts-updates-deletes.md#upsert) statement.

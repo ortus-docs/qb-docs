@@ -49,7 +49,10 @@ moduleSettings = {
         "defaultGrammar": "AutoDiscover@qb",
         "defaultReturnFormat": "array",
         "preventDuplicateJoins": false,
+        "validateOperatorsAndCombinators": true,
+        "collectQueryLog": true,
         "convertEmptyStringsToNull": true,
+        "validateQueryParamStructKeys": true,
         "numericSQLType": "NUMERIC",
         "integerSQLType": "INTEGER",
         "decimalSQLType": "DECIMAL",
@@ -69,6 +72,12 @@ moduleSettings = {
 
 }
 ```
+
+`validateOperatorsAndCombinators` validates operators and boolean combinators before compiling a query. It defaults to `true`. Disable it only when an application intentionally uses database-specific operators or combinators that qb does not recognize.
+
+`collectQueryLog` controls whether a QueryBuilder appends execution details to its [query log](query-builder/debugging/#querylog). It defaults to `true`. Set it to `false` when query-log collection is not needed.
+
+`validateQueryParamStructKeys` validates custom query parameter structs against the supported `cfqueryparam` keys. It defaults to `true`. Disabling it restores the earlier behavior of ignoring unknown keys.
 
 ## SQL Type Inference
 

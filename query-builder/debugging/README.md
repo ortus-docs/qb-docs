@@ -146,6 +146,8 @@ Each instance of a `QueryBuilder` maintains a log of queries it executed.  This 
 
 This can be very useful in combination with the [`pretend`](./#pretend) feature to see what SQL will be executed before actually executing it.
 
+Query-log collection is enabled by default. Set `collectQueryLog` to `false` in the qb [module settings](../../installation-and-usage.md#configuration-settings) when the application does not need to retain execution details on each builder.
+
 ## Debugging All Queries
 
 ### [sqlCommenter](sqlcommenter.md)
