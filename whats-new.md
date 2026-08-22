@@ -15,16 +15,21 @@ icon: star-christmas
 * Add parameter-aware [`insertBulk`](query-builder/executing-queries/inserts-updates-deletes.md#insertbulk). SQL Server uses `OPENJSON`; other grammars fall back to regular multi-row inserts and honor declared parameter limits.
 * Add the opt-in [`matchNulls`](query-builder/executing-queries/inserts-updates-deletes.md#upsert) argument for upserts compiled by SQL Server, Oracle, and Derby MERGE grammars.
 * Add the [`shouldWrapValues`](installation-and-usage.md#configuration-settings) module setting to control identifier wrapping application-wide.
+* Infer [`BIGINT` for whole-number bindings](installation-and-usage.md#sql-type-inference) outside the signed 32-bit range. The inferred types remain configurable with `integerSQLType`, `bigIntegerSQLType`, and `decimalSQLType`.
 
 ### SchemaBuilder
 
 * [`timestamps()`](schema-builder/columns.md#timestamps) can now add `createdDate` and `modifiedDate` columns inside an `alter` callback.
+* Add portable [`binary()`](schema-builder/columns.md#binary) columns. They compile to `BYTEA` on Postgres, `VARBINARY(MAX)` on SQL Server, and `BLOB` on the other bundled grammars.
 * A configured [`defaultSchema`](schema-builder/schema-builder.md) now qualifies unqualified table and view names across SchemaBuilder operations. Explicitly qualified names are preserved.
 * **SQL Server:** Modifying a column with a default value now replaces its existing default constraint before applying the new default.
 
 ### Query Fixes
 
 * **SQL Server:** Independently [ordered and limited UNION branches](query-builder/building-queries/unions.md) are compiled as derived tables so each branch's order determines its own limited rows.
+* Query compilation now preserves binding alignment and builder state across nested queries, repeated data modifications, and failed mutations.
+* Improve null and full-null handling across Adobe ColdFusion, BoxLang, and the bundled database grammars.
+* Custom `QueryBuilder` subclasses outside the qb package now work with nested predicates and lazy query execution collaborators.
 
 ### Breaking Changes
 
@@ -35,6 +40,10 @@ The native `queryExecute` `returntype`, `columnkey`, and `columnKey` options are
 #### Custom compileUpsert methods require matchNulls
 
 Custom grammars that override `compileUpsert` must accept the new trailing `matchNulls` boolean argument. See the [v14 migration guide](migration-guide.md#custom-compileupsert-methods-require-a-matchnulls-argument).
+
+#### The obsolete numericSQLType setting has been removed
+
+Replace `numericSQLType` with the numeric inference settings appropriate for your values: `integerSQLType`, `bigIntegerSQLType`, and `decimalSQLType`. See the [v14 migration guide](migration-guide.md#numeric-sql-type-settings).
 
 ## 13.1.0
 

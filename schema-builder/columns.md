@@ -79,6 +79,34 @@ CREATE TABLE `users` (
 )
 ```
 
+## binary
+
+Create a binary large-object column using the portable binary type for the active grammar.
+
+| Argument | Type   | Required | Default | Description              |
+| -------- | ------ | -------- | ------- | ------------------------ |
+| name     | string | `true`   |         | The name for the column. |
+
+**Example:**
+
+**SchemaBuilder**
+
+```javascript
+schema.create( "users", function( table ) {
+    table.binary( "avatar" );
+} );
+```
+
+The generated type depends on the grammar:
+
+| Grammar | Type |
+| ------- | ---- |
+| Postgres | `BYTEA` |
+| SQL Server | `VARBINARY(MAX)` |
+| MySQL, Oracle, SQLite, and Derby | `BLOB` |
+
+Use column modifiers such as [`nullable`](column-modifiers.md#nullable) or [`default`](column-modifiers.md#default) on the returned column definition when supported by your database.
+
 ## bit
 
 Create a column using a `BIT` equivalent type for your database. The length can be specified as the second argument.

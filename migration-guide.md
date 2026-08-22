@@ -6,6 +6,30 @@ icon: up
 
 ## v14.0.0
 
+### Numeric SQL type settings
+
+The obsolete `numericSQLType` module setting has been removed. qb uses separate settings for whole numbers, large whole numbers, and decimal values:
+
+| Setting | Default | Used for |
+| ------- | ------- | -------- |
+| `integerSQLType` | `INTEGER` | Whole numbers from `-2147483648` through `2147483647` |
+| `bigIntegerSQLType` | `BIGINT` | Whole numbers outside the signed 32-bit range |
+| `decimalSQLType` | `DECIMAL` | Numbers with a decimal portion |
+
+Remove `numericSQLType` from your qb module settings. If you previously supplied it, configure the applicable replacement settings instead:
+
+```javascript
+moduleSettings = {
+    qb = {
+        integerSQLType = "INTEGER",
+        bigIntegerSQLType = "BIGINT",
+        decimalSQLType = "DECIMAL"
+    }
+};
+```
+
+Large whole-number bindings now infer `BIGINT` instead of `INTEGER`. Review code that depends on the exact generated `cfsqltype`, including query mocks and assertions. See [SQL Type Inference](installation-and-usage.md#sql-type-inference) for the full behavior.
+
 ### Native queryExecute return-type options are no longer honored
 
 qb now executes queries as CFML query objects and applies its own [return formatter](query-builder/options-and-utilities/return-format.md). Native `queryExecute` `returntype`, `columnkey`, and `columnKey` options no longer control the returned value.

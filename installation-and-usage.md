@@ -56,8 +56,8 @@ moduleSettings = {
         "convertEmptyStringsToNull": true,
         "shouldWrapValues": true,
         "validateQueryParamStructKeys": true,
-        "numericSQLType": "NUMERIC",
         "integerSQLType": "INTEGER",
+        "bigIntegerSQLType": "BIGINT",
         "decimalSQLType": "DECIMAL",
         "defaultOptions": {},
         "sqlCommenter": {
@@ -93,16 +93,30 @@ moduleSettings = {
 
 ## SQL Type Inference
 
-QB binds all parameters by default and guesses the SQL type based on passed values. The default SQL type for numeric values is `CF_SQL_NUMERIC`, which is a floating point number, for the widest compatibility. This can cause performance problems with large recordsets in some database engines. You can provide a different default in `coldbox.cfc` if you wish to override this setting:
+qb binds parameters by default and infers a SQL type from each value. Numeric values use separate configurable types:
+
+| Value | Setting | Default |
+| ----- | ------- | ------- |
+| Whole numbers from `-2147483648` through `2147483647` | `integerSQLType` | `INTEGER` |
+| Whole numbers outside the signed 32-bit range | `bigIntegerSQLType` | `BIGINT` |
+| Numbers with a decimal portion | `decimalSQLType` | `DECIMAL` |
+
+The boundary values are included in the `INTEGER` range. Values below `-2147483648` or above `2147483647` use `BIGINT`.
+
+Override these defaults in `config/ColdBox.cfc` when your database or schema requires different types:
 
 ```cfscript
 moduleSettings = {
     qb = {
         defaultGrammar = "MySQLGrammar@qb",
-        numericSQLType = "CF_SQL_BIGINT"
+        integerSQLType = "INTEGER",
+        bigIntegerSQLType = "BIGINT",
+        decimalSQLType = "DECIMAL"
     }
 };
 ```
+
+You can always bypass inference for an individual value by passing a [custom query parameter](query-builder/building-queries/parameters-and-bindings.md#custom-parameter-types) with an explicit `cfsqltype`.
 
 ## Integrating With FW/1
 
