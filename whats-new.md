@@ -16,6 +16,7 @@ icon: star-christmas
 * Add the opt-in [`matchNulls`](query-builder/executing-queries/inserts-updates-deletes.md#upsert) argument for upserts compiled by SQL Server, Oracle, and Derby MERGE grammars.
 * Add the [`shouldWrapValues`](installation-and-usage.md#configuration-settings) module setting to control identifier wrapping application-wide.
 * Infer [`BIGINT` for whole-number bindings](installation-and-usage.md#sql-type-inference) outside the signed 32-bit range. The inferred types remain configurable with `integerSQLType`, `bigIntegerSQLType`, and `decimalSQLType`.
+* Add safe [numeric list widening](query-builder/building-queries/parameters-and-bindings.md#numeric-lists), including explicit SQL types and decimal scale preservation. Enable `throwOnUnsafeNumericInference` in development to catch unsafe numeric combinations; the default falls back to `VARCHAR`.
 
 ### SchemaBuilder
 

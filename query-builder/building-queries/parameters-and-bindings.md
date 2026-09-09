@@ -2,7 +2,7 @@
 
 ## Custom Parameter Types
 
-When passing a parameter to qb, it will infer the sql type to be used.  If you pass a number, `NUMERIC` will be used. If it is a date, `TIMESTAMP`, and so forth. If you need more control, you can pass a struct with the parameters you would pass to [`cfqueryparam`](https://cfdocs.org/cfqueryparam).
+When passing a parameter to qb, it will infer the sql type to be used.  Numeric values use `INTEGER`, `BIGINT`, or `DECIMAL` by default, depending on their value. If it is a date, `TIMESTAMP`, and so forth. If you need more control, you can pass a struct with the parameters you would pass to [`cfqueryparam`](https://cfdocs.org/cfqueryparam).
 
 {% hint style="success" %}
 You can pass include any parameters you would use with [`cfqueryparam`](https://cfdocs.org/cfqueryparam) including `null`, `list`, etc.  This applies anywhere parameters are used including `where`, `update`, and `insert` methods.
@@ -47,18 +47,63 @@ VALUES
 
 ### Numeric SQL Types
 
-qb will use a different SQL type for integers and decimals.  You can customize the SQL types by setting the `integerSqlType` and `decimalSqlType` settings.
+qb uses separate types for signed 32-bit whole numbers, larger whole numbers, and values with a decimal portion. You can customize them with the `integerSQLType`, `bigIntegerSQLType`, and `decimalSQLType` settings. See [SQL Type Inference](../../installation-and-usage.md#sql-type-inference) for the boundaries.
 
 ```cfscript
 moduleSettings = {
     "qb": {
-        "integerSqlType": "INTEGER",
-        "decimalSqlType": "DECIMAL"
+        "integerSQLType": "INTEGER",
+        "bigIntegerSQLType": "BIGINT",
+        "decimalSQLType": "DECIMAL"
     }
 };
 ```
 
-Additionally, qb automatically calculates a scale based on the value provided if the value is a floating point number.
+qb automatically calculates a scale for decimal bindings when one is not supplied. For an array binding, it uses the greatest scale among its members.
+
+### Numeric Lists
+
+When an array must share one binding type, qb chooses a common numeric SQL type that covers its members. It considers declared SQL types, not just whether the current values happen to fit into a smaller type. Member order does not affect the result, and null members are ignored.
+
+```cfscript
+var utils = wirebox.getInstance( "QueryUtils@qb" );
+var grammar = wirebox.getInstance( "MySQLGrammar@qb" );
+var binding = utils.extractBinding(
+    { value: [ 1, javacast( "long", "3000000000" ) ], list: true },
+    grammar
+);
+// binding.cfsqltype is BIGINT
+```
+
+The cast ensures the large value is numeric on engines that parse large integer literals as strings. Numeric-looking strings retain their string type.
+
+| Member types | Common type |
+| --- | --- |
+| `TINYINT` and `SMALLINT` | `SMALLINT` |
+| `INTEGER` and `BIGINT` | `BIGINT` |
+| `INTEGER` or `BIGINT` and `DECIMAL` | `DECIMAL` |
+| `INTEGER` and `REAL` | `DOUBLE` |
+| `INTEGER` and explicitly declared `FLOAT` | `FLOAT` |
+| `REAL` and `DOUBLE` | `DOUBLE` |
+| `BIGINT` and `DOUBLE` | `VARCHAR`, or an exception in strict mode |
+| `DECIMAL` and `FLOAT` | `VARCHAR`, or an exception in strict mode |
+
+Explicit member `cfsqltype` and `sqltype` values participate in promotion, including `cf_sql_` aliases. Supported numeric types include `BIT`, `TINYINT`, `SMALLINT`, `INTEGER`, `BIGINT`, `MONEY4`, `MONEY`, `DECIMAL`, `NUMERIC`, `REAL`, `FLOAT`, and `DOUBLE`. Java float and double values without an explicit SQL type first use qb's normal value inference; fractional values infer `DECIMAL` by default.
+
+A larger magnitude range does not guarantee enough precision. qb conservatively treats exact decimal or money types mixed with approximate types, and `BIGINT` mixed with approximate types, as unsafe. The default is `VARCHAR`.
+
+{% hint style="info" %}
+We recommend enabling `throwOnUnsafeNumericInference` in development to catch potentially lossy numeric combinations early:
+
+```cfscript
+// In your development environment configuration:
+moduleSettings.qb.throwOnUnsafeNumericInference = true;
+```
+
+The setting defaults to `false`. When enabled, unsafe numeric array inference throws `QBUnsafeNumericInference` and identifies the conflicting types. Safe promotions and ordinary mixed text arrays keep their normal behavior. Standalone callers can pass `throwOnUnsafeNumericInference = true` to the `QueryUtils` constructor.
+{% endhint %}
+
+An explicit `cfsqltype` or `sqltype` on the outer binding takes precedence over inference. The setting does not validate caller-selected conversions or the destination column's precision and scale. Falling back to `VARCHAR` preserves the binding representation, but the database may still convert it during query execution.
 
 ## Bindings
 

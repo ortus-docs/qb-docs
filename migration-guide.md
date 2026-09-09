@@ -30,6 +30,8 @@ moduleSettings = {
 
 Large whole-number bindings now infer `BIGINT` instead of `INTEGER`. Review code that depends on the exact generated `cfsqltype`, including query mocks and assertions. See [SQL Type Inference](installation-and-usage.md#sql-type-inference) for the full behavior.
 
+Numeric arrays now widen compatible member types instead of always falling back to `VARCHAR` when the types differ. For example, `INTEGER` plus `BIGINT` uses `BIGINT`. Update assertions that depend on the former fallback. Combinations that could lose precision still use `VARCHAR` by default. Enable `throwOnUnsafeNumericInference` in development to throw `QBUnsafeNumericInference` for those unsafe numeric combinations; this setting is opt-in. See [Numeric Lists](query-builder/building-queries/parameters-and-bindings.md#numeric-lists).
+
 ### Native queryExecute return-type options are no longer honored
 
 qb now executes queries as CFML query objects and applies its own [return formatter](query-builder/options-and-utilities/return-format.md). Native `queryExecute` `returntype`, `columnkey`, and `columnKey` options no longer control the returned value.

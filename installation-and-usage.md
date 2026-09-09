@@ -56,6 +56,7 @@ moduleSettings = {
         "convertEmptyStringsToNull": true,
         "shouldWrapValues": true,
         "validateQueryParamStructKeys": true,
+        "throwOnUnsafeNumericInference": false,
         "integerSQLType": "INTEGER",
         "bigIntegerSQLType": "BIGINT",
         "decimalSQLType": "DECIMAL",
@@ -82,6 +83,8 @@ moduleSettings = {
 `collectQueryLog` controls whether a QueryBuilder appends execution details to its [query log](query-builder/debugging/#querylog). It defaults to `true`. Set it to `false` when query-log collection is not needed.
 
 `validateQueryParamStructKeys` validates custom query parameter structs against the supported `cfqueryparam` keys. It defaults to `true`. Disabling it restores the earlier behavior of ignoring unknown keys.
+
+`throwOnUnsafeNumericInference` throws `QBUnsafeNumericInference` when numeric array members have no common SQL type without potential precision loss. It defaults to `false`, which uses `VARCHAR` instead. We recommend enabling it in development. See [Numeric Lists](query-builder/building-queries/parameters-and-bindings.md#numeric-lists).
 
 `validateDuplicateSelectColumns` detects statically identifiable duplicate output names when a query is compiled. It is useful in development and is disabled by default to avoid production overhead. See [Duplicate Select Column Validation](query-builder/building-queries/selects.md#duplicate-select-column-validation).
 
@@ -117,6 +120,8 @@ moduleSettings = {
 ```
 
 You can always bypass inference for an individual value by passing a [custom query parameter](query-builder/building-queries/parameters-and-bindings.md#custom-parameter-types) with an explicit `cfsqltype`.
+
+Numeric arrays use a common type that covers their members, including explicit member SQL types. For example, an `INTEGER` and a `BIGINT` widen to `BIGINT`; an `INTEGER` and a `REAL` widen to `DOUBLE`. Unsafe combinations such as `BIGINT` with `DOUBLE` fall back to `VARCHAR`, or throw when `throwOnUnsafeNumericInference` is enabled. See [Numeric Lists](query-builder/building-queries/parameters-and-bindings.md#numeric-lists) for examples and precision limits.
 
 ## Integrating With FW/1
 
