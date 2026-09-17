@@ -4,6 +4,10 @@ icon: star-christmas
 
 # What's New?
 
+## 13.3.1
+
+Restore automatic `WHERE` clause scoping in [`when()`](query-builder/building-queries/when.md) callbacks on Lucee. The predicate-grouping method used across query builder components is now publicly accessible, preventing `scopeNewWheres` missing-method errors.
+
 ## 13.1.0
 
 ### New Configuration Settings
