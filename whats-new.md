@@ -4,6 +4,11 @@ icon: star-christmas
 
 # What's New?
 
+## 14.2.0
+
+* Add the optional [query telemetry adapter](query-builder/debugging/query-telemetry.md). Select `QueryTelemetryAdapter@qb` to trace qb executions through a compatible telemetry client. qb owns its query listeners and shutdown cleanup; it does not require Sentry or enable tracing by default.
+* Fix the `QueryBuilder` identity passed to [`createView`](schema-builder/create.md#createview), [`createAs`](schema-builder/create.md#createas), and [`alterView`](schema-builder/alter.md#alterview) callbacks. Typed query consumers now accept these builders on Adobe ColdFusion even when schema operations run first.
+
 ## 14.0.0
 
 ### New Features

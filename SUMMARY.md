@@ -36,6 +36,7 @@
   * [Interception Points](query-builder/options-and-utilities/interception-points.md)
 * [Debugging](query-builder/debugging/README.md)
   * [sqlCommenter](query-builder/debugging/sqlcommenter.md)
+  * [Query Telemetry](query-builder/debugging/query-telemetry.md)
 
 ## Schema Builder
 

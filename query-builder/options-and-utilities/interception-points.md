@@ -1,6 +1,6 @@
 # Interception Points
 
-Three interception points are available from QB: `preQBExecute`, `postQBExecute`, and `onQBExecuteException`. The first runs before execution, the second after a successful execution, and the third when `queryExecute` throws.
+Three interception points are available from qb: `preQBExecute` runs before execution, `postQBExecute` runs after success or a pretend execution, and `onQBExecuteException` runs when `queryExecute` throws. The optional [query telemetry adapter](../debugging/query-telemetry.md) manages these listeners for compatible telemetry clients.
 
 ## preQBExecute
 
@@ -9,9 +9,10 @@ The following information is available in the `interceptData` struct:
 | Name         | Type   | Description                                             |
 | ------------ | ------ | ------------------------------------------------------- |
 | sql          | String | The SQL string to execute.                              |
-| bindings     | Struct | The struct of bindings (keys and values) for the query. |
+| bindings     | Array or Struct | The bindings passed to query execution. |
 | options      | Struct | Any options to pass along to `queryExecute`.            |
 | returnObject | String | The type to return: `query` or `result`.                |
+| pretend      | Boolean | Whether this execution is in pretend mode. |
 
 ## postQBExecute
 
@@ -20,15 +21,15 @@ The following information is available in the `interceptData` struct:
 | Name         | Type          | Description                                             |
 | ------------ | ------------- | ------------------------------------------------------- |
 | sql          | String        | The SQL string to execute.                              |
-| bindings     | Struct        | The struct of bindings (keys and values) for the query. |
+| bindings     | Array or Struct | The bindings passed to query execution. |
 | options      | Struct        | Any options to pass along to `queryExecute`.            |
 | returnObject | String        | The type to return: `query` or `result`.                |
 | query        | Query \| null | The query object or `null` if there isn't one.          |
 | result       | Struct        | The query result struct.                                |
+| pretend      | Boolean | Whether this execution is in pretend mode. |
+| executionTime | Numeric | Elapsed execution time in milliseconds. |
 
 ## onQBExecuteException
-
-Available with the query-failure interception hook introduced after qb 14.0.2.
 
 This point fires when an actual `queryExecute` call fails, including failures the calling application catches. It does not fire for pretend queries or for errors in pre/post interceptors or post-processing callbacks. A failed query does not announce `postQBExecute`.
 
