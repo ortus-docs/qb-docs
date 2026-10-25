@@ -4,6 +4,8 @@ icon: bug
 
 # Debugging
 
+For query execution tracing, see [Query Telemetry](query-telemetry.md).
+
 ## Debugging a Single Query
 
 ### toSQL
